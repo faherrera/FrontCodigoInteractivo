@@ -3,5 +3,3 @@ main.layout-general {
   display: flex;
   flex-direction: column;
   height: 100vh; }
-  main.layout-general .onlystructure {
-    height: 100vh; }

@@ -1,0 +1,38 @@
+//Variables.
+
+$bg-promo : rgba(255, 255, 255, 0.67);
+
+$color-text-title: rgba(0,0,0,0.71);
+
+.promo-section{
+    background: $bg-promo;
+}
+
+.promo-container{
+    display: flex;
+    // background: red;
+    align-items: center;
+
+    //##NOTA: Aquí hice una hardcodeada con media queries y las medidas m-4 y s12 de materialize.
+    @media screen and (max-width: 992px) {
+        flex-direction: column;        
+    }
+}
+
+//PromoItem
+
+.promo-item--icon{
+    font-size: 8rem !important;
+}
+.promo-item{
+    padding: 1rem;
+    margin: 1rem 0;
+    vertical-align: middle;
+}
+
+.promo-item__title{
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: $color-text-title;
+
+}

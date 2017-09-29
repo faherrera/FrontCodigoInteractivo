@@ -5,7 +5,6 @@ import React, { Component } from 'react';
 //Components
 
 //Asets
-import img from './banner.jpg';
 import './banner.css';
 
 
