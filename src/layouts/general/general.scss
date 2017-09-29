@@ -1,0 +1,10 @@
+main.layout-general{
+    background: white;
+     display: flex; 
+     flex-direction: column;
+     height: 100vh;
+
+     .onlystructure{
+         height: 100vh;
+     }
+}
