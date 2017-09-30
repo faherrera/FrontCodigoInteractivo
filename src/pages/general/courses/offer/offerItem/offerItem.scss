@@ -1,0 +1,17 @@
+
+.offerCourseItem{
+
+    .card-title{
+        font-size: 1.3rem !important;
+        text-align: center;
+    
+        @media screen and (max-width : 768px){
+            font-size: 1.6rem !important;
+        }
+    }
+    
+    .card-content{
+        
+        height: 100px !important;
+    }
+}

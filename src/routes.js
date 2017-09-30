@@ -7,6 +7,8 @@ import App from './App.js';
 //Components PAGES.
     //GENERAL LAY
         import Home from './pages/general/home/';
+        
+        import Offer from './pages/general/courses/offer';
 
     //ADMIN LAY
 
@@ -25,6 +27,7 @@ const AppRoutes = () =>
     <Switch>
         //From Page General
         <Route exact path="/" component={Home} />
+        <Route exact path="/courses" component={Offer} />
 
         //Case of Error.
         <Route component={Page404} />
