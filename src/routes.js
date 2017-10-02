@@ -12,6 +12,8 @@ import App from './App.js';
 
         import DetailCourse from './pages/general/courses/detail';
 
+        import Class from './pages/general/courses/class';
+
     //ADMIN LAY
 
 
@@ -31,6 +33,8 @@ const AppRoutes = () =>
         <Route exact path="/" component={Home} />
         <Route exact path="/courses" component={Offer} />
         <Route exact path="/detailcourse" component={DetailCourse} />
+
+        <Route exact path="/class" component={Class} />
 
         //Case of Error.
         <Route component={Page404} />

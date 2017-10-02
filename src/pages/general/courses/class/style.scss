@@ -1,0 +1,72 @@
+//Variables
+$bg-class: #1976D2;
+
+
+//ClassHeader
+
+.class-header{
+    background: $bg-class;
+}
+
+.class-header__title{
+    // background: rgb(156, 193, 141);
+    display: flex;
+    // padding-bottom: 1rem;
+    padding-top: 1rem;
+
+    i{
+        margin-right: 5px;
+        // font-size: 8rem;
+        align-self: center; 
+    }
+
+    h4{
+        font-weight: 200;
+        align-self: center;
+    }
+
+    @media (max-width: 768px ){
+        flex-direction: column;
+        text-align: center;
+    }
+
+}
+
+.class-video__container{
+    .class-video__title{
+        font-weight: 200 !important;
+        font-size: 1.5rem;
+    }
+
+    iframe{
+        width: 100%;
+        // height: 350px;
+        min-height: 500px;
+        border: none;
+        padding-top: .5rem;
+    }
+}
+
+
+.content-tab {
+    a{
+        color: $bg-class !important;
+    }
+    .indicator{
+        background-color: $bg-class !important;
+
+    }
+
+    .disabled{
+        a{
+            color: rgb(100, 108, 121) !important;
+
+        }
+    }
+
+    @media (max-width: 768px){
+        .tabs a{
+            font-size: .8rem !important;
+        }
+    }
+}
