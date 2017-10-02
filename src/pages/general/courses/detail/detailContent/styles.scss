@@ -1,0 +1,17 @@
+.tab-section{
+    //background: #DB7777;
+    width: 90%;
+    margin: 0 auto;
+    
+    @media screen and (max-width: 992px){
+        width: 100%;
+    }
+}
+
+.tab-container{
+    background-color: red !important;
+}
+
+.tab-title{
+    font-weight: 300;
+}

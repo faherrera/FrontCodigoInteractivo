@@ -19,10 +19,12 @@ export default class Offer extends React.Component{
         return(
             <section className="page-offer">
 
-                <div className="section blue-grey lighten-1 white-text">
+                <div className="section blue-grey lighten-1">
+                    
                     <div className="container">
-                        <h3 style={{fontWeight:300}}> Oferta de cursos  </h3>
+                        <h3 className="section-title"> Oferta de cursos  </h3>
                     </div>
+
                 </div>
 
                 <div className="container">
