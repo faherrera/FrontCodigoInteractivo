@@ -36,6 +36,7 @@ export default class DashBoard extends React.Component{
     }
 
     selectedRoute(name){
+        //Podría mejorarlo con un .Map
         WhiteList.forEach((item) => {   //Recorriendo el array
             if (item.match == name) {   //si matchea, modificar el state.
                 // console.log(item.match);
@@ -46,6 +47,6 @@ export default class DashBoard extends React.Component{
 
     render(){
 
-        return WhiteList[this.state.matchIndex].component;
+        return WhiteList[this.state.matchIndex].component;  //Retornando el componente del array.
     }
 }
