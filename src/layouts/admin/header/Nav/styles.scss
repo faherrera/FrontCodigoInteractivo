@@ -1,0 +1,22 @@
+.nav-admin{
+    background: #455a64 !important;
+    color: white !important;
+    vertical-align: middle !important;
+}
+
+.nav-admin-principal{
+
+    background: #455a64 ;
+    .brand-logo{
+        font-weight: 300;
+        font-size: 1.2rem;
+
+    }
+    @media screen and (min-width: 768px){
+        padding: 0 1rem;
+
+        .brand-logo{
+            font-size: 2rem;
+        }
+    }
+}

@@ -10,7 +10,7 @@ import './assets/sass/materialize.css';
 class App extends Component {
   render() {
     return (
-      <GeneralLayout children={this.props.children}/>
+      <AdminLayout children={this.props.children}/>
     );
   }
 }

@@ -10,6 +10,9 @@ import React from 'react';
     import Footer from './footer/footer';
     import Content from './content/content';
 
+//Assets
+import './styles.css';
+
 export default class AdminLayout extends React.Component {
 
     render() {
@@ -19,7 +22,7 @@ export default class AdminLayout extends React.Component {
                 <main>
                     <Header background={colorBackground}/>
                     <Content children={this.props.children}/>
-                    <Footer background={colorBackground} />
+                    {/*<Footer background={colorBackground} />*/}
                 </main>
             </MuiThemeProvider>
         );

@@ -1,0 +1,60 @@
+main{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+    .content-admin{
+        flex:1;
+        display: flex;
+    }
+    
+}
+
+
+///GENERAL
+
+.admin-page{
+    
+    &__section{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between; 
+        width: 100%;
+        
+    }
+    &__item{
+        margin-top: 1rem !important;
+    }
+
+    &__nav{
+        background: #78909c ; 
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 1rem;
+        span{
+            font-size: 1rem;
+            @media screen and (min-width:768px){
+                font-size: 2rem;
+            }
+
+        }
+
+        font-weight: 300;
+    }
+
+    &__container{
+        margin: 0 auto;
+        width: 100%;
+    }
+}
+
+//Helpers
+.containerAdmin{
+    width: 100%;
+    margin: 0 auto;
+
+    @media screen and (min-width:992px){
+        width: 95%;
+    }
+}

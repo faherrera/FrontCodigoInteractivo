@@ -1,6 +1,21 @@
 import React from 'react';
 
-import {MenuItem,Drawer} from 'material-ui';
+//Components UI
+import {AppBar,MenuItem,Drawer} from 'material-ui';
+import FontIcon from 'material-ui/FontIcon';
+
+//Assets 
+import './styles.css';
+
+//MENUES
+import MenuPrimaryDash from './menuPrimaryDash'; 
+
+const styles = {
+    iconStyle:{
+        cursor: 'pointer'
+    }
+}
+
 
 export default class Nav extends React.Component{
 
@@ -8,46 +23,82 @@ export default class Nav extends React.Component{
         super(props);
 
         this.state = {
-            open:false
+            openPrimary:false,
+            openSecondary:false
         }
 
-        this.handleMenu = this.handleMenu.bind(this);
+        this.handleMenuPrimary = this.handleMenuPrimary.bind(this);
+        this.handleMenuSecondary = this.handleMenuSecondary.bind(this);
+        this.handleClosePrimary = this.handleClosePrimary.bind(this);
+        this.handleCloseSecondary = this.handleCloseSecondary.bind(this);
     }
 
-    handleMenu = () =>{
+    handleMenuPrimary = () =>{
         this.setState({
-            open : !this.state.open
+            openPrimary : !this.state.openPrimary,
         });
     }
+
+    handleMenuSecondary = () =>{
+        this.setState({
+            openSecondary : !this.state.openSecondary,
+        });
+    }
+
+    handleClosePrimary = () => this.setState({ openPrimary: false });
+
+    handleCloseSecondary = () => this.setState({ openSecondary: false });
 
     render(){
         return(
 
-        <nav >
-            
-            <div className="container">
+            <nav className="nav-admin-principal">
+                
+                <div className="nav-wrapper containerAdmin">
 
-                <div className="nav-wrapper">
-                    <a href="#" className="brand-logo">Logo</a>
-                    
-                    <ul id="nav-mobile" className="right" onClick={this.handleMenu}>
-                            <a href="#!"><i className="large material-icons" >menu</i></a>
+                    <i className="material-icons left" style={styles.iconStyle} onClick={this.handleMenuPrimary}>menu</i>
+
+                    <a href="#!" className="brand-logo truncate">
+
+                        Codigo Interactivo Dashboard
+
+                    </a>
+
+                    <ul className="right">
+                        
+                        <li style={styles.iconStyle} onClick={this.handleMenuSecondary}>
+                            <i className="material-icons">more_vert</i>
+                        </li>
+
                     </ul>
 
                 </div>
-            </div>
+
 
                 <Drawer
-                    open={this.state.open}
                     docked={false}
                     width={200}
-                    onRequestChange={(open, swipe) => this.setState({ open })}
+                    open={this.state.openPrimary}
+                    onRequestChange={(openPrimary) => this.setState({ openPrimary })}
                 >
-                    <MenuItem onClick={this.handleClose}>Menu Item</MenuItem>
-                    <MenuItem onClick={this.handleClose}>Menu Item 2</MenuItem>
+
+                    <MenuPrimaryDash/>
+                
                 </Drawer>
 
-        </nav >
+                <Drawer
+                    width={200} 
+                    docked={false}
+                    openSecondary={true} 
+                    open={this.state.openSecondary}
+                    onRequestChange={(openSecondary) => this.setState({ openSecondary })}
+                    >
+
+                        <MenuItem onClick={this.handleCloseSecondary}>Menu Item Sec</MenuItem>
+                    
+                </Drawer>
+
+            </nav>
         );
     }
 }

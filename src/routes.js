@@ -15,7 +15,8 @@ import App from './App.js';
         import Class from './pages/general/courses/class';
 
     //ADMIN LAY
-
+        import DashBoard from './pages/admin/';
+        import CoursesDash from './pages/admin/coursesdash';
 
     //Error Page
     const Page404 = () => {
@@ -35,6 +36,10 @@ const AppRoutes = () =>
         <Route exact path="/detailcourse" component={DetailCourse} />
 
         <Route exact path="/class" component={Class} />
+
+        <Route exact path="/dashboard/:name" component={DashBoard} />
+        <Route exact path="/dashboard/" component={DashBoard} />
+        <Route exact path="/coursesdash" component={CoursesDash} />
 
         //Case of Error.
         <Route component={Page404} />
