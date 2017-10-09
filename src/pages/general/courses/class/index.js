@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 
 //Assets
-import css from './style.css';
+
 //Component
 import ClassHeader from './classHeader/';
 import ClassContent from './classContent/';

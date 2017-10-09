@@ -56,7 +56,7 @@ export default class Nav extends React.Component{
                 
                 <div className="nav-wrapper containerAdmin">
 
-                    <i className="material-icons left" style={styles.iconStyle} onClick={this.handleMenuPrimary}>menu</i>
+                    <i className="material-icons left hide-on-large-only" style={styles.iconStyle} onClick={this.handleMenuPrimary}>menu</i>
 
                     <a href="#!" className="brand-logo truncate">
 
