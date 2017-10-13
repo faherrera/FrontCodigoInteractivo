@@ -15,16 +15,19 @@ export default class RadioSelectedMode extends Component {
         super(props)
         
         this.state ={
-            value: (this.props.modeDefault) ? this.props.modeDefault : 1
+            value: (this.props.modeDefault) ? this.props.modeDefault : 2
         }
         
     }
+
+
     render () {
         return (
             <RadioButtonGroup
                 name="mode"
                 id="mode"
-                defaultSelected={this.state.value.toString()}>
+                defaultSelected={this.state.value.toString()}
+                >
 
 
                 <RadioButton

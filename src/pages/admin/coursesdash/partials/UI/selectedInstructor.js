@@ -22,12 +22,17 @@ export default class SelectedInstructor extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    handleChange = (event, index, value) => this.setState({ value });
+    handleChange = (event, index, value) => 
+    {
+        this.setState({ value })
+        this.props.onChangeSelectedField(value);    //Recogo el valor y lo envio al padre.
+    };
 
     render () {
         return (
             <SelectField
                 floatingLabelText="Instructor"
+                id="instructorSelectField"
                 value={this.state.value}
                 onChange={this.handleChange}
                 fullWidth={true}

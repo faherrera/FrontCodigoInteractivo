@@ -59,7 +59,7 @@ export default class ListCourse extends React.Component{
                         <TableRowColumn style={styles.tableRowStyles}>Android desde 0</TableRowColumn>
                         <TableRowColumn style={styles.tableRowStyles}>Presencial</TableRowColumn>
                         <TableRowColumn style={styles.tableRowStyles}>
-                            <a href="#!" className="yellow-text text-accent-3">
+                            <a href="#!" className="yellow-text text-accent-3" onClick={this.handleEdit}>
                                 <i className="small material-icons">mode_edit</i> 
                             </a>
 
