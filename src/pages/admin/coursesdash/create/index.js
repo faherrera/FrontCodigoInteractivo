@@ -28,6 +28,10 @@ import {
 //Components 
 import {Course} from './../helpers/classes/course';
 
+import { CourseResponse } from './../helpers/responses/course';
+
+import { postCourse } from './../helpers/request/';
+
 export default class CreateCourse extends React.Component{
 
     constructor(props){
@@ -40,19 +44,17 @@ export default class CreateCourse extends React.Component{
 
         }
 
+        
     }
 
+
     handleClickButton(e){
+
+        // this.setState({
+        //     loading: true
+        // });
         
         if (e.target.id === 'btnSend') {
-            
-            this.setState({
-                loading:true,
-            })
-
-            let _course = new Course();
-
-            
             let code = this.refs.codeCourse.getValue();
             let name = this.refs.nameCourse.getValue();
             let description = this.refs.descriptionCourse.getValue();
@@ -64,241 +66,151 @@ export default class CreateCourse extends React.Component{
             let image = this.refs.imageCourse.getValue();
             let instructor = this.refs.instructorCourse.getValue();
             
-            if (code.status) {
-                _course.code = code.value;
-            }
-            else {
-                console.log('====================================');
-                console.log(code.message);
-                console.log('====================================');
-            }
 
-            if (name.status) {
-                _course.name = name.value;
-            }
-            else {
-                console.log('====================================');
-                console.log(name.message);
-                console.log('====================================');
-            }
+            let _cresponse = new CourseResponse(code, name, description,duration,typecourse,mode,level,video,image,instructor);
 
-            if (description.status) {
-                _course.description = description.value;
-            }
-            else {
-                console.log('====================================');
-                console.log(description.message);
-                console.log('====================================');
-            }
-            
-            if (duration.status) {
-                _course.duration = duration.value;
-            }
-            else {
-                console.log('====================================');
-                console.log(duration.message);
-                console.log('====================================');
-            }
+            if (_cresponse.status) {
 
-            if (level.status) {
-                _course.level = level.value;
-            }
-            else {
-                console.log('====================================');
-                console.log(level.message);
-                console.log('====================================');
-            }
+                this.setState({
+                    loading: true,
+                },() => {
+                    postCourse(_cresponse.course);
 
-            if (mode.status) {
-                _course.mode = mode.value;
-            }
-            else {
-                console.log('====================================');
-                console.log(mode.message);
-                console.log('====================================');
-            }
-            
-            if (typecourse.status) {
-                _course.typecourse = typecourse.value;
-            }
-            else {
-                console.log('====================================');
-                console.log(typecourse.message);
-                console.log('====================================');
-            }
-            
-            if (video.status) {
-                _course.video_preview = video.value;
-            }
-            else {
-                console.log('====================================');
-                console.log(video.message);
-                console.log('====================================');
-            }
-
-
-            if (image.status) {
-                _course.imageBase64 = image.value.base64;
-                _course.thumbnail = image.value.nameImg;
-
-                console.log('====================================');
-                console.log(image.message);
-                console.log(image.value.nameImg);
-                console.log('====================================');
-            }
-
-           
-            if (instructor.status) {
-                _course.professorId = instructor.value;
-            }
-            else{
-                console.log('====================================');
-                console.log(instructor.message);                
-                console.log('====================================');
-            }
-
-
-
-            console.log('====================================');
-            console.log('====================================');
-            console.log('====================================');
-            this.setState({
-                course: _course
-            })
-            console.log(_course);
-            console.log('====================================');
-            console.log('====================================');
-
-            // axios.post('http://localhost:17082/api/Courses/',this.state.course)
-            //             .then( (response) => {
-            //                 console.log(response);
-
-            //                 return this.setState({
-            //                     loading:false
-            //                 });
-            //             })
-            //             .catch( (error) => {
-            //                     console.log(error.message);
-            //                     return this.setState({
-            //                         loading: false
-            //                     });
-
-            //             });
-
-            axios({
-                method: 'post',
-                url: 'http://localhost:17082/api/Courses/',
-                data: this.state.course
-            }).then((response) => {
-                console.log(response);
-
-                return this.setState({
-                    loading: false
-                });
-            })
-                .catch((error) => {
-                    console.log(error.message);
-                    return this.setState({
-                        loading: false
+                    this.setState({
+                        loading:false
                     });
-
                 });
 
-            console.log('====================================');
+                // postCourse(_cresponse.course).then(() => this.setState({ loading: false }));
 
-            
+
+
+            }else{
+                this.setState({
+                    messageError: _cresponse.messageError
+                });
+
+            }
 
         }
 
+    }
 
+    
+
+    loading(){
+        this.setState({
+            loading: true
+        });
+        console.log("Pasando por Loading");
+    }
+
+    loaded(){
+        this.setState({
+            loading: false
+        });
+        console.log("Pasando por loaded");
     }
 
     render(){
-        return(
-            <div className="courses-section center">
 
-                {this.state.loading ? <CircularProgress size={100} thickness={5} /> : null}
+        if (this.state.loading) {
+            return  <CircularProgress size={100} thickness={5} />
+        }
+        else{
+
+            return(
+                <div className="courses-section center">
+
+                    {
+                        this.state.messageError.map((value,index)=>{
+                            if (value != 'OK') {
+                                return <li className="blue accent-4 white-text" key={index}>{value}</li>
+                            }
+                        })
+                    }                
                 
-                
-                <div className={this.state.loading ? 'hide' : "form"}>
+                    <div className={this.state.loading ? 'hide' : "form"}>
 
-                    <ImageField
-                        idImageB64="imgField"
-                        idinputImage="inputImage"
-                        ref="imageCourse"
-                    />
+                        <ImageField
+                            idImageB64="imgField"
+                            idinputImage="inputImage"
+                            ref="imageCourse"
+                        />
 
-                    <InputText
-                        label="Video Preview"
-                        placeholder="Example: https://www.youtube.com/embed/7qWMvFsww60"
-                        ref="videoCourse"
-                    />
+                        <InputText
+                            label="Video Preview"
+                            placeholder="Example: https://www.youtube.com/embed/7qWMvFsww60"
+                            ref="videoCourse"
+                        />
 
-                    <InputNumber
-                        label="Codigo del curso"
-                        placeholder="555"
-                        required={true}
-                        ref="codeCourse"
-                    />
+                        <InputNumber
+                            label="Codigo del curso"
+                            placeholder="555"
+                            required={true}
+                            ref="codeCourse"
+                        />
 
-                    <InputText
-                        label="Nombre del curso"
-                        placeholder="Example: Android Nativo"
-                        required={true}
-                        ref="nameCourse"
+                        <InputText
+                            label="Nombre del curso"
+                            placeholder="Example: Android Nativo"
+                            required={true}
+                            ref="nameCourse"
 
-                    />
+                        />
 
-                    <TextArea
-                        label="Descripcion del curso"
-                        value=''
-                        required={false}
-                        ref="descriptionCourse"
-                    />
+                        <TextArea
+                            label="Descripcion del curso"
+                            value=''
+                            required={false}
+                            ref="descriptionCourse"
+                        />
 
-                    <div className="input-field">
-                        <SelectedInstructor
-                            label="Seleccionando un intructor"
-                            ref="instructorCourse"
-                         />
+                        <div className="input-field">
+                            <SelectedInstructor
+                                label="Seleccionando un intructor"
+                                ref="instructorCourse"
+                            />
+                        </div>
+
+
+                    
+
+                        <InputText
+                            label="Duracion del curso"
+                            placeholder="3 meses y medio"
+                            ref="durationCourse"
+                        />
+
+                    
+                        <RadioSelectedLevel 
+                            title="Seleccionar un Level"
+                            ref="levelCourse"
+                        />
+
+                        <RadioSelectedMode 
+                            title="Seleccionar un Modo"
+                            ref="modeCourse"
+                        />
+
+                        <RadioSelectedType 
+                            title="Seleccionar un tipo"
+                            ref="typeCourse"
+                        />
+
+                        <a 
+                            className="waves-effect green darken-3 btn btn-form" 
+                            onClick={this.handleClickButton.bind(this)}
+                            id="btnSend"
+                        >
+                            Crear curso <i className="material-icons  verticalAlign">send</i>
+                        </a>
+
                     </div>
 
-
-                   
-
-                    <InputText
-                        label="Duracion del curso"
-                        placeholder="3 meses y medio"
-                        ref="durationCourse"
-                    />
-
-                   
-                    <RadioSelectedLevel 
-                        title="Seleccionar un Level"
-                        ref="levelCourse"
-                    />
-
-                    <RadioSelectedMode 
-                        title="Seleccionar un Modo"
-                        ref="modeCourse"
-                    />
-
-                    <RadioSelectedType 
-                        title="Seleccionar un tipo"
-                        ref="typeCourse"
-                    />
-
-                    <a 
-                        className="waves-effect green darken-3 btn btn-form" 
-                        onClick={this.handleClickButton.bind(this)}
-                        id="btnSend"
-                    >
-                        Crear curso <i className="material-icons  verticalAlign">send</i>
-                    </a>
-
                 </div>
+            );
+        }
 
-            </div>
-        );
     }
 }

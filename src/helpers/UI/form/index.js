@@ -109,6 +109,7 @@ export class InputText extends Component {
         if (this.state.status) { //Si es correcto enviarlo.
             _response.status = true;
             _response.value = this.state.value;
+            _response.message = "OK"
 
             return _response;   //Devuelvo el dato valido.
         }
@@ -205,7 +206,7 @@ export class InputEmail extends Component{
             if (this.state.status) { //Si es correcto enviarlo.
                 _response.status = true;
                 _response.value = this.state.value;
-
+                _response.message = "OK"
                 return _response;   //Devuelvo el dato valido.
             }
 
@@ -521,13 +522,7 @@ export class ImageField extends Component {
         
         _response.value = ImageObject;
         _response.status = true;
-
-        if (this.state.base64 != '' && this.state.nameImg != '') {
-            _response.message = "Cargados los datos";
-            return _response;
-        }
-
-        _response.message = "Datos vacios";
+        _response.message = "OK";
 
         return _response;
     }
