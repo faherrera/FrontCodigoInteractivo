@@ -50,9 +50,7 @@ export default class CreateCourse extends React.Component{
 
     handleClickButton(e){
 
-        // this.setState({
-        //     loading: true
-        // });
+        this.loading();
         
         if (e.target.id === 'btnSend') {
             let code = this.refs.codeCourse.getValue();
@@ -71,17 +69,9 @@ export default class CreateCourse extends React.Component{
 
             if (_cresponse.status) {
 
-                this.setState({
-                    loading: true,
-                },() => {
-                    postCourse(_cresponse.course);
-
-                    this.setState({
-                        loading:false
-                    });
+                postCourse(_cresponse.course, () => {
+                    this.loaded();
                 });
-
-                // postCourse(_cresponse.course).then(() => this.setState({ loading: false }));
 
 
 
@@ -115,7 +105,7 @@ export default class CreateCourse extends React.Component{
     render(){
 
         if (this.state.loading) {
-            return  <CircularProgress size={100} thickness={5} />
+            return  <div className="center"> <CircularProgress size={100} thickness={5} /></div>
         }
         else{
 

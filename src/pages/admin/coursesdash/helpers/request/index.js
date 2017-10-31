@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export function postCourse (course) {
+export function postCourse (course,callback) {
     axios
     ({
         method: 'post',
@@ -9,9 +9,13 @@ export function postCourse (course) {
     }).then((response) => {
         console.log(response);
         //Callback
+
+        callback();
+        
         alert('excelente!');
     }).catch((error) => {
         console.log(error.message);
+        callback();
         
     });
 }
