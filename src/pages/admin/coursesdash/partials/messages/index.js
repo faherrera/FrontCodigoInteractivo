@@ -34,13 +34,13 @@ export class GenericMessage extends React.Component {
                     <div className={(!this.state.messages.length > 0) ? `hide` : `collapsible-header red darken-4 white-text`}>
                         <i className="material-icons">info</i>
                         Mensajes
-                    <span className="new badge blue"> </span></div>
-                        <ul>
+                    </div>
+                        <ul >
                             {
                                 this.state.messages.map((value, index) => {
                                     if (value != "OK") {
 
-                                        return <li key={index}> {value} </li>
+                                        return <li className="red darken-4 white-text" key={index}> {value} </li>
                                     }
                                 })
                             }

@@ -13,6 +13,7 @@ import {
     ImageField,
     RadioButton
 } from '../../../../helpers/UI/form/';
+import { ButtonForm } from './../helpers/form/button';
 
 import { 
     RadioSelectedLevel,
@@ -58,9 +59,10 @@ export default class CreateCourse extends React.Component{
 
     handleClickButton(e){
 
-        this.loading();
         
-        if (e.target.id === 'btnSend') {
+        if (e.target.id === 'btnCreate') {
+            this.loading();
+
             let code = this.refs.codeCourse.getValue();
             let name = this.refs.nameCourse.getValue();
             let description = this.refs.descriptionCourse.getValue();
@@ -124,10 +126,13 @@ export default class CreateCourse extends React.Component{
         else{
 
             return(
-                <div className="courses-section center">
+                <div className="courses-section">
                     
-                
-                    <div className={this.state.loading ? 'hide' : "form"}>
+                    <GenericMessage
+                        messages={this.state.messageError}
+                    />
+                    
+                    <div className="form">
 
                         <ImageField
                             idImageB64="imgField"
@@ -165,15 +170,10 @@ export default class CreateCourse extends React.Component{
                             ref="descriptionCourse"
                         />
 
-                        <div className="input-field">
-                            <SelectedInstructor
-                                label="Seleccionando un intructor"
-                                ref="instructorCourse"
-                            />
-                        </div>
-
-
-                    
+                        <SelectedInstructor
+                            label="Seleccionando un intructor"
+                            ref="instructorCourse"
+                        />
 
                         <InputText
                             label="Duracion del curso"
@@ -199,19 +199,14 @@ export default class CreateCourse extends React.Component{
                             ref="typeCourse"
                         />
 
-                        <a 
-                            className="waves-effect green darken-3 btn btn-form" 
+                        <ButtonForm 
+                            type='create'
                             onClick={this.handleClickButton.bind(this)}
-                            id="btnSend"
-                        >
-                            Crear curso <i className="material-icons  verticalAlign">send</i>
-                        </a>
+                        />
 
                     </div>
 
-                    <GenericMessage
-                        messages={this.state.messageError}
-                    />
+                    
 
                 </div>
             );

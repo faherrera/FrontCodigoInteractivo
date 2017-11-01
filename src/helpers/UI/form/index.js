@@ -386,7 +386,6 @@ export class TextArea extends Component {
                 status: false,
             });
 
-            console.log('No deberia cargar.');
         }
 
         
@@ -540,7 +539,7 @@ export class ImageField extends Component {
             var img = document.getElementById(this.state.idImageB64);
             var inputText = document.getElementById('inputText');
 
-            if (img != null || img != undefined) {
+            if (img !== null || img !== undefined) {
                 img.src = '';
                 console.log(inputText);
                 inputText.value = '';

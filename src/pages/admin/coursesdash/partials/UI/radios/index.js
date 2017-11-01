@@ -33,12 +33,12 @@ export class RadioSelectedLevel extends Component {
 
     render() {
         return (
-            <div className="form__group">
+            <div className="form__group ">
                 <div className="form__title-group">
                     <h3 className="title">{this.props.title}</h3>
                 </div>
 
-                <Row className="center">
+                <Row className="align">
                     <Input
                         s={12}
                         name='level'
@@ -100,12 +100,12 @@ export class RadioSelectedMode extends Component {
 
     render() {
         return (
-            <div className="form__group">
+            <div className="form__group ">
                 <div className="form__title-group">
                     <h3 className="title">{this.props.title}</h3>
                 </div>
 
-                <Row className="center">
+                <Row className="align">
                     <Input
                         s={12}
                         name='type'
@@ -157,12 +157,12 @@ export class RadioSelectedType extends Component {
 
     render() {
         return (
-            <div className="form__group">
+            <div className="form__group ">
                 <div className="form__title-group">
                     <h3 className="title">{this.props.title}</h3>
                 </div>
 
-                <Row className="center">
+                <Row className="align">
                     <Input
                         s={12}
                         name='mode'

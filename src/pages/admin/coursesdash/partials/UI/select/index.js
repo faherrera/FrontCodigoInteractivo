@@ -11,10 +11,12 @@ import {Response} from './../../../../../../helpers/UI/form/';
 const styles = {
     labelStyle:{
         color:'black',
+        textAlign:'left'
     },
     floatingLabelStyle: {
         color: '#26a296',
         fontSize: '1.4rem',
+        textAlign:'left'
     },
     underlineStyle:{
         border: '1px solid #26a69a'
@@ -57,11 +59,12 @@ export class SelectedInstructor extends Component {
     render () {
         return (
             <SelectField
+            
                 floatingLabelText="Instructor"
                 id="instructorSelectField"
                 value={this.state.value}
-                onChange={this.handleChange}
                 fullWidth={true}
+                onChange={this.handleChange}
                 label={this.props.label}
                 labelStyle={styles.labelStyle}
                 floatingLabelStyle={styles.floatingLabelStyle}
