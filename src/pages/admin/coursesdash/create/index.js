@@ -24,6 +24,14 @@ import {
     SelectedInstructor,
 } from './../partials/UI/select/';
 
+import { 
+    ErrorMessage,
+} from './../partials/errorComponent/error';
+
+import { 
+    GenericMessage,
+} from './../partials/messages/';
+
 
 //Components 
 import {Course} from './../helpers/classes/course';
@@ -69,13 +77,15 @@ export default class CreateCourse extends React.Component{
 
             if (_cresponse.status) {
 
-                postCourse(_cresponse.course, () => {
-                    this.loaded();
-                });
+                postCourse(_cresponse.course, this.loading.bind(this), this.inErrorCase.bind(this));
 
 
 
             }else{
+                this.setState({
+                    loading: false
+                });
+
                 this.setState({
                     messageError: _cresponse.messageError
                 });
@@ -90,16 +100,20 @@ export default class CreateCourse extends React.Component{
 
     loading(){
         this.setState({
-            loading: true
+            loading: !this.state.loading
         });
-        console.log("Pasando por Loading");
+
+        console.log("Entrando en loading"); //#Debug
     }
 
-    loaded(){
-        this.setState({
-            loading: false
-        });
-        console.log("Pasando por loaded");
+    inErrorCase(message){
+        this.loading();
+        console.log(message + "<<<<------");
+
+       this.setState({
+           messageError: [...[message]]
+       });
+
     }
 
     render(){
@@ -111,14 +125,7 @@ export default class CreateCourse extends React.Component{
 
             return(
                 <div className="courses-section center">
-
-                    {
-                        this.state.messageError.map((value,index)=>{
-                            if (value != 'OK') {
-                                return <li className="blue accent-4 white-text" key={index}>{value}</li>
-                            }
-                        })
-                    }                
+                    
                 
                     <div className={this.state.loading ? 'hide' : "form"}>
 
@@ -132,6 +139,8 @@ export default class CreateCourse extends React.Component{
                             label="Video Preview"
                             placeholder="Example: https://www.youtube.com/embed/7qWMvFsww60"
                             ref="videoCourse"
+                            required={false}
+
                         />
 
                         <InputNumber
@@ -170,6 +179,8 @@ export default class CreateCourse extends React.Component{
                             label="Duracion del curso"
                             placeholder="3 meses y medio"
                             ref="durationCourse"
+                            required={false}
+
                         />
 
                     
@@ -197,6 +208,10 @@ export default class CreateCourse extends React.Component{
                         </a>
 
                     </div>
+
+                    <GenericMessage
+                        messages={this.state.messageError}
+                    />
 
                 </div>
             );
