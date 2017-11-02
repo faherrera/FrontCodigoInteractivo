@@ -20,3 +20,7 @@ export function postCourse (course,successCall,errorCall) {
         
     });
 }
+
+export function getCourses(){
+    
+}
