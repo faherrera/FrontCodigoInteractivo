@@ -10,12 +10,19 @@ export class RadioSelectedLevel extends Component {
         super(props)
 
         this.state = {
-            value: (this.props.value != null) ? this.props.value : "2",
+            value: (this.props.value != null) ? this.props.value.toString() : "2",
         }
 
         this.handleOnChange = this.handleOnChange.bind(this);
 
     }
+
+
+    
+    componentDidMount(){
+        console.log('Mostrando los logss' + this.state.value);
+    }
+
     handleOnChange(e){
 
         console.log('Changed');
@@ -72,17 +79,25 @@ export class RadioSelectedLevel extends Component {
     }
 }
 export class RadioSelectedMode extends Component {
+    
+
+
 
     constructor(props) {
         super(props)
 
         this.state = {
-            value: (this.props.value != null) ? this.props.value : "1",
+            value: (this.props.value != null) ? this.props.value.toString() : "1",
         }
 
         this.handleOnChange = this.handleOnChange.bind(this);
 
     }
+    
+    componentDidMount(){
+        console.log('Mostrando los logss' + this.state.value);
+    }
+
     handleOnChange(e){
 
         console.log('Changed mode');
@@ -129,17 +144,25 @@ export class RadioSelectedMode extends Component {
     }
 }
 export class RadioSelectedType extends Component {
+    
+
+
 
     constructor(props) {
         super(props)
 
         this.state = {
-            value: (this.props.value != null) ? this.props.value : "1",
+            value: (this.props.value != null) ? this.props.value.toString() : "1",
         }
 
         this.handleOnChange = this.handleOnChange.bind(this);
 
     }
+    
+    componentDidMount(){
+        console.log('Mostrando los logss' + this.state.value);
+    }
+
     handleOnChange(e){
 
         console.log('Changed Type');

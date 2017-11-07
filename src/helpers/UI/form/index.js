@@ -323,12 +323,13 @@ export class InputNumber extends Component {
         let _response = new Response(); //Instancio una respuesta.
 
 
-        if (this.state.status) { //Si es correcto enviarlo.
+        if (this.state.status || this.state.value !== '') { //Si es correcto enviarlo.
             _response.status = true;
             _response.value = this.state.value;
 
             return _response;   //Devuelvo el dato valido.
         }
+
 
         _response.message = "No valido el " + this.state.label;
 

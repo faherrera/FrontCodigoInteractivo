@@ -36,7 +36,7 @@ import { Course } from './../../helpers/classes/course';
 
 import { CourseResponse } from './../../helpers/responses/course';
 
-import { postCourse } from './../../helpers/request/';
+import { postCourse, putCourse } from './../../helpers/request/';
 
 export default class FormCourse extends React.Component {
 
@@ -46,7 +46,7 @@ export default class FormCourse extends React.Component {
         this.state = {
             loading: false,
             messageError: [],
-            course: {},
+            course: this.props.course != null ? this.props.course : {},
             type: this.props.type !== null ? (this.props.type === 'edit' ? 'edit' : 'create') : 'create'
 
         }
@@ -56,21 +56,20 @@ export default class FormCourse extends React.Component {
 
     handleClickButton(e) {
 
+        let code = this.refs.codeCourse.getValue();
+        let name = this.refs.nameCourse.getValue();
+        let description = this.refs.descriptionCourse.getValue();
+        let duration = this.refs.durationCourse.getValue();
+        let typecourse = this.refs.typeCourse.getValue();
+        let mode = this.refs.modeCourse.getValue();
+        let level = this.refs.levelCourse.getValue();
+        let video = this.refs.videoCourse.getValue();
+        let image = this.refs.imageCourse.getValue();
+        let instructor = this.refs.instructorCourse.getValue();
+
 
         if (e.target.id === 'btnCreate') {
             this.loading();
-
-            let code = this.refs.codeCourse.getValue();
-            let name = this.refs.nameCourse.getValue();
-            let description = this.refs.descriptionCourse.getValue();
-            let duration = this.refs.durationCourse.getValue();
-            let typecourse = this.refs.typeCourse.getValue();
-            let mode = this.refs.modeCourse.getValue();
-            let level = this.refs.levelCourse.getValue();
-            let video = this.refs.videoCourse.getValue();
-            let image = this.refs.imageCourse.getValue();
-            let instructor = this.refs.instructorCourse.getValue();
-
 
             let _cresponse = new CourseResponse(code, name, description, duration, typecourse, mode, level, video, image, instructor);
 
@@ -92,6 +91,31 @@ export default class FormCourse extends React.Component {
             }
 
         }
+
+        if(e.target.id === 'btnEdit'){
+            this.loading();
+
+            let _cresponse = new CourseResponse(code, name, description, duration, typecourse, mode, level, video, image, instructor);
+
+            if (_cresponse.status) {
+
+                putCourse(_cresponse.course, this.loading.bind(this), this.inErrorCase.bind(this));
+                
+                //Aquí va el metodo put.
+                window.location="/dashboard/courses";
+
+            } else {
+                this.setState({
+                    loading: false
+                });
+
+                this.setState({
+                    messageError: _cresponse.messageError
+                });
+
+            }
+        }
+
 
     }
 
@@ -117,6 +141,9 @@ export default class FormCourse extends React.Component {
 
     render() {
 
+        console.log('====================================');
+        console.log(this.state.course);
+        console.log('====================================');
 
         return (
                 <div className="form__group">
@@ -141,6 +168,7 @@ export default class FormCourse extends React.Component {
                             placeholder="Example: https://www.youtube.com/embed/7qWMvFsww60"
                             ref="videoCourse"
                             required={false}
+                            value={this.state.course.Video_preview}
 
                         />
 
@@ -149,6 +177,8 @@ export default class FormCourse extends React.Component {
                             placeholder="555"
                             required={true}
                             ref="codeCourse"
+                            value={this.state.course.Code}
+
                         />
 
                         <InputText
@@ -156,19 +186,23 @@ export default class FormCourse extends React.Component {
                             placeholder="Example: Android Nativo"
                             required={true}
                             ref="nameCourse"
+                            value={this.state.course.Name}
 
                         />
 
                         <TextArea
                             label="Descripcion del curso"
-                            value=''
+                            value={this.state.course.Description} 
                             required={false}
                             ref="descriptionCourse"
+
                         />
 
                         <SelectedInstructor
                             label="Seleccionando un intructor"
                             ref="instructorCourse"
+                            value={this.state.course.ProfessorID} 
+
                         />
 
                         <InputText
@@ -176,6 +210,7 @@ export default class FormCourse extends React.Component {
                             placeholder="3 meses y medio"
                             ref="durationCourse"
                             required={false}
+                            value={this.state.course.Duration} 
 
                         />
 
@@ -183,16 +218,22 @@ export default class FormCourse extends React.Component {
                         <RadioSelectedLevel
                             title="Seleccionar un Level"
                             ref="levelCourse"
+                            value={this.state.course.Level} 
+
                         />
 
                         <RadioSelectedMode
                             title="Seleccionar un Modo"
                             ref="modeCourse"
+                            value={this.state.course.Mode} 
+
                         />
 
                         <RadioSelectedType
                             title="Seleccionar un tipo"
                             ref="typeCourse"
+                            value={this.state.course.TypeCourse} 
+
                         />
 
                         <ButtonForm

@@ -27,7 +27,7 @@ export class SelectedInstructor extends Component {
         super(props);
 
         this.state = {
-            value : (this.props.instructorCode) ? this.props.instructorCode : 1
+            value : (this.props.value) ? this.props.value : 1
         }
         this.handleChange = this.handleChange.bind(this);
     }

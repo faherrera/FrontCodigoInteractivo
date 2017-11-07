@@ -37,9 +37,9 @@ const AppRoutes = () =>
 
         <Route exact path="/class" component={Class} />
 
-        <Route exact path="/dashboard/:name" component={DashBoard} />
-        <Route exact path="/dashboard/" component={DashBoard} />
-        <Route exact path="/coursesdash" component={CoursesDash} />
+        <Route exact path="/dashboard/:name/" component={DashBoard} />
+        {/* <Route exact path="/dashboard/" component={DashBoard} /> */}
+        {/* <Route exact path="/coursesdash" component={CoursesDash} /> */}
 
         //Case of Error.
         <Route component={Page404} />

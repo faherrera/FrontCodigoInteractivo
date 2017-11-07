@@ -11,7 +11,7 @@ import CreateCourse from './create';
     import Paper from 'material-ui/Paper';
 
 
-   
+import './styles.css';
   
 const myComponents = [
     <ListCourse/>,
@@ -23,7 +23,7 @@ export default class CoursesDash extends React.Component{
         super(props);
 
         this.state = {
-            selectedIndex: 1,
+            selectedIndex: 0,
         };
         
         
@@ -57,7 +57,7 @@ export default class CoursesDash extends React.Component{
 
 
 
-                <Paper zDepth={1}>
+                <Paper zDepth={1} className="bottom-navigation">
                     <BottomNavigation selectedIndex={this.state.selectedIndex}>
                         <BottomNavigationItem
                             label="Listado de cursos"

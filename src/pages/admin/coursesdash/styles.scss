@@ -1,0 +1,17 @@
+.admin-page__section{
+    display: flex;
+    // flex-direction: column;
+}
+
+.bottom-navigation{
+    width: 100%;
+    // align-self: flex-end;
+    // position: fixed;
+    // bottom: ;
+    // margin-top: 20rem;
+    @media screen and (min-width:1024px){
+    // position: relative;
+    // bottom: 0;
+
+    }
+}
