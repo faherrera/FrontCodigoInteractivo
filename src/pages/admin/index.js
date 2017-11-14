@@ -3,25 +3,25 @@ import React from 'react';
 import CoursesDash from './coursesdash';
 import UsersDash from './usersdash';
 
-const WhiteList = [
+
+let WhiteList = [
     {
-        index:0,
-        match:'courses',
-        component: <CoursesDash />
+        index: 0,
+        match: 'courses',
     },
     {
-        index:1,
-        match:'user',
-        component: <UsersDash/>
+        index: 1,
+        match: 'user',
     }
 ];
 
-export default class DashBoard extends React.Component{
+export default class Courses extends React.Component{
     constructor(props){
         super(props);
 
         this.state = {
             matchIndex : 0,
+            id:null
         }
 
         this.selectedRoute = this.selectedRoute.bind(this);
@@ -29,8 +29,17 @@ export default class DashBoard extends React.Component{
 
     componentDidMount() {
         const name = this.props.match.params.name;
+        // console.log(name);
+        const id = this.props.match.params.id;
+        // console.log(id);
         if (name) {            
             this.selectedRoute(name)
+        }
+
+        if(id){
+            this.setState({
+                id:id
+            });
         }
         
     }
@@ -45,8 +54,17 @@ export default class DashBoard extends React.Component{
         })
     }
 
-    render(){
+   
+    render()
+    {
+        console.log('====================================');
+        console.log("Esto deberia mostrarle -> " + this.state.id);
+        console.log('====================================');
+         const myComponents = [
+            <CoursesDash id={this.state.id} />,
+            <UsersDash id={this.state.id} />,
+        ]
 
-        return WhiteList[this.state.matchIndex].component;  //Retornando el componente del array.
+        return myComponents[this.state.matchIndex];  //Retornando el componente del array.
     }
 }

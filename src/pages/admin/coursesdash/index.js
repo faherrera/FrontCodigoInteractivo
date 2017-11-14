@@ -5,6 +5,8 @@ import React from 'react';
 ///Sections routes import 
 import ListCourse from './list';
 import CreateCourse from './create';
+import ShowCourse from './show';
+
 //ui
     import FontIcon from 'material-ui/FontIcon';
     import { BottomNavigation, BottomNavigationItem } from 'material-ui/BottomNavigation';
@@ -13,17 +15,13 @@ import CreateCourse from './create';
 
 import './styles.css';
   
-const myComponents = [
-    <ListCourse/>,
-    <CreateCourse />
-];
 
 export default class CoursesDash extends React.Component{
     constructor(props){
         super(props);
-
         this.state = {
             selectedIndex: 0,
+            id:null
         };
         
         
@@ -32,11 +30,29 @@ export default class CoursesDash extends React.Component{
        
     }
 
+    
+    componentWillReceiveProps(nextProps) {
+        let id = nextProps.id;
+
+        if (id) {
+            this.setState({
+                selectedIndex: 2,
+                id
+
+            });
+        }
+    }
     select = (index) => this.setState({ selectedIndex: index });
 
 
     render(){
         
+        const myComponents = [
+            <ListCourse />,
+            <CreateCourse />,
+            <ShowCourse id={this.state.id} />
+        ];
+
         return(
             <div className="admin-page__section">
 

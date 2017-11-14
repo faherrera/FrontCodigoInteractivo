@@ -528,7 +528,8 @@ export class ImageField extends Component {
     }
 
     handleShowImage(e){ //Saber si muestro o no el controlador para subir imagenes.
-        if (e.target.id === 'showImage') {
+
+        if (e.target.id === 'showImagen') {
             
             this.setState({
                 empty: false
@@ -609,23 +610,23 @@ export class ImageField extends Component {
 
                     <div className="center">
 
-                        <button
+                        <a
 
                                 style={styles.btnStyles}
                                 className={(!this.state.empty) ? 'hide' : `btn yellow darken-3 `}
-                                id="showImage"
+                                id="showImagen"
                                 width="100%"
                                 onClick={this.handleShowImage}>
                                 Cargar imagen
-                        </button>
+                        </a>
 
-                        <button
+                        <a
                                 style={styles.btnStyles}
                                 className={(!this.state.empty) ? `btn red darken-3` : 'hide'}
                                 id="hideImage"
                                 onClick={this.handleShowImage}>
                                 Sin imagen
-                        </button>
+                        </a>
 
                     </div>
             </div>

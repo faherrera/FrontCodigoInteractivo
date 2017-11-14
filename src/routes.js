@@ -15,7 +15,7 @@ import App from './App.js';
         import Class from './pages/general/courses/class';
 
     //ADMIN LAY
-        import DashBoard from './pages/admin/';
+        import Courses from './pages/admin/';
         import CoursesDash from './pages/admin/coursesdash';
 
     //Error Page
@@ -37,7 +37,8 @@ const AppRoutes = () =>
 
         <Route exact path="/class" component={Class} />
 
-        <Route exact path="/dashboard/:name/" component={DashBoard} />
+        <Route exact path="/dashboard/:name/" component={Courses} />
+        <Route exact path="/dashboard/:name/:id" component={Courses} />
         {/* <Route exact path="/dashboard/" component={DashBoard} /> */}
         {/* <Route exact path="/coursesdash" component={CoursesDash} /> */}
 
