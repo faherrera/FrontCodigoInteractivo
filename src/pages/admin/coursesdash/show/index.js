@@ -31,6 +31,7 @@ export default class ShowCourse extends Component {
         this.state = {
             course:{},
             loading:true,
+            classes:[],
             editing: false
         }
 
@@ -84,9 +85,11 @@ export default class ShowCourse extends Component {
                 _gr._obj = response.data.obj;
                 _gr._message = response.data.message;
                 _gr._status = response.data.status;
+                _gr._classesCourse = response.data._classesCourse;
 
                 return this.setState({
                     course: _gr._obj,
+                    classes: [..._gr._classesCourse],
                     loading: false
                 });
             })
@@ -127,8 +130,8 @@ export default class ShowCourse extends Component {
                 className="card-courses--show"
                 header={<CardTitle image={pathImage}></CardTitle>}
                 actions={
-                        [<div className="card-options">
-                        <a key={1} name={this.state.course.Code} onClick={this.handleEditCourse} className="lime ligthen-2 btn"><i className="material-icons">edit</i> </a> <AlertRemove name={this.state.course.Name} handleDelete={this.handleDeleteCourse}/>
+                    [<div key={1} className="card-options">
+                        <a  name={this.state.course.Code} onClick={this.handleEditCourse} className="lime ligthen-2 btn"><i className="material-icons">edit</i> </a> <AlertRemove name={this.state.course.Name} handleDelete={this.handleDeleteCourse}/>
                         </div>
                         ]}>
                 <span className="card-title">{this.state.course.Name}</span>
@@ -166,8 +169,15 @@ export default class ShowCourse extends Component {
                     </CollectionItem>
                 </Collection>
                 <Collection header='Listado de Clases'>
-                    <CollectionItem>1- Esta es la primer clase</CollectionItem>
-                    <CollectionItem>2- Esta es la segunda clase</CollectionItem>
+                    {
+                        //Mostrando el listado o mensaje, según la cantidad.
+                        (this.state.classes.length <= 0) 
+                        ? <CollectionItem>|| Este curso aún no tiene clases ||</CollectionItem> 
+                        : this.state.classes.map((cls, index) => 
+                            <CollectionItem key={index}>{index + 1} - <a href="#!">{cls.TitleClass}</a>  </CollectionItem> 
+                        )
+                        
+                    }
                 </Collection>
                 <Collection header='Temario'>
                     <CollectionItem>
