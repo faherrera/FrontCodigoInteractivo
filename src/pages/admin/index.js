@@ -1,6 +1,8 @@
 import React from 'react';
 
+//Pages
 import CoursesDash from './coursesdash';
+import ClassesDash from './classesdash';
 import UsersDash from './usersdash';
 
 
@@ -11,7 +13,11 @@ let WhiteList = [
     },
     {
         index: 1,
-        match: 'user',
+        match: 'classes',
+    },
+    {
+        index:2,
+        match:'users'
     }
 ];
 
@@ -62,6 +68,7 @@ export default class Courses extends React.Component{
         console.log('====================================');
          const myComponents = [
             <CoursesDash id={this.state.id} />,
+            <ClassesDash id={this.state.id} />,
             <UsersDash id={this.state.id} />,
         ]
 

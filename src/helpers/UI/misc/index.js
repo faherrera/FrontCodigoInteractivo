@@ -7,7 +7,8 @@ export  class  ProgressCircle extends Component {
         super(props);
 
         this.state = {
-            active: this.props.active
+            active: this.props.active,
+            size: (this.props.size) ? this.props.size : 500
         }
     }
 
@@ -23,7 +24,7 @@ export  class  ProgressCircle extends Component {
     render() {
         return (
             <div className={(this.state.active) ? 'center' : 'hide'}>
-                <CircularProgress size={500} thickness={3} />
+                <CircularProgress size={this.state.size} thickness={3} />
             </div>
         );
     }
