@@ -66,14 +66,13 @@ export class AutocompleteUI extends Component {
                     let objeto = new Object();  //Creo un objeto para asignarle los valores.
 
                     objeto.title = item.Name;
-                    objeto.id = item.CourseID;
+                    objeto.id = item.Code;
 
                     this.setState({
                         listado: [...this.state.listado, objeto], //Guardo los objetos en el array.
                         loading: false
                     });
 
-                    console.log('==============--***--======================');
 
                 }
             })

@@ -16,7 +16,7 @@ import AlertRemove from './../partials/messages/alert';
 
 ///Components 
 import EditCourse from './../edit/';
-import {urlApi,urlApp } from './../../../../helpers/requestConfig';
+import {urlApi,urlApp,urlAppDashboard } from './../../../../helpers/requestConfig';
 
 //Assets
 import './style.css';
@@ -112,6 +112,8 @@ export default class ShowCourse extends Component {
         let _level = ["Principiante","Intermedio","Avanzado"];
         let _mode = ["Presencial","Online"];
         let _type = ["Free","Premium"];
+        let urlApiClass = urlAppDashboard + 'classes/'; 
+
 
         if (this.state.loading) {
             return <ProgressCircle active={this.state.loading} /> 
@@ -174,7 +176,7 @@ export default class ShowCourse extends Component {
                         (this.state.classes.length <= 0) 
                         ? <CollectionItem>|| Este curso aún no tiene clases ||</CollectionItem> 
                         : this.state.classes.map((cls, index) => 
-                            <CollectionItem key={index}>{index + 1} - <a href="#!">{cls.TitleClass}</a>  </CollectionItem> 
+                                <CollectionItem key={index}>{index + 1} - <a href={urlApiClass + cls.CodeClass}>{cls.TitleClass}</a>  </CollectionItem> 
                         )
                         
                     }

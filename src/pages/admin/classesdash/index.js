@@ -26,9 +26,11 @@ export default class ClassesDash extends React.Component {
     }
 
 
-    componentWillReceiveProps(nextProps) {
-        let id = nextProps.id;
-
+    componentDidMount() {
+        let id = this.props.id;
+        console.log('====================================');
+        console.log("ESTOY ESTOY ESTOY");
+        console.log('====================================');
         if (id) {
             this.setState({
                 selectedIndex: 1,
@@ -44,7 +46,7 @@ export default class ClassesDash extends React.Component {
 
         const myComponents = [
             <CreateClass />,
-            <ShowClass code={this.state.id} />
+            <ShowClass id={this.state.id} />
         ];
 
         return (

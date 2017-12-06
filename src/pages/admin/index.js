@@ -64,7 +64,12 @@ export default class Courses extends React.Component{
     render()
     {
         console.log('====================================');
-        console.log("Esto deberia mostrarle -> " + this.state.id);
+        if (this.state.id) {
+            console.log("Esto deberia mostrarle -> " + this.state.id);
+        } else {
+            console.log("No tiene ID");
+            
+        }
         console.log('====================================');
          const myComponents = [
             <CoursesDash id={this.state.id} />,

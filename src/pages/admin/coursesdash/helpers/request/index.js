@@ -3,7 +3,7 @@ import axios from 'axios';
 //Responses
 import { _listResponse, _getResponse} from './../../../../../helpers/responses';
 
-const url = 'http://localhost:17082/api/Courses/';
+const urlCourses = 'http://localhost:17082/api/Courses/';
 
 export function postCourse (course,successCall,errorCall) {
     console.log('Entrando en request');
@@ -33,7 +33,7 @@ export var getCourses = new Promise(
         let _lr = new _listResponse();
 
         resolve(
-            axios.get(url)
+            axios.get(urlCourses)
             .then(response => {
                 _lr._codeState = response.data.codeState;
                 _lr._list = response.data.courses;
@@ -58,7 +58,7 @@ export function putCourse(course, successCall, errorCall) {
     axios
         ({
             method: 'put',
-            url: url + course.code,
+            url: urlCourses + course.code,
             data: course
         }).then((response) => {
             // console.log(response);
