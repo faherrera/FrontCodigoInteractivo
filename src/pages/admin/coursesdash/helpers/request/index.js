@@ -36,7 +36,7 @@ export var getCourses = new Promise(
             axios.get(urlCourses)
             .then(response => {
                 _lr._codeState = response.data.codeState;
-                _lr._list = response.data.courses;
+                _lr._list = response.data.data;
                 _lr._message = response.data.message;
                 _lr._status = response.data.status;
 

@@ -11,6 +11,12 @@ import { ProgressCircle } from './../../../../helpers/UI/misc';
 
 import { _getResponse } from './../../../../helpers/responses';
 
+//###Requests
+//Requests Class
+import {filterClassesByCourseCode} from './../../../../helpers/requests/ClassesRequest';
+//Request Course
+import { getAllCourses, getCourse} from './../../../../helpers/requests/CoursesRequest';
+
 //Alert Dialog
 import AlertRemove from './../partials/messages/alert';
 
@@ -22,16 +28,21 @@ import {urlApi,urlApp,urlAppDashboard } from './../../../../helpers/requestConfi
 import './style.css';
 
 const pathCourses = urlApi + 'courses/';
+let urlApiClass = urlAppDashboard + 'classes/'; 
 
 export default class ShowCourse extends Component {
 
     constructor(props){
         super(props);
 
+        let code = props.id;
+       
+        
+        // alert(code);
         this.state = {
             course:{},
             loading:true,
-            classes:[],
+            classes: [],
             editing: false
         }
 
@@ -42,11 +53,22 @@ export default class ShowCourse extends Component {
     componentDidMount() {
         let code = this.props.id;
 
-        this.getCourse(code);
+        getCourse(code,(data) => {
+            this.setState({
+                course: data});
+        });
+        
+        filterClassesByCourseCode(code,(data) => {
+            this.setState({
+                classes:data
+            });
+        })
 
-     
+        this.setState({
+            loading:false,
+        });
     }
-
+    
     handleEditCourse(e){
         let code = e.target.name;
 
@@ -71,48 +93,10 @@ export default class ShowCourse extends Component {
 
     }
 
-    getCourse(code) {    //Traigo el curso.
-
-        let _gr = new _getResponse();
-
-        let endPoint = pathCourses + code;
-
-        axios.get(endPoint)
-            .then(
-            response => {
-                console.log(response);
-                _gr._codeState = response.data.codeState;
-                _gr._obj = response.data.obj;
-                _gr._message = response.data.message;
-                _gr._status = response.data.status;
-                _gr._classesCourse = response.data._classesCourse;
-
-                return this.setState({
-                    course: _gr._obj,
-                    classes: [..._gr._classesCourse],
-                    loading: false
-                });
-            })
-            .catch(
-            error => {
-                console.log(error.message);
-                _gr._message = error.message;
-
-                return this.setState({
-                    course: _gr.obj,
-                    loading: false
-                });
-
-            }
-            );
-
-    }
-
     render() {
         let _level = ["Principiante","Intermedio","Avanzado"];
         let _mode = ["Presencial","Online"];
         let _type = ["Free","Premium"];
-        let urlApiClass = urlAppDashboard + 'classes/'; 
 
 
         if (this.state.loading) {
@@ -126,6 +110,7 @@ export default class ShowCourse extends Component {
 
         const url = 'http://localhost:17082/Uploads/Courses/';
         let pathImage = (this.state.course.Thumbnail !== '') ? url + this.state.course.Thumbnail : 'http://www.barracadefuegos.com.uy/wp-content/uploads/2016/11/sin-imagen-disponible-600x600.png';
+
 
         return (
             <Card
@@ -172,13 +157,11 @@ export default class ShowCourse extends Component {
                 </Collection>
                 <Collection header='Listado de Clases'>
                     {
-                        //Mostrando el listado o mensaje, según la cantidad.
-                        (this.state.classes.length <= 0) 
-                        ? <CollectionItem>|| Este curso aún no tiene clases ||</CollectionItem> 
-                        : this.state.classes.map((cls, index) => 
-                                <CollectionItem key={index}>{index + 1} - <a href={urlApiClass + cls.CodeClass}>{cls.TitleClass}</a>  </CollectionItem> 
-                        )
-                        
+                        (this.state.classes.length > 0)
+                        ? this.state.classes.map((cls, index) =>
+                                <CollectionItem key={index}>{index + 1} - <a href={urlApiClass + cls.CodeClass}>{cls.TitleClass}</a>  </CollectionItem>)
+                        : <CollectionItem>|| Este curso aún no tiene clases ||</CollectionItem> 
+
                     }
                 </Collection>
                 <Collection header='Temario'>
