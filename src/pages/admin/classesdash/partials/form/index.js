@@ -48,38 +48,6 @@ export default class FormClasses extends React.Component {
 
     }
 
-    getCourses() {
-        axios({
-            method: 'get',
-            url: urlApi + 'courses'
-        })
-            .then(response => {
-
-                let courses = response.data.courses;
-
-
-                for (let item of courses) {
-                    let objeto = new Object();  //Creo un objeto para asignarle los valores.
-
-                    objeto.title = item.Name;
-                    objeto.id = item.CourseID;
-
-                    this.setState({
-                        courses: [...this.state.courses, objeto], //Guardo los objetos en el array.
-                    });
-
-                    console.log('==============--***--======================');
-
-                }
-            })
-            .catch(err => {
-
-                console.log(err)
-
-                this.loadingError();
-            });
-
-    }
     handleClickButton(e) {
 
         //Aquí es donde voy a hacer uso de los refs

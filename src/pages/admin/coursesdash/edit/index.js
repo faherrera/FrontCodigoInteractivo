@@ -4,7 +4,8 @@ import axios from 'axios';
 import FormCourse from './../helpers/form/';
 
 
-import { _getResponse } from './../../../../helpers/responses';
+import { getResponse } from './../../../../helpers/responses';
+import { getCourse } from './../../../../helpers/requests/CoursesRequest';
 
 //UI
 import { ProgressCircle } from './../../../../helpers/UI/misc';
@@ -23,46 +24,24 @@ export default class EditCourse extends Component {
     componentDidMount(){
         let code = this.props.code;
 
+        getCourse(code,(res)=>{
 
-        this.getCourse(code);
-    }
-
-
-    getCourse(code){    //Traigo el curso.
-        const url = 'http://localhost:17082/api/Courses/';
-
-        let _gr = new _getResponse();
-
-        let endPoint = url + code;
-
-        axios.get(endPoint)
-            .then(
-            response => {
-                console.log(response);
-                _gr._codeState = response.data.codeState;
-                _gr._obj = response.data.obj;
-                _gr._message = response.data.message;
-                _gr._status = response.data.status;
-
+            if (res.status) {
                 return this.setState({
-                    course: _gr._obj,
-                    loading: false
+                    course: res.data,
+                    loading:false,
                 });
-            })
-            .catch(
-            error => {
-                console.log(error.message);
-                _gr._message = error.message;
-
-                return this.setState({
-                    course: _gr.obj,
-                    loading: false
-                });
-
             }
-            );
 
+            return this.setState({
+                loading:false,
+                message:res.message
+            });
+
+        });
     }
+
+
     render() {
 
         if (this.state.loading) {

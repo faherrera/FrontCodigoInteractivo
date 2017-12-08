@@ -9,13 +9,17 @@ import {
     TableRow,
     TableRowColumn,
 } from 'material-ui/Table';
+
+///Request Courses
+import { getAllCourses } from './../../../../helpers/requests/CoursesRequest';
+
 import { getCourses } from './../helpers/request';
 
 import { Modal, Button, Card, Col, CardTitle} from 'react-materialize';
 
 import { ProgressCircle } from './../../../../helpers/UI/misc';
 import { ListMessage } from './../../../../helpers/UI/messages';
-import { urlApi, urlApp } from './../../../../helpers/requestConfig';
+import { urlApi, urlApp ,endPointCourse,arrayUpload} from './../../../../helpers/requestConfig';
 
 const styles = {
     table: {
@@ -47,61 +51,33 @@ export default class TableCourse extends Component {
         this.handleShow = this.handleShow.bind(this);
     }
     componentDidMount() {
-        // console.clear();
-        
-        getCourses
-            .then((response) => {
-                this.loading();
-                if (response._status) {
-                    console.log("Correcto -> " + response._status);
-                    this.setState({
-                        courses: response._list
-                    });
-                } else {
-                    this.setState({
-                        message: response._message
-                    });                    
-                }
-            });
+       this.handleCourses();    //Trayendo los cursos
     }
 
 
-    requestListCourses() {
-        this.loading();
-        getCourses
-            .then((response) => {
+    handleCourses() {
+     console.log("Apre");
+        getAllCourses((res) => {
+            if (res.status) {
+                return this.setState({
+                    courses: res.data,
+                    loading: false,
+                    message:''
+                });
+            }
 
-                if (response._status) {
-                    console.log("Correcto -> " + response._status);
-                    this.setState({
-                        courses: response._list
-                    });
-
-                    console.log('/////***entrando-- deberia actualizar***////');
-                } else {
-                    this.setState({
-                        message: response._message
-                    });
-                    console.log('/////***entrando xxxx -- deberia mostrar el mensaje de error***////');
-
-                }
-                this.loading();
-                
+            return this.setState({
+                message: res.message,
+                loading: false
             });
-    }
 
-
-
-    loading() {
-        this.setState({
-            loading: !this.state.loading
         });
     }
 
-    reload() {
+    handleReload() {
 
-        this.requestListCourses();
-        console.log('Aqui estoy recargando');
+        console.log('Presionando el reload');
+        this.handleCourses();
 
     }
 
@@ -116,12 +92,11 @@ export default class TableCourse extends Component {
             return <ProgressCircle active={this.state.loading} />
         }
 
-        if (!this.state.courses.length > 0) {
+        if (this.state.message) {
             return <ListMessage
                 message={this.state.message}
-                onClick={this.reload.bind(this)} />
+                onClick={this.handleReload.bind(this)} />
         }
-        const url = 'http://localhost:17082/Uploads/Courses/';
 
         return (
             <div className="courses-container">
@@ -129,7 +104,7 @@ export default class TableCourse extends Component {
                     {
                         this.state.courses.map((course,index) => {
                             
-                            let pathImage = (course.Thumbnail == '') ? 'https://react-materialize.github.io/img/sample-1.jpg' : url+course.Thumbnail;
+                            let pathImage = (!course.Thumbnail) ? 'https://react-materialize.github.io/img/sample-1.jpg' : arrayUpload.courses+course.Thumbnail;
                         return  <Col key={index} m={4} s={12}>
                                     <Card 
                                         className='grey lighten-3 small hoverable' 
@@ -138,7 +113,7 @@ export default class TableCourse extends Component {
                                         header={<CardTitle image={pathImage}></CardTitle>}
                                         actions={
                                             [
-                                                <div className="actions-container" style={{display : 'flex',justifyContent:'flex-end'}}>
+                                                <div key={index}className="actions-container" style={{display : 'flex',justifyContent:'flex-end'}}>
                                                     <a
                                                         href="#!"
                                                         name={course.Code}

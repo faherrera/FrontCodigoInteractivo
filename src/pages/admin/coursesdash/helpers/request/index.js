@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 //Responses
-import { _listResponse, _getResponse} from './../../../../../helpers/responses';
+import { _listResponse} from './../../../../../helpers/responses';
 
 const urlCourses = 'http://localhost:17082/api/Courses/';
 

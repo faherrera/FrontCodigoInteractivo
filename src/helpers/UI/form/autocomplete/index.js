@@ -7,9 +7,11 @@ import { Row, Input } from 'react-materialize';
 //UI Material-UI
 import AutoComplete from 'material-ui/AutoComplete';
 import { ProgressCircle } from './../../misc';
-//Request
-import { urlApi } from './../../../requestConfig';
 
+
+//Request Config
+import { urlApi } from './../../../requestConfig';
+import { getAllCourses} from './../../../requests/CoursesRequest';
 
 
 //Assets
@@ -32,7 +34,6 @@ const dataSourceConfig = {
     value: 'id',
 };
 
-
 export class AutocompleteUI extends Component {
 
     constructor(props) {
@@ -48,41 +49,24 @@ export class AutocompleteUI extends Component {
     }
 
     componentDidMount() {
-        this.getCourses();
+        getAllCourses((data)=>{
+            let courses = data.data; //Lo pongo en una variable local.
+            for (let item of courses) { //Itero sobre el array de datos traidos.
+                let objeto = new Object();  //Creo un objeto para asignarle los valores.
 
-    }
+                objeto.title = item.Name;
+                objeto.id = item.Code;
 
-    getCourses() {
-        axios({
-            method: 'get',
-            url: urlApi + 'courses'
-        })
-            .then(response => {
+                this.setState({
+                    listado: [...this.state.listado, objeto], //Guardo los objetos en el array.
+                });
+            }
 
-                let courses = response.data.courses;
+        });
 
-
-                for (let item of courses) {
-                    let objeto = new Object();  //Creo un objeto para asignarle los valores.
-
-                    objeto.title = item.Name;
-                    objeto.id = item.Code;
-
-                    this.setState({
-                        listado: [...this.state.listado, objeto], //Guardo los objetos en el array.
-                        loading: false
-                    });
-
-
-                }
-            })
-            .catch(err => {
-
-                console.log(err)
-
-                this.loadingError();
-            });
-
+        this.setState({
+            loading:false,
+        });
     }
 
     handleRequest(chosenRequest, index) {
@@ -96,7 +80,6 @@ export class AutocompleteUI extends Component {
             status: true
         })
     }
-
 
     getValue() {
 
@@ -114,13 +97,6 @@ export class AutocompleteUI extends Component {
 
         return _response;
 
-    }
-
-    loadingError() {
-        this.setState({
-            loading: false,
-            message: "Los datos no pudieron ser traidos"
-        });
     }
 
     render() {

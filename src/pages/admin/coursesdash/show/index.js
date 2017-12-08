@@ -9,8 +9,6 @@ import {Card,
 
 import { ProgressCircle } from './../../../../helpers/UI/misc';
 
-import { _getResponse } from './../../../../helpers/responses';
-
 //###Requests
 //Requests Class
 import {filterClassesByCourseCode} from './../../../../helpers/requests/ClassesRequest';
@@ -43,7 +41,8 @@ export default class ShowCourse extends Component {
             course:{},
             loading:true,
             classes: [],
-            editing: false
+            editing: false,
+            messsage:''
         }
 
         this.handleEditCourse = this.handleEditCourse.bind(this);
@@ -53,20 +52,26 @@ export default class ShowCourse extends Component {
     componentDidMount() {
         let code = this.props.id;
 
-        getCourse(code,(data) => {
-            this.setState({
-                course: data});
+        getCourse(code,(res) => {
+            if (res.status) {
+                return this.setState({
+                    course: res.data,
+                    message:''
+                });
+            }
+
+            return this.setState({
+                message: res.message
+            });
         });
         
-        filterClassesByCourseCode(code,(data) => {
+        filterClassesByCourseCode(code, (data) => {
             this.setState({
-                classes:data
+                classes: data,
+                loading:false,
             });
         })
 
-        this.setState({
-            loading:false,
-        });
     }
     
     handleEditCourse(e){
@@ -107,6 +112,9 @@ export default class ShowCourse extends Component {
             return <EditCourse code={this.state.course.Code}/>
         }
 
+        if(this.state.message){
+            return <h1>{this.state.message}</h1>
+        }
 
         const url = 'http://localhost:17082/Uploads/Courses/';
         let pathImage = (this.state.course.Thumbnail !== '') ? url + this.state.course.Thumbnail : 'http://www.barracadefuegos.com.uy/wp-content/uploads/2016/11/sin-imagen-disponible-600x600.png';

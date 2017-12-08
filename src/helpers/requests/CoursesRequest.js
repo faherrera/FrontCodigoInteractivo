@@ -1,36 +1,49 @@
 import axios from 'axios';
 
-import { urlApi } from './../requestConfig';
+import { urlApi,endPointCourse } from './../requestConfig';
 
+import {
+    getResponse
+} from './../responses/';
 
-const url = urlApi+'Courses/';
+export const getAllCourses = (call) => {
 
-export const getAllCourses = (successCall) => {
-
-    axios.get(url)
+    axios.get(endPointCourse)
     .then(
         response =>{
-            successCall(response.data.data);
+            let data = response.data;
+            let res = new getResponse(data.codeState, data.message, data.status, data.data);
+            console.log('==========***///***');
+            console.log(data);
+            console.log(res);
+            console.log('==========***///***');
+            call(res);
         }
     )
     .catch(error => {
         console.log(error);
-        alert(error);
+        let res = new getResponse(0, error.message,false,null);
+        call(res);
     });
 }
 
-export const getCourse = (code,successCall) =>{
+export const getCourse = (code,call) =>{
 
-    let urlGet = url+code;  //URL DE LA API + EL CODIGO DEL CURSO.
-    
+    let urlGet = endPointCourse+code;  //URL DE LA API + EL CODIGO DEL CURSO.
+    let res = null;
+
     axios.get(urlGet)
         .then(
         response => {
-            successCall(response.data.data);
-        }
-        )
+            let data = response.data;
+            
+            res = new getResponse(data.codeState,data.message,data.status,data.data);
+            console.log(res);
+
+            call(res);
+        })
         .catch(error => {
-            console.log(error);
-            alert(error);
+            res= new getResponse(0,error);
+            call(res); 
         });
 }

@@ -1,4 +1,5 @@
 //Configs
+export const urlUpload = 'http://localhost:17082/Uploads/'; 
 export const urlApi = 'http://localhost:17082/api/';
 export const urlApp = 'http://localhost:3000/';
 
@@ -21,3 +22,12 @@ export const endPointResources = urlApi +'ResClass/'
 
 export const routeCourse = urlAppDashboard +'courses/';
 export const routeClass = urlAppDashboard +'classes/';
+
+/**
+ * Array de rutas para UPLOAD.
+ */
+
+ export const arrayUpload ={
+     'courses': urlUpload+'Courses/',
+     
+ }
