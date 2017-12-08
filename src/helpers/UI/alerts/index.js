@@ -6,9 +6,14 @@ import RaisedButton from 'material-ui/RaisedButton';
 /**
  * Alerts are urgent interruptions, requiring acknowledgement, that inform the user about a situation.
  */
+
+ /**
+  * props = handleDelete.
+  * Esta prop será la que indicará la petición async para eliminar los datos.
+  */
 export default class AlertRemove extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -17,7 +22,7 @@ export default class AlertRemove extends React.Component {
 
         this.handleOpen = this.handleOpen.bind(this);
         this.handleClose = this.handleClose.bind(this);
-        
+
         this.handleDelete = this.handleDelete.bind(this);
 
     }
@@ -30,7 +35,7 @@ export default class AlertRemove extends React.Component {
         this.setState({ open: false });
     };
 
-    handleDelete(){
+    handleDelete() {
         this.handleClose();
         this.props.handleDelete();
     }

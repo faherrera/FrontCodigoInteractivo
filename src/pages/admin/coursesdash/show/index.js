@@ -18,7 +18,7 @@ import {filterClassesByCourseCode} from './../../../../helpers/requests/ClassesR
 import { getAllCourses, getCourse} from './../../../../helpers/requests/CoursesRequest';
 
 //Alert Dialog
-import AlertRemove from './../partials/messages/alert';
+import AlertRemove from './../../../../helpers/UI/alerts';
 
 ///Components 
 import EditCourse from './../edit/';

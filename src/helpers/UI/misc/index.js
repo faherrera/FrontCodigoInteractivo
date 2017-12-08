@@ -2,6 +2,14 @@ import React, { Component } from 'react';
 
 import CircularProgress from 'material-ui/CircularProgress';
 
+
+/**
+ * Progress Circle, this Component is a Management of Progress. 
+ * This receives two params : 
+ * Active: 
+ * size: 
+ */
+
 export  class  ProgressCircle extends Component {
     constructor(props){
         super(props);

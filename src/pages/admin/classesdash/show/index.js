@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import {Link} from 'react-router-dom';
 
 //UI
 import {
@@ -9,13 +10,26 @@ import {
     CollectionItem    
 } from 'react-materialize';
 
+import { ProgressCircle 
+} from './../../../../helpers/UI/misc';
+
+import AlertRemove from './../../../../helpers/UI/alerts';
+import {ButtonShowCard} from './../../../../helpers/UI/form/button/index';
+
 //Assets
 import './styles.css';
 
 //URI
-import {urlApi} from './../../../../helpers/requestConfig';
+import {
+    urlApi,
+    routeCourse
+} from './../../../../helpers/requestConfig';
 
 //Request
+import { getClass, deleteClass} from './../../../../helpers/requests/ClassesRequest';
+
+//Components
+import EditClass from './../edit/';
 
 export default class ShowClass extends Component {
 
@@ -24,46 +38,54 @@ export default class ShowClass extends Component {
 
         this.state = {
             _class : {},
+            loading:true,
+            editing:false
         }
+
+        this.handleClassEdit = this.handleClassEdit.bind(this);
+        this.handleClassDelete = this.handleClassDelete.bind(this);
     }
     componentDidMount() {
         let code = this.props.id;
-        this.getClass(code);
-
         
+        getClass(code,(data) => {
+
+            this.setState({
+                _class : data,
+                loading:false,
+            });
+
+            
+        });
 
     }
 
-    getClass(code){
-        let endPoint = `${urlApi}ClassesCourse/${code}`; 
-
-        axios.get(endPoint)
-        .then(
-                response => {
-                    if (response.data._status) {
-                        let _class = (response.data._class != null) ? response.data._class : [];
-                        
-                        this.setState({
-                            _class
-                        });
-
-                        return console.log('Excelente!');    
-                    }
-                    return console.log('No entrámos.');
-                    
-                })
-        .catch(error => console.log(error));  
+    handleClassEdit(){
+        this.setState({
+            editing:true,
+        });
     }
 
+    handleClassDelete(){
+        console.log('Remove Class');
+        deleteClass(this.props.id);
+    }
     render() {
         let data = this.state._class; 
         let imagen ='http://www.meditea.com/home/wp-content/uploads/2015/07/cursos-banner-2.jpg';
-        if (data != {}) {
+
+        if(this.state.loading){
+            return <ProgressCircle active={this.state.loading} />
+        }
+        if(this.state.editing){
+            return <EditClass />
+        }
+        if (data) { //O tambien (data != {})
             return (
                 <Card 
                     className='card-show--classes'
                     header={<CardTitle image={imagen}></CardTitle>}
-                    actions={[<a href='#'>This is a Link</a>]}>
+                    actions={[<ButtonShowCard key={1} title={data.TitleClass} handleEdit={this.handleClassEdit} handleDelete={this.handleClassDelete}/>]}>
                     <Collection header='Información de la clase'>
                         <CollectionItem>
                             <strong>Codigo: </strong>
@@ -75,17 +97,23 @@ export default class ShowClass extends Component {
                             <span>{data.TitleClass}</span>
                         </CollectionItem>
                         <CollectionItem>
-                            <strong>Descripción: </strong>
-                            <span>{data.Description}</span>
-                        </CollectionItem>
-                        <CollectionItem>
                             <strong>Video: </strong>
                             <span>{data.PathVideo}</span>
                         </CollectionItem>
                         <CollectionItem>
                             <strong>Curso perteneciente: </strong>
-                            <span>{((data.Course != undefined) ? data.Course.Name : "No tiene")}</span>
+                            <span>{((data.Course != undefined) ? <a href={routeCourse+data.Course.Code}>{data.Course.Name}</a> : "No tiene")}</span>
                         </CollectionItem>
+                    </Collection>
+
+                    <Collection header='Recursos'>
+                        
+                        {
+                            (!data.Resources) ? <CollectionItem><span> No hay recursos </span> </CollectionItem>:
+                                data.Resources.map((datum,i) => <CollectionItem key={i}>
+                                    {i + 1}- {datum.TitleResource} </CollectionItem>)
+                        }
+                        
                     </Collection>
                     
             </Card>
