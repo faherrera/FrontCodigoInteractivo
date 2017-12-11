@@ -18,8 +18,8 @@ import { getCourses } from './../helpers/request';
 import { Modal, Button, Card, Col, CardTitle} from 'react-materialize';
 
 import { ProgressCircle } from './../../../../helpers/UI/misc';
-import { ListMessage } from './../../../../helpers/UI/messages';
-import { urlApi, urlApp ,endPointCourse,arrayUpload} from './../../../../helpers/requestConfig';
+import { ServerMessageBox } from './../../../../helpers/UI/messages/ServerMessageBox';
+import { arrayRoutes,arrayUpload} from './../../../../helpers/requestConfig';
 
 const styles = {
     table: {
@@ -46,6 +46,7 @@ export default class TableCourse extends Component {
             loading: true,
             courses: [],
             message: "",
+            messageServer: "",
         }
 
         this.handleShow = this.handleShow.bind(this);
@@ -54,36 +55,62 @@ export default class TableCourse extends Component {
        this.handleCourses();    //Trayendo los cursos
     }
 
-
+    /**
+     * HandleCourses =>> Manejador del getAllCourses, lo tengo en una funcion aparte para poder usarlo en e
+     * la funcion 'handleReload'.
+     * 
+     * getAllCourses=>> Este recibe un callback, el callback este será el el seteo del estado, pasandole 
+     * nuevos datos al courses, diciendole que el load es false y en caso de que la response del state 
+     * sea FALSE le grabaré el mensaje, sino le diré que me deje el mensaje vacio.
+     */
     handleCourses() {
-     console.log("Apre");
         getAllCourses((res) => {
             if (res.status) {
                 return this.setState({
                     courses: res.data,
                     loading: false,
-                    message:''
+                    message:'',
+                    messageServer:'',
                 });
             }
 
+            if (res.codeState == 0){
+                return this.setState({
+                    message:'',
+                    messageServer: res.message,
+                    loading: false
+                });
+            }
+
+            console.log(res);
+
             return this.setState({
                 message: res.message,
+                messageServer: '',
                 loading: false
             });
+
 
         });
     }
 
+    /**
+     * handleReload=> Esta funcion maneja el reload, le envio un loading:true para que mientras está 
+     * haciendo la peticioon vea si tengo conexión o no
+     */
     handleReload() {
 
-        console.log('Presionando el reload');
+        this.setState({
+            loading:true,
+        });
+
         this.handleCourses();
 
     }
 
     handleShow(e){
         // alert(e.target.name);
-        window.location = `${urlApp}dashboard/courses/${e.target.name}`
+        window.location = arrayRoutes.courses+e.target.name;
     }
 
     render() {
@@ -92,10 +119,11 @@ export default class TableCourse extends Component {
             return <ProgressCircle active={this.state.loading} />
         }
 
-        if (this.state.message) {
-            return <ListMessage
-                message={this.state.message}
-                onClick={this.handleReload.bind(this)} />
+        if (this.state.messageServer) {
+            return <ServerMessageBox
+                message={this.state.messageServer}
+                onClick={this.handleReload.bind(this)}
+                />
         }
 
         return (

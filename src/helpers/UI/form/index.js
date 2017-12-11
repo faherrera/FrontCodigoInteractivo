@@ -124,6 +124,19 @@ export class InputText extends Component {
             value: e.target.value
         });
     }
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.value != null){
+            this.setState({
+                value: nextProps.value != null ? nextProps.value : '',
+                status:true,
+                isValidate: true,
+                style: inputValidate,
+    
+            });
+
+        }
+    }
     render () {
         return (
             <div className="input-field">
@@ -220,6 +233,13 @@ export class InputEmail extends Component{
                 value: e.target.value
             });
         }
+
+        componentWillReceiveProps(nextProps) {
+            this.setState({
+                value: nextProps.value != null ? nextProps.value : '',
+
+            });
+        }
         render () {
             return (
                 <div className="input-field" data-name={this.props.dataName} data-validation={this.state.status} >
@@ -253,6 +273,13 @@ export class InputNumber extends Component {
 
         this.handleChangeValue = this.handleChangeValue.bind(this);
         this.handleBlur = this.handleBlur.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            value: nextProps.value != null ? nextProps.value : '',
+
+        });
     }
 
     handleBlur(e) {
@@ -371,6 +398,13 @@ export class TextArea extends Component {
         }
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            value: nextProps.value != null ? nextProps.value : '',
+
+        });
+    }
+    
     handleChangeValue(e) {
         if (this.isValidate(e.target.value)) {
             console.log('====================================');

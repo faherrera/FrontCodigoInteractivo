@@ -6,35 +6,27 @@
 // Description	null
 // CourseID	1
 
+import { formResponse } from "./../../../../../helpers/responses/FormResponse";
+
 export function ClassResponse(code, title, description, video_preview, course) {
-    let _response = {
-        status: false,
-        class: {},
-        messageError: []
-    }
-
-
+   
     if (code.status && title.status && description.status && video_preview.status && course.status) {
 
-        _response.class.codeClass = code.value;
-        _response.class.titleClass = title.value;
-        _response.class.PathVideo = video_preview.value;
-        _response.class.description = description.value;
-        _response.class.courseid = course.value;
+        formResponse.class.codeClass = code.value;
+        formResponse.class.titleClass = title.value;
+        formResponse.class.PathVideo = video_preview.value;
+        formResponse.class.description = description.value;
+        formResponse.class.courseid = course.value;
     } else {
-        _response.messageError.push(code.message);
-        _response.messageError.push(title.message);
-        _response.messageError.push(video_preview.message);
-        _response.messageError.push(description.message);
-        _response.messageError.push(course.message);
+        formResponse.messageError.push(code.message, title.message, video_preview.message, description.message, course.message);
     }
 
 
 
-    if (_response.messageError.length > 0) {
-        return _response
+    if (formResponse.messageError.length > 0) {
+        return formResponse
     } else {
-        _response.status = true;
-        return _response;
+        formResponse.status = true;
+        return formResponse;
     }
 }

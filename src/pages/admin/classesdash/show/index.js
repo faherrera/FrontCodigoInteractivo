@@ -39,7 +39,8 @@ export default class ShowClass extends Component {
         this.state = {
             _class : {},
             loading:true,
-            editing:false
+            editing:false,
+            message:''
         }
 
         this.handleClassEdit = this.handleClassEdit.bind(this);
@@ -48,11 +49,18 @@ export default class ShowClass extends Component {
     componentDidMount() {
         let code = this.props.id;
         
-        getClass(code,(data) => {
+        getClass(code,(res) => {
+            if (res.status) {
+                return  this.setState({
+                        _class : res.data,
+                        loading:false,
+                    });
+            }
 
-            this.setState({
-                _class : data,
+            return this.setState({
                 loading:false,
+                message: res.message
+
             });
 
             
@@ -78,7 +86,11 @@ export default class ShowClass extends Component {
             return <ProgressCircle active={this.state.loading} />
         }
         if(this.state.editing){
-            return <EditClass />
+            return <EditClass id={data.CodeClass}/>
+        }
+
+        if(this.state.message){
+            return <h1> EL ESTATUS ES FALSE, EL MENSAJE ES {this.state.message}</h1>
         }
         if (data) { //O tambien (data != {})
             return (

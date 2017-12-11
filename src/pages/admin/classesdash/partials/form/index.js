@@ -18,15 +18,16 @@ import { ButtonForm } from './../../../../../helpers/UI/form/button';
 
 import { ListMessage } from './../../../../../helpers/UI/messages/ListError';
 
-import { AutocompleteUI } from './../../../../../helpers/UI/form/autocomplete/index';
+import { AutocompleteCourse } from './../../../../../helpers/UI/form/autocomplete/AutocompleteCourse';
 
 //Components 
 
 //Responses
-import {ClassResponse} from './../../helpers/responses';
+import {ClassResponse} from './../../../../../helpers/responses/FormResponse/FormResponseClass';
 
-//Peticiones 
-import { postClass} from './../../helpers/request/';
+//Request 
+import { putClass } from "./../../../../../helpers/requests/ClassesRequest";
+import { getAllCourses } from '../../../../../helpers/requests/CoursesRequest';
 
 export default class FormClasses extends React.Component {
 
@@ -34,21 +35,44 @@ export default class FormClasses extends React.Component {
         super(props);
 
         this.state = {
-            loading: false,
+            loading: true,
             messageError: [],
-            classes: this.props.classes != null ? this.props.classes : {},
-            type: this.props.type !== null ? (this.props.type === 'edit' ? 'edit' : 'create') : 'create',
-            courses:[],
-            response:{}
+            class: {},
+            type: this.props.type != null ? (this.props.type === 'edit' ? 'edit' : 'create') : 'create',
+            courses:[]
 
         }
 
-        this.inErrorCase =  this.inErrorCase.bind(this);
-
-
     }
 
+    componentDidMount(){
+        getAllCourses((res)=> {
+
+            if (res.status) {
+                this.setState({
+                    courses: res.data,
+                });
+            }
+        });
+    }
+
+    componentWillReceiveProps(nextProps){
+        console.log("< ==================<##DEBUG=>FORM CLASS========================");
+                console.log(nextProps);
+        console.log("====================##DEBUG====================== />");
+        this.setState({
+            class: nextProps.class != null ? nextProps.class : {},
+            loading:false
+        });
+    }
+
+ 
     handleClickButton(e) {
+        this.setState({
+            loading: true,
+            messageError: []
+        });
+            // this.loading();
 
         //Aquí es donde voy a hacer uso de los refs
         let code = this.refs.codeClass.getValue();
@@ -58,84 +82,79 @@ export default class FormClasses extends React.Component {
         let course = this.refs.courseClass.getValue();
 
         
-        if (e.target.id === 'btnCreate') {  //Si hago click en el btn Crear.
-            this.loading();
-            console.log('Click en create');
+        // if (e.target.id === 'btnCreate') {  //Si hago click en el btn Crear.
+        //     this.loading();
+        //     console.log('Click en create');
             
-            let _classResponse = new ClassResponse(code,title,description,video,course);
+        //     let _classResponse = new ClassResponse(code,title,description,video,course);
 
-            if (_classResponse.status) {
-                 return postClass(_classResponse.class,this.inSuccessCase.bind(this),this.inErrorCase.bind(this));
+        //     if (_classResponse.status) {
+        //          return postClass(_classResponse.class,this.inSuccessCase.bind(this),this.inErrorCase.bind(this));
 
-            }
+        //     }
             
-            console.log(`El status es Falso`);
-            console.log(_classResponse);
-            this.setState({
-                messageError:  _classResponse.messageError,
-                loading: false
-            });
+        //     console.log(`El status es Falso`);
+        //     console.log(_classResponse);
+        //     this.setState({
+        //         messageError:  _classResponse.messageError,
+        //         loading: false
+        //     });
             
-        }
+        // }
         
         if (e.target.id === 'btnEdit') {    //Si hago click en el boton Editar
-            // this.loading();
-            console.log('Click en Edit');
-
-        }
-
-    }
-
-
-
-    loading() {
-        this.setState({
-            loading: !this.state.loading
-        });
-
-        console.log("Entrando en loading"); //#Debug
-    }
-
-    inErrorCase(message) {
-
-        console.log("Entrando en el Error case");
-
-        this.loading();
-        console.log(message + "<<<<------");
-
-        this.setState({
-            messageError: [...[message]]
-        });
-    }
-    inSuccessCase(obj){
-        console.log("Entrando en el caso satisfactorio");
-        this.loading();
-
-        if (!obj._status) {
-            return  this.setState({
-                messageError : [...[obj._message]]
-            });
+           
+            console.log('Click en edit.');
+            let classResponse = new ClassResponse(code,title,description,video,course);
             
+            if (classResponse.status) {
+                
+                //Llamo al putClass
+                let code = this.state.class.CodeClass;
+                putClass(code,classResponse.data,(res)=>{
+                    if (!res.status) {
+                        this.setState({
+                            messageError: [...[res.message]],
+                            loading:false
+                        });
+                        alert("No se pudo completar la actualizacion de la clase ->" + res.message);
+                    }
+
+                    window.location.reload();
+
+                    // this.setState({
+                    //     loading:false
+                    // });
+
+                })
+
+            }
+            console.log("< ==================<##DEBUG=>PUTCLASS MESSAGE========================");
+                        console.log(classResponse.message);
+            console.log("====================##DEBUG====================== />");
+            return this.setState({
+                messageError: classResponse.message,
+                loading: false
+            });
+
+            //Imprimo los mensajes.
+
         }
-
-        this.setState({
-            messageError: []
-
-        });
-        
-        alert('Excelente!');
-        console.log(obj);
 
     }
 
     render() {
+        
+        if (this.state.loading) {
+            return <ProgressCircle
+                    active={this.state.loading}
+                />
+        
+            }
 
         return (
             <div className="form__group">
-                <ProgressCircle
-                    active={this.state.loading}
-                />
-
+               
                 <form className={!this.state.loading ? 'form' : 'hide'} >
 
                     <ListMessage
@@ -148,7 +167,7 @@ export default class FormClasses extends React.Component {
                         placeholder="555"
                         required={true}
                         ref="codeClass"
-                        
+                        value={this.state.class.CodeClass}
                     />
                     
                     <InputText
@@ -156,6 +175,8 @@ export default class FormClasses extends React.Component {
                         placeholder="Example: Conociendo el entorno"
                         required={true}
                         ref="titleClass"
+                        value={this.state.class.TitleClass}
+
 
                     />
 
@@ -164,6 +185,8 @@ export default class FormClasses extends React.Component {
                         required={false}
                         ref="descriptionClass"
                         limitChar={400}
+                        value={this.state.class.Description}
+
                     />
 
                     <InputText
@@ -171,12 +194,13 @@ export default class FormClasses extends React.Component {
                         placeholder="Example: https://www.youtube.com/embed/7qWMvFsww60"
                         ref="videoClass"
                         required={false}
-
+                        value={this.state.class.PathVideo}
                     />
 
-                    <AutocompleteUI 
+                    <AutocompleteCourse 
                         listado = {this.state.courses}
                         ref="courseClass"
+                        value={this.state.class.CourseID}
                     /> 
 
                     <ButtonForm

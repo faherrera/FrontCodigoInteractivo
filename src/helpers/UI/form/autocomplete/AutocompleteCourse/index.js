@@ -7,18 +7,18 @@ import { Row, Input } from 'react-materialize';
 
 //UI Material-UI
 import AutoComplete from 'material-ui/AutoComplete';
-import { ProgressCircle } from './../../misc';
+import { ProgressCircle } from './../../../misc';
 
 
 //Request Config
-import { urlApi } from './../../../requestConfig';
-import { getAllCourses} from './../../../requests/CoursesRequest';
+import { urlApi } from './../../../../requestConfig';
+import { getAllCourses} from './../../../../requests/CoursesRequest';
 
 //Filters 
-import { filterByHisCode} from './Utils/Filter';
+import { filterByHisCode} from './../Utils/Filter';
 
 //Factory
-import { CourseFactoryAutocomplete } from './Utils/Factory';
+import { CourseFactoryAutocomplete } from './../Utils/Factory';
 
 //Assets
 import './styles.css';
@@ -40,7 +40,7 @@ const dataSourceConfig = {
     value: 'value',
 };
 
-export class AutocompleteUI extends Component {
+export class AutocompleteCourse extends Component {
 
     constructor(props) {
         super(props);
@@ -56,9 +56,11 @@ export class AutocompleteUI extends Component {
     }
     
     componentWillReceiveProps(nextProps){
-    
+        
+        console.log('Entrando al nextProps DE AutcompleteCourse');
         //Si no se cargó todavia el listado, lo recibiré despues de manera asincronica.
         if (this.state.listado.length == 0) {
+            console.log(`El Listado del state no tiene datos. || ListadosState: ${this.state.listado.length} || NEXTPROPSLISTADO : ${nextProps.listado.length}` );
             this.setState({
                 listado : nextProps.listado
             });
@@ -80,6 +82,7 @@ export class AutocompleteUI extends Component {
             return this.setState({
                 searchText: (filtering != undefined) ? filtering.title : '',
                 status: true,
+                listado:factoryList,
             });
         }
         console.log("====================##DEBUG=>Autocomplete====================== />");
@@ -101,11 +104,11 @@ export class AutocompleteUI extends Component {
 
         console.log(this.props);
         console.log(` El nombre es ${chosenRequest.title}`);
-        console.log(` El ID es ${chosenRequest.CourseID}`);
+        console.log(` El ID es ${chosenRequest.value}`);
         console.log('=================UPDATING===================');
 
         this.setState({
-            courseid: chosenRequest.CourseID,
+            courseid: chosenRequest.value,
             status: true
         })
     }

@@ -41,8 +41,9 @@ export default class CoursesDash extends React.Component{
 
             });
         }
-    }
-    select = (index) => this.setState({ selectedIndex: index });
+    };
+
+     select(index) {this.setState({ selectedIndex: index })};
 
 
     render(){

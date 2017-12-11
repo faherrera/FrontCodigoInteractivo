@@ -23,6 +23,20 @@ export const endPointResources = urlApi +'ResClass/'
 export const routeCourse = urlAppDashboard +'courses/';
 export const routeClass = urlAppDashboard +'classes/';
 
+//Array de Routes.
+export const arrayRoutes = {
+    'courses': urlAppDashboard + 'courses/',
+    'class': urlAppDashboard + 'classes/',
+}
+
+
+//##Array Endpoint
+export const arrayEndpoints = {
+    'courses': urlApi + 'courses/',
+    'class': urlApi + 'ClassesCourse/',
+}
+
+
 /**
  * Array de rutas para UPLOAD.
  */

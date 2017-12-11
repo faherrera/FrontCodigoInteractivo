@@ -3,38 +3,75 @@ import axios from 'axios';
 import _ from 'lodash';
 
 //URL REQUEST
-import { urlApi, endPointClass, routeCourse} from './../requestConfig';
+import { urlApi, endPointClass, routeCourse, arrayEndpoints} from './../requestConfig';
 
 //REQUEST Courses
 import{getAllCourses} from './CoursesRequest';
 
+//RESPONSE
+import { getResponse } from "./../responses/";
 
-//Gets
-export const getClass = (code,successCall)=>{
+//GETTERS
 
-    let endpoint =  endPointClass + code;
+/**
+ * Trayendo la clase indicada via parametro code.
+ * @param {*} code 
+ * @param {*} call 
+ */
+export const getClass = (code,call)=>{
+
+    let res;
+    let endpoint = arrayEndpoints.class + code;
 
     axios.get(endpoint)
             .then(
             response => {
-                if (response.data._status) {
-                    let _class = (response.data._class != null) ? response.data._class : [];
-
-                    successCall(_class);
-
-                    return console.log('Excelente!');
-                }
-                return alert('No entrámos.');
-
+                let data = response.data;
+                res = new getResponse(data._codeState,data._message,data._status,data._class);
+                call(res);
             })
-            .catch(error => alert(error.message));
+            .catch(error => {
+                alert("estoy aquí, en el error de getClass " + endpoint);
+                res = new getResponse(0,error.message);
+                call(res);
+
+            });
 }
  
-//Delete
-export const deleteClass = (code,successCall) =>{
+export const putClass = (code,data,call) => {
+    console.log('Estoy intentando actualizár una clase.');
+    let res;
+    axios({
+            method: 'PUT',
+            url: arrayEndpoints.class+code,
+            data
+        })
+        .then(
+        response => {
+            let responseData = response.data;
+            res = new getResponse(responseData._codeState, responseData._message, responseData._status, responseData._class);
+            console.log("< ==================<##DEBUG=>RESPONSE PUT CLASS========================");
+                        console.log(res);
+            console.log("====================##DEBUG====================== />");
+            call(res);
+        })
+        .catch(error => {
+            alert("estoy aquí, en el error de putClass " + arrayEndpoints.class + code);
+            res = new getResponse(0, error.message,false);
+            call(res);
+
+        });
+}
+
+/**
+ * Eliminando Clase indicada via code.
+ * @param {*} code 
+ * @param {*} call 
+ */
+export const deleteClass = (code,call) =>{
     axios({
         method: 'DELETE',
-        url: endPointClass+code,
+        url: arrayEndpoints.class+code,
     }).then(response => {
         alert('correctamente eliminado');
         return window.location.href = routeCourse;

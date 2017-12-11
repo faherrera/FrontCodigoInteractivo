@@ -6,6 +6,11 @@ import {
     getResponse
 } from './../responses/';
 
+/**
+ *  Traigo todos los cursos que tengo. recibo un callback para saber que hacer despues, por lo general seteo una propiedad del state.
+ * @param {function} call 
+ * @returns getResponse(codigo,mensaje,status,data)
+ */
 export const getAllCourses = (call) => {
 
     axios.get(endPointCourse)

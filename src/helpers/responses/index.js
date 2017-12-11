@@ -5,15 +5,20 @@
 //     status:false
 // }
 
-export function _listResponse (_codeState = 0,_list = [],_message = 'mensaje de error',_status = false){
+export function listResponse(codeState = 0, message = 'mensaje de error', status = false, data = {}){
 
-    this._codeState = _codeState;
-    this._list = _list;
-    this._message = _message;
-    this._status = _status;
+    this.codeState = codeState || 0;
+    this.message = message || "Error -> por defecto";
+    this.status = status || false;
+    this.data = data || {};
 
 }
 
+export function formResponse(message = [],status = false,data = {}){
+    this.message = message || [];
+    this.status = status || false;
+    this.data = data || {};
+}
 /**
  * 
  * Esta funcion constructora será la respuesta que daremos cuando se recibe el Response. 
@@ -25,9 +30,9 @@ export function _listResponse (_codeState = 0,_list = [],_message = 'mensaje de 
  * @param {string} message  => Trae el mensaje que me da el server. 
  */
 export function getResponse(codeState = 0, message = 'mensaje de error', status = false, data = {}){
-    this.codeState = codeState;
-    this.message = message;
-    this.status = status;
-    this.data = data;
+    this.codeState = codeState || 0;
+    this.message = message || "Error -> por defecto";
+    this.status = status || false;
+    this.data = data || {};
 
 }

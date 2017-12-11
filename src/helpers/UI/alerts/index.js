@@ -27,11 +27,11 @@ export default class AlertRemove extends React.Component {
 
     }
 
-    handleOpen = () => {
+    handleOpen(){
         this.setState({ open: true });
     };
 
-    handleClose = () => {
+    handleClose(){
         this.setState({ open: false });
     };
 

@@ -10,16 +10,18 @@ export class ListMessage extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('Fue actualizado');
+        console.log('Fue actualizado el LIST MESSAGE');
+        console.log(nextProps);
 
-        this.setState(
-            { messageError: [...nextProps.messageError] }
-        );
+        if (nextProps.messageError != undefined && nextProps.messageError.length > 0) {
+            this.setState(
+                { messageError: [...nextProps.messageError] }
+            );
+            
+        }
     }
 
     render() {
-        // let content = 
-        console.log(this.state.messageError.length);
         return <ul className="red accent-3"> {this.state.messageError.map((value, index) => {
             if (value != "OK") {
 
