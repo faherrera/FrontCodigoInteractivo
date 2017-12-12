@@ -2,6 +2,7 @@ import React from 'react';
 
 ///Sections routes import 
 // import ListClasses from './list';
+import ListClass from './list/';
 import CreateClass from './create';
 import ShowClass from './show';
 
@@ -28,12 +29,9 @@ export default class ClassesDash extends React.Component {
 
     componentDidMount() {
         let id = this.props.id;
-        console.log('====================================');
-        console.log("ESTOY ESTOY ESTOY");
-        console.log('====================================');
         if (id) {
             this.setState({
-                selectedIndex: 1,
+                selectedIndex: 2,
                 id
 
             });
@@ -45,6 +43,7 @@ export default class ClassesDash extends React.Component {
     render() {
 
         const myComponents = [
+            <ListClass />,
             <CreateClass />,
             <ShowClass id={this.state.id} />
         ];
@@ -72,9 +71,14 @@ export default class ClassesDash extends React.Component {
                 <Paper zDepth={1} className="bottom-navigation">
                     <BottomNavigation selectedIndex={this.state.selectedIndex}>
                         <BottomNavigationItem
+                            label="Listar las clases"
+                            icon={<FontIcon className="material-icons">list</FontIcon>}
+                            onClick={() => this.select(0)}
+                        />
+                        <BottomNavigationItem
                             label="Crear una Clase"
                             icon={<FontIcon className="material-icons">playlist_add</FontIcon>}
-                            onClick={() => this.select(0)}
+                            onClick={() => this.select(1)}
                         />
 
                     </BottomNavigation>

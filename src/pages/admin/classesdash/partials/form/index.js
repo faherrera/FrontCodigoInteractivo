@@ -25,8 +25,10 @@ import { AutocompleteCourse } from './../../../../../helpers/UI/form/autocomplet
 //Responses
 import {ClassResponse} from './../../../../../helpers/responses/FormResponse/FormResponseClass';
 
+//Routes
+import { arrayRoutes} from './../../../../../helpers/requestConfig';
 //Request 
-import { putClass } from "./../../../../../helpers/requests/ClassesRequest";
+import { putClass ,postClass } from "./../../../../../helpers/requests/ClassesRequest";
 import { getAllCourses } from '../../../../../helpers/requests/CoursesRequest';
 
 export default class FormClasses extends React.Component {
@@ -37,7 +39,7 @@ export default class FormClasses extends React.Component {
         this.state = {
             loading: true,
             messageError: [],
-            class: {},
+            class: props.class ? props.class : {},
             type: this.props.type != null ? (this.props.type === 'edit' ? 'edit' : 'create') : 'create',
             courses:[]
 
@@ -46,14 +48,11 @@ export default class FormClasses extends React.Component {
     }
 
     componentDidMount(){
-        getAllCourses((res)=> {
-
-            if (res.status) {
-                this.setState({
-                    courses: res.data,
-                });
-            }
-        });
+       if (this.state.type == 'create') {
+           this.setState({
+               loading:false,
+           });
+       }
     }
 
     componentWillReceiveProps(nextProps){
@@ -82,7 +81,31 @@ export default class FormClasses extends React.Component {
         let course = this.refs.courseClass.getValue();
 
         
-        // if (e.target.id === 'btnCreate') {  //Si hago click en el btn Crear.
+        if (e.target.id === 'btnCreate') {  //Si hago click en el btn Crear.
+
+            let classResponse = new ClassResponse(code, title, description, video, course);
+
+            if (classResponse.status) {
+
+                postClass(classResponse.data, (res) => {
+                    
+                    if (res.status) {
+                        this.setState({
+                            loading:false,
+                        });
+
+                        return window.location = arrayRoutes.class;
+                    }
+                    
+                    this.setState({
+                        loading:false,
+                        messageError: [...[res.message]],
+                    });
+                    alert('No pudo cargarse correctamente el curso');
+                    
+                });
+            }
+
         //     this.loading();
         //     console.log('Click en create');
             
@@ -100,7 +123,7 @@ export default class FormClasses extends React.Component {
         //         loading: false
         //     });
             
-        // }
+        }
         
         if (e.target.id === 'btnEdit') {    //Si hago click en el boton Editar
            
@@ -117,8 +140,12 @@ export default class FormClasses extends React.Component {
                             messageError: [...[res.message]],
                             loading:false
                         });
-                        alert("No se pudo completar la actualizacion de la clase ->" + res.message);
+                        return alert("No se pudo completar la actualizacion de la clase ->" + res.message);
                     }
+
+                    this.setState({
+                        loading:false
+                    });
 
                     window.location.reload();
 
@@ -155,7 +182,7 @@ export default class FormClasses extends React.Component {
         return (
             <div className="form__group">
                
-                <form className={!this.state.loading ? 'form' : 'hide'} >
+                <form className="form" >
 
                     <ListMessage
                         messageError={this.state.messageError}
@@ -198,7 +225,6 @@ export default class FormClasses extends React.Component {
                     />
 
                     <AutocompleteCourse 
-                        listado = {this.state.courses}
                         ref="courseClass"
                         value={this.state.class.CourseID}
                     /> 

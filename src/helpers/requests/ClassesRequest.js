@@ -14,6 +14,30 @@ import { getResponse } from "./../responses/";
 //GETTERS
 
 /**
+ *  Traigo todas las clases que tengo. recibo un callback para saber que hacer despues, por lo general seteo una propiedad del state.
+ * @param {function} call 
+ * @returns getResponse(codigo,mensaje,status,data)
+ */
+export const getAllClasses  = (call) => {
+
+    let endpoint = arrayEndpoints.class;
+
+    axios.get(endpoint)
+        .then(
+        response =>{
+            let data = response.data;
+            let res = new getResponse(data._codeState, data._message, data._status, data._classes);
+             call(res);
+        })
+        .catch(error => {
+            console.log("HUBO UN ERROR EN GETaLLcLASSES ->"+error.message);
+            console.log(error);
+            let res = new getResponse(0, error.message, false, null);
+             call(res);
+        });
+}
+
+/**
  * Trayendo la clase indicada via parametro code.
  * @param {*} code 
  * @param {*} call 
@@ -31,7 +55,11 @@ export const getClass = (code,call)=>{
                 call(res);
             })
             .catch(error => {
-                alert("estoy aquí, en el error de getClass " + endpoint);
+                console.log("< ==================<##DEBUG=>GETCLASS========================");
+                console.log(error.message);
+                // alert("estoy aquí, en el error de getClass " + endpoint);
+                            
+                console.log("====================##DEBUG///GETCLASS====================== />");
                 res = new getResponse(0,error.message);
                 call(res);
 
@@ -57,6 +85,30 @@ export const putClass = (code,data,call) => {
         })
         .catch(error => {
             alert("estoy aquí, en el error de putClass " + arrayEndpoints.class + code);
+            res = new getResponse(0, error.message,false);
+            call(res);
+
+        });
+}
+export const postClass = (data,call) => {
+    console.log('Estoy intentando crear una clase.');
+    let res;
+    axios({
+            method: 'POST',
+            url: arrayEndpoints.class,
+            data
+        })
+        .then(
+        response => {
+            let responseData = response.data;
+            res = new getResponse(responseData._codeState, responseData._message, responseData._status, responseData._class);
+            console.log("< ==================<##DEBUG=>RESPONSE POST CLASS========================");
+            console.log(res);
+            console.log("< ==================<##DEBUG=>RESPONSE POST CLASS========================");
+            call(res);
+        })
+        .catch(error => {
+            alert("estoy aquí, en el error de postclass " + arrayEndpoints.class);
             res = new getResponse(0, error.message,false);
             call(res);
 

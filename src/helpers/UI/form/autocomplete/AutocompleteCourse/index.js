@@ -57,35 +57,76 @@ export class AutocompleteCourse extends Component {
     
     componentWillReceiveProps(nextProps){
         
-        console.log('Entrando al nextProps DE AutcompleteCourse');
+        // console.log('Entrando al nextProps DE AutcompleteCourse');
         //Si no se cargó todavia el listado, lo recibiré despues de manera asincronica.
-        if (this.state.listado.length == 0) {
-            console.log(`El Listado del state no tiene datos. || ListadosState: ${this.state.listado.length} || NEXTPROPSLISTADO : ${nextProps.listado.length}` );
+
+        if (this.state.value == undefined) {
             this.setState({
-                listado : nextProps.listado
+                value: nextProps.value
             });
         }
+
+        // if (this.state.listado.length == 0) {
+        //     console.log(`El Listado del state no tiene datos. || ListadosState: ${this.state.listado.length} || NEXTPROPSLISTADO : ${nextProps.listado.length}` );
+            
+        //     this.setState({
+        //         listado : nextProps.listado
+        //     });
+        // }
+    }
+
+    populateList(){
+
+        //Traigo los cursos.
+        getAllCourses((res)=>{
+
+            if (res.status) {
+                console.log("< ==================<##DEBUG=>POPULATELIST========================");
+
+                let factoryList = CourseFactoryAutocomplete(res.data);
+                console.log(factoryList);
+                
+                let filtering = filterByHisCode(this.state.value, factoryList);
+                console.log(filtering);
+                
+                return this.setState({
+                    searchText: (filtering != undefined) ? filtering.title : '',
+                    status: true,
+                    listado: factoryList,
+                    loading:false
+                });
+                console.log("< ==================##DEBUG=>POPULATELIST />========================");
+                            
+            }
+
+            this.setState({
+                status:false
+            });
+        });
     }
     componentDidMount() {
       
-        console.clear();
-        if (this.state.listado.length > 0) {
+        // console.clear();
+        this.populateList();
+        // if (this.state.listado.length > 0) {
 
             
-            console.log("< ==================<##DEBUG=>CDM autocomplete========================");
-            let factoryList = CourseFactoryAutocomplete(this.state.listado);
-            
-            let filtering = filterByHisCode(this.state.value, factoryList);
-            console.log("filtering");
-            console.log(filtering);
+        //     console.log("< ==================<##DEBUG=>CDM autocomplete========================");
+        //     console.log("El numero de la clase es-> " +this.state.value);
 
-            return this.setState({
-                searchText: (filtering != undefined) ? filtering.title : '',
-                status: true,
-                listado:factoryList,
-            });
-        }
-        console.log("====================##DEBUG=>Autocomplete====================== />");
+        //     let factoryList = CourseFactoryAutocomplete(this.state.listado);
+            
+        //     let filtering = filterByHisCode(this.state.value, factoryList);
+        //     console.log("filtering");
+        //     console.log(filtering);
+
+        //     return this.setState({
+        //         searchText: (filtering != undefined) ? filtering.title : '',
+        //         status: true,
+        //         listado:factoryList,
+        //     });
+        // }
+        // console.log("====================##DEBUG=>Autocomplete====================== />");
         
     }
 
@@ -132,14 +173,14 @@ export class AutocompleteCourse extends Component {
     }
 
     render() {
-        if (this.state.loading || this.state.listado.length == 0) {
+        if (this.state.loading) {
             return <ProgressCircle
                 active={true}
                 size={30}
             />
         }
 
-        if (this.state.listado.length <= 0) {
+        if (!this.state.status) {
 
             return <Input s={12} label="Elegír el curso al cual pertenece" defaultValue="No hay conexión, por favor revisar." disabled />
         }

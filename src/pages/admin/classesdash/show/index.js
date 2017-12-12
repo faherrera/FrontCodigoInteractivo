@@ -82,7 +82,7 @@ export default class ShowClass extends Component {
         let data = this.state._class; 
         let imagen ='http://www.meditea.com/home/wp-content/uploads/2015/07/cursos-banner-2.jpg';
 
-        if(this.state.loading){
+        if(this.state.loading && !data){
             return <ProgressCircle active={this.state.loading} />
         }
         if(this.state.editing){

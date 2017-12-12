@@ -15,8 +15,8 @@ export  class  ProgressCircle extends Component {
         super(props);
 
         this.state = {
-            active: this.props.active,
-            size: (this.props.size) ? this.props.size : 500
+            active: props.active ? props.active : true,
+            size: (props.size) ? props.size : 500
         }
     }
 

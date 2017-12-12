@@ -12,9 +12,7 @@ export const filterByHisCode = (code, list) => {
     if (list.length <= 0) {
         let obj;
         alert('Listado es menor que cero, retornaré nulo.');
-        return obj = [{
-            title: ''
-        }]
+        return undefined
     }
 
     let takeLodash = _.find(list, (o) => o.value === code);
