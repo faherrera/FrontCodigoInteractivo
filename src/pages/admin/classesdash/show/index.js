@@ -18,6 +18,7 @@ import {ButtonShowCard} from './../../../../helpers/UI/form/button/index';
 
 //Assets
 import './styles.css';
+import cover from './../../../../assets/img/classPortada.jpg';
 
 //URI
 import {
@@ -80,7 +81,7 @@ export default class ShowClass extends Component {
     }
     render() {
         let data = this.state._class; 
-        let imagen ='http://www.meditea.com/home/wp-content/uploads/2015/07/cursos-banner-2.jpg';
+        // let imagen ='http://www.meditea.com/home/wp-content/uploads/2015/07/cursos-banner-2.jpg';
 
         if(this.state.loading && !data){
             return <ProgressCircle active={this.state.loading} />
@@ -96,7 +97,7 @@ export default class ShowClass extends Component {
             return (
                 <Card 
                     className='card-show--classes'
-                    header={<CardTitle image={imagen}></CardTitle>}
+                    header={<CardTitle image={cover}></CardTitle>}
                     actions={[<ButtonShowCard key={1} title={data.TitleClass} handleEdit={this.handleClassEdit} handleDelete={this.handleClassDelete}/>]}>
                     <Collection header='Información de la clase'>
                         <CollectionItem>

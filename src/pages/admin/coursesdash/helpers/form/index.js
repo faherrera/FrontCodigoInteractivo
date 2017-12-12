@@ -34,9 +34,16 @@ import {
 //Components 
 import { Course } from './../../helpers/classes/course';
 
-import { CourseResponse } from './../../helpers/responses/course';
+//Form Response.
+import { CourseResponse } from './../../../../../helpers/responses/FormResponse/FormResponseCourse';
 
-import { postCourse, putCourse } from './../../helpers/request/';
+//##Request Course 
+import { postCourse ,putCourse} from './../../../../../helpers/requests/CoursesRequest';
+
+//Routes
+import { arrayRoutes } from './../../../../../helpers/requestConfig';
+
+// import { postCourse } from './../../helpers/request/';
 
 export default class FormCourse extends React.Component {
 
@@ -55,6 +62,7 @@ export default class FormCourse extends React.Component {
     }
 
     handleClickButton(e) {
+        this.loading();
 
         let code = this.refs.codeCourse.getValue();
         let name = this.refs.nameCourse.getValue();
@@ -69,51 +77,71 @@ export default class FormCourse extends React.Component {
 
 
         if (e.target.id === 'btnCreate') {
-            this.loading();
 
-            let _cresponse = new CourseResponse(code, name, description, duration, typecourse, mode, level, video, image, instructor);
+            let formRes = new CourseResponse(code, name, description, duration, typecourse, mode, level, video, image, instructor);
 
-            if (_cresponse.status) {
+            if (formRes.status) {
 
-                postCourse(_cresponse.course, this.loading.bind(this), this.inErrorCase.bind(this));
+               console.log("< ==================<##DEBUG=>POSTCOURSE STATUS:TRUE========================");
 
+                postCourse(formRes.data,(res)=>{
+                    if (res.status) {
+                     return   window.location = arrayRoutes.course
+                    }
+
+                    this.setState({
+                        messageError: [...res.message]
+                    });
+                    
+
+                });
+               console.log("====================##DEBUG====================== />");
+                this.setState({
+                    loading:false,
+                });
 
 
             } else {
-                this.setState({
-                    loading: false
-                });
 
                 this.setState({
-                    messageError: _cresponse.messageError
+                    loading: false,
+                    messageError: [...formRes.message]
+
                 });
+
 
             }
 
         }
 
         if(e.target.id === 'btnEdit'){
-            this.loading();
 
-            let _cresponse = new CourseResponse(code, name, description, duration, typecourse, mode, level, video, image, instructor);
-
-            if (_cresponse.status) {
-
-                putCourse(_cresponse.course, this.loading.bind(this), this.inErrorCase.bind(this));
+            let formRes = new CourseResponse(code, name, description, duration, typecourse, mode, level, video, image, instructor);
+            
+            if (formRes.status) {
+                console.log("< ==================<##DEBUG=>EDITCOURE => STAATUS TRUE ========================");
                 
-                //Aquí va el metodo put.
-                window.location="/dashboard/courses";
+                putCourse(this.state.course.Code,formRes.data,(res)=>{
 
-            } else {
-                this.setState({
-                    loading: false
+                    if (res.status) {
+                        return window.location = arrayRoutes.course
+                    }
+
+                    console.log("< ==================<##DEBUG=>EDITCOURE => STAATUS TRUE ======================== / // >>");
+
+                    return this.setState({
+                        messageError: [...res.message],
+                        loading:false
+                    });
+
                 });
 
-                this.setState({
-                    messageError: _cresponse.messageError
-                });
 
             }
+            return this.setState({
+                loading: false,
+                messageError: [...formRes.message]
+            });      
         }
 
 
@@ -129,27 +157,21 @@ export default class FormCourse extends React.Component {
         console.log("Entrando en loading"); //#Debug
     }
 
-    inErrorCase(message) {
-        this.loading();
-        console.log(message + "<<<<------");
-
-        this.setState({
-            messageError: [...[message]]
-        });
-
-    }
-
     render() {
 
         console.log('====================================');
         console.log(this.state.course);
         console.log('====================================');
 
+        if (this.state.loading) {
+            return <ProgressCircle
+                active={this.state.loading}
+            />
+        }
+
         return (
                 <div className="form__group">
-                    <ProgressCircle 
-                        active={this.state.loading}
-                    />
+                   
 
                     <form className={!this.state.loading ? 'form' : 'hide'} >
 
@@ -161,6 +183,7 @@ export default class FormCourse extends React.Component {
                             idImageB64="imgField"
                             idinputImage="inputImage"
                             ref="imageCourse"
+
                         />
 
                         <InputText
@@ -178,6 +201,8 @@ export default class FormCourse extends React.Component {
                             required={true}
                             ref="codeCourse"
                             value={this.state.course.Code}
+                            disabled={(this.state.type == 'edit') ? true : false}
+
 
                         />
 

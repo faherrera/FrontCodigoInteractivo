@@ -1,18 +1,3 @@
-// export let _listResponse = {
-//     _codeState : 0,
-//     _list:[],
-//     message:'mensaje de error',
-//     status:false
-// }
-
-export function listResponse(codeState = 0, message = 'mensaje de error', status = false, data = {}){
-
-    this.codeState = codeState || 0;
-    this.message = message || "Error -> por defecto";
-    this.status = status || false;
-    this.data = data || {};
-
-}
 
 export function formResponse(message = [],status = false,data = {}){
     this.message = message || [];

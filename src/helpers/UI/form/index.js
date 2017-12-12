@@ -56,7 +56,7 @@ export class InputText extends Component {
             id : this.props.id != null ? this.props.id : 'first_name',
             label : this.props.label != null ? this.props.label : 'Label Text',
             value : this.props.value != null ? this.props.value : '',
-            disabled: this.props.disabled != null ? this.props.disabled ? true : false : false,
+            disabled: props.disabled ? true :  false,
             isValidate: false,
             style: {},
             required : this.props.required != null ? (this.props.required) ? '(**)' : '' : '',
@@ -139,7 +139,7 @@ export class InputText extends Component {
     }
     render () {
         return (
-            <div className="input-field">
+            <div className="input-field" {...(this.state.disabled) ? 'disabled' : null}>
                 <input autoFocus ref="pepe" style={this.state.style} placeholder={this.state.placeholder} id={this.state.id} type="text"  value={this.state.value} onChange={this.handleChangeValue.bind(this)} onBlur={this.handleBlur.bind(this)}/>
                 <label htmlFor={this.state.id}>{this.state.label} {this.state.required} </label>
             </div>
@@ -267,6 +267,7 @@ export class InputNumber extends Component {
             value: this.props.value != null ? this.props.value : '',
             isValidate: false,
             style: {},
+            disabled: props.disabled ? true : false,
             required: this.props.required != null ? (this.props.required) ? '(**)' : '' : '',
             status: this.props.required != null ? (this.props.required) ? false : true : false
         }
@@ -369,11 +370,14 @@ export class InputNumber extends Component {
                 className="input-field"
                 >
                 
-                <input style={this.state.style} placeholder={this.state.placeholder} id={this.state.id} type="text" value={this.state.value} onChange={this.handleChangeValue} onBlur={this.handleBlur} />
+                <input style={this.state.style} placeholder={this.state.placeholder} disabled={this.state.disabled} id={this.state.id} type="text" value={this.state.value} onChange={this.handleChangeValue} onBlur={this.handleBlur} />
                 <label 
                     htmlFor={this.state.id}
                 >
-                {this.state.label} {this.state.required}
+                {
+                    (!this.state.disabled) ? (this.state.label + " " + this.state. required) : null
+                    // {this.state.label} {this.state.required}
+                }
                 </label>
             </div>
         );

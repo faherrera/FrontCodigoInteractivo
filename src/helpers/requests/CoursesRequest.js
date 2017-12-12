@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { urlApi,endPointCourse } from './../requestConfig';
+import { urlApi,endPointCourse,arrayEndpoints } from './../requestConfig';
 
 import {
     getResponse
@@ -50,5 +50,54 @@ export const getCourse = (code,call) =>{
         .catch(error => {
             res= new getResponse(0,error);
             call(res); 
+        });
+}
+
+export const postCourse = (data, call) => {
+    console.log('Estoy intentando crear un curso.');
+    let res;
+    axios({
+        method: 'POST',
+        url: arrayEndpoints.courses,
+        data
+    })
+        .then(
+        response => {
+            let responseData = response.data;
+            res = new getResponse(responseData.codeState, responseData.message, responseData.status, responseData.data);
+            console.log("< ==================<##DEBUG=>RESPONSE POST Course========================");
+            console.log(res);
+            console.log("< ==================<##DEBUG=>RESPONSE POST Course========================");
+            call(res);
+        })
+        .catch(error => {
+            alert("estoy aquí, en el error de postCourse " + arrayEndpoints.courses);
+            res = new getResponse(0, error.message, false);
+            call(res);
+
+        });
+}
+export const putCourse = (code,data, call) => {
+    console.log('Estoy intentando Editar un curso.');
+    let res;
+    axios({
+        method: 'PUT',
+        url: arrayEndpoints.courses+code,
+        data
+    })
+        .then(
+        response => {
+            let responseData = response.data;
+            res = new getResponse(responseData.codeState, responseData.message, responseData.status, responseData.data);
+            console.log("< ==================<##DEBUG=>RESPONSE put Course========================");
+            console.log(res);
+            console.log("< ==================<##DEBUG=>RESPONSE put Course========================");
+            call(res);
+        })
+        .catch(error => {
+            alert("estoy aquí, en el error de pUTtCourse " + arrayEndpoints.courses+code);
+            res = new getResponse(0, error.message, false);
+            call(res);
+
         });
 }

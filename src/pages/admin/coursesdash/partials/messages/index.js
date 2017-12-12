@@ -5,8 +5,8 @@ export class GenericMessage extends React.Component {
         super(props);
 
         this.state = {
-            color: this.props.color != null ? this.props.color : 'blue',
-            messages: this.props.messages != null ? this.props.messages : [],
+            color: props.color != null ? props.color : 'blue',
+            messages: props.messages != null ? props.messages : [],
             count: 0
 
         }
@@ -20,7 +20,7 @@ export class GenericMessage extends React.Component {
         console.log(nextProps.messages);
 
         this.setState(
-            { messages: [...nextProps.messages] }
+            { messages: nextProps.messages }
         );
     }
 
@@ -31,18 +31,20 @@ export class GenericMessage extends React.Component {
         return (
             <ul >
                 <li>
-                    <div className={(!this.state.messages.length > 0) ? `hide` : `collapsible-header red darken-4 white-text`}>
+                    <div className={(this.state.messages == undefined || this.state.messages) ? `hide` : `collapsible-header red darken-4 white-text`}>
                         <i className="material-icons">info</i>
                         Mensajes
                     </div>
                         <ul >
-                            {
+                            {   
+                            (this.state.messages != undefined) ? 
                                 this.state.messages.map((value, index) => {
                                     if (value != "OK") {
 
                                         return <li className="red darken-4 white-text" key={index}> {value} </li>
                                     }
-                                })
+                                }) 
+                            : null
                             }
                         </ul>
                 </li>
