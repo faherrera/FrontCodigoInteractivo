@@ -14,7 +14,7 @@ import {
 
 import { ProgressCircle } from '../../../../../helpers/UI/misc';
 
-import { ButtonForm } from './../../../../../helpers/UI/form/button';
+import { ButtonForm } from './../../../../../helpers/UI/form/button/ButtonForm';
 
 import { ListMessage } from './../../../../../helpers/UI/messages/ListError';
 

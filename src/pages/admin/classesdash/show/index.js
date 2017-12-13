@@ -14,7 +14,7 @@ import { ProgressCircle
 } from './../../../../helpers/UI/misc';
 
 import AlertRemove from './../../../../helpers/UI/alerts';
-import {ButtonShowCard} from './../../../../helpers/UI/form/button/index';
+import {ButtonShowCard} from './../../../../helpers/UI/form/button/ButtonShowCard';
 
 //Assets
 import './styles.css';
