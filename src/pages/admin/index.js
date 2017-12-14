@@ -4,6 +4,7 @@ import React from 'react';
 import CoursesDash from './coursesdash';
 import ClassesDash from './classesdash';
 import UsersDash from './usersdash';
+import ResourcesDash from './resourcesdash';
 
 
 let WhiteList = [
@@ -18,7 +19,11 @@ let WhiteList = [
     {
         index:2,
         match:'users'
-    }
+    },
+    {
+        index:3,
+        match:'resources'
+    },
 ];
 
 export default class Courses extends React.Component{
@@ -75,6 +80,8 @@ export default class Courses extends React.Component{
             <CoursesDash id={this.state.id} />,
             <ClassesDash id={this.state.id} />,
             <UsersDash id={this.state.id} />,
+            <ResourcesDash id={this.state.id} />,
+            
         ]
 
         return myComponents[this.state.matchIndex];  //Retornando el componente del array.

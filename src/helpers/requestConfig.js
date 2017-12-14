@@ -27,6 +27,7 @@ export const routeClass = urlAppDashboard +'classes/';
 export const arrayRoutes = {
     'courses': urlAppDashboard + 'courses/',
     'class': urlAppDashboard + 'classes/',
+    'resources': urlAppDashboard + 'resources/',
 }
 
 
@@ -34,6 +35,7 @@ export const arrayRoutes = {
 export const arrayEndpoints = {
     'courses': urlApi + 'courses/',
     'class': urlApi + 'ClassesCourse/',
+    'resources': urlApi + 'ResClass/',
 }
 
 
