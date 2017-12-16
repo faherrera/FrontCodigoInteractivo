@@ -4,6 +4,11 @@ import React, { Component } from 'react';
 import './../styles.css';
 //UI
 
+/**
+ * Componente para el formulario, indicará que valor tomar segun la propiedad. 
+ * {props} type => puede ser 'create'(defecto) o 'edit'.
+ * {props} onClick => Indica que comportamiento tendrán los botones, funcion que viene desde el padre y es donde tengo que hacer la diferencia de si el ID es 'btnCreate' o 'btnEdit'
+ */
 export class ButtonForm extends Component {
     constructor(props){
         super(props);

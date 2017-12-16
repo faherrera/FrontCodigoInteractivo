@@ -25,6 +25,9 @@ import React, { Component } from 'react';
 //Routes
     import { arrayRoutes} from './../../../../helpers/requestConfig';
 
+//Components
+    import Edit from './../Edit/';
+
 export default class Show extends Component {
     constructor(props){
         super(props);
@@ -33,7 +36,8 @@ export default class Show extends Component {
             code: props.id,
             resource:{},
             loading:true,
-            message:''
+            message:'',
+            editing:false
         }
 
         this.handleDelete = this.handleDelete.bind(this);
@@ -65,7 +69,9 @@ export default class Show extends Component {
     }
 
     handleEdit(){
-        console.log("Clickee en handle edit");
+        this.setState({
+            editing: true,
+        });   
     }
     
     handleDelete(){
@@ -81,6 +87,10 @@ export default class Show extends Component {
 
         if (this.state.message) {
             return <h1>Error en la petición -> {this.state.message}</h1>
+        }
+
+        if (this.state.editing) {
+            return <Edit id={this.state.code} resource={this.state.resource} />
         }
 
         return (
@@ -101,7 +111,7 @@ export default class Show extends Component {
                     <CollectionItem>
                         <strong>Link externo: </strong>
                         <span> 
-                            <a target="_blank" href={data.ExternalLink}> {data.ExternalLink}</a>
+                            <a target="_blank" href={`http://${data.ExternalLink}`}> {data.ExternalLink}</a>
                         </span>
                     </CollectionItem>
                     <CollectionItem>

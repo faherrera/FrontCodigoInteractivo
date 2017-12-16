@@ -29,7 +29,7 @@ export default class List extends Component {
             loading:true,
             resources: [],
             message:'',
-            error:'',
+            error:false,
             messageServer:'',
         }
     }
@@ -64,7 +64,10 @@ export default class List extends Component {
 
     handleReload(){
         this.setState({
-            loading:true
+            loading:true,
+            message: '',
+            error: false,
+            messageServer: '',
         });
         this.populateList();
     }

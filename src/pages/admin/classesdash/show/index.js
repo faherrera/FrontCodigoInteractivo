@@ -32,6 +32,8 @@ import { getClass, deleteClass} from './../../../../helpers/requests/ClassesRequ
 //Components
 import EditClass from './../edit/';
 
+//Routes
+import {  arrayRoutes } from "./../../../../helpers/requestConfig";
 export default class ShowClass extends Component {
 
     constructor(props){
@@ -110,6 +112,10 @@ export default class ShowClass extends Component {
                             <span>{data.TitleClass}</span>
                         </CollectionItem>
                         <CollectionItem>
+                            <strong>Descripcion: </strong>
+                            <p>{(!data.Description) ? "No posee descripción" : data.Description}</p>
+                        </CollectionItem>
+                        <CollectionItem>
                             <strong>Video: </strong>
                             <span>{data.PathVideo}</span>
                         </CollectionItem>
@@ -124,7 +130,7 @@ export default class ShowClass extends Component {
                         {
                             (!data.Resources) ? <CollectionItem><span> No hay recursos </span> </CollectionItem>:
                                 data.Resources.map((datum,i) => <CollectionItem key={i}>
-                                    {i + 1}- {datum.TitleResource} </CollectionItem>)
+                                    {i + 1}- <a href={arrayRoutes.resources + datum.CodeResource}>{datum.TitleResource}</a> </CollectionItem>)
                         }
                         
                     </Collection>

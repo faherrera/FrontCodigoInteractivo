@@ -66,6 +66,68 @@ export const getResource = (code, call) => {
 
 
 /**
+ * Metodo para crear un nuevo registro.
+ * @param {obj} data 
+ * @param {function} call 
+ */
+export const postResource = (data, call) => {
+    console.log('Estoy intentando crear un recurso.');
+    let res;
+    axios({
+        method: 'POST',
+        url: arrayEndpoints.resources,
+        data
+    })
+        .then(
+        response => {
+            let responseData = response.data;
+            res = new getResponse(responseData.codeState, responseData.message, responseData.status, responseData.data);
+            console.log("< ==================<##DEBUG=>RESPONSE POST Resource========================");
+            console.log(res);
+            console.log("< ==================<##DEBUG=>RESPONSE POST Resource========================");
+            call(res);
+        })
+        .catch(error => {
+            alert("estoy aquí, en el error de postResource " + arrayEndpoints.resources);
+            res = new getResponse(0, error.message, false);
+            call(res);
+
+        });
+}
+
+
+/**
+ * Metodo para modificar un registro en base a un codigo pasado como parametro.
+ * @param {int} code 
+ * @param {obj} data 
+ * @param {function} call 
+ */
+export const putResource = (code, data, call) => {
+    console.log('Estoy intentando actualizár un recurso.');
+    let res;
+    axios({
+        method: 'PUT',
+        url: arrayEndpoints.resources + code,
+        data
+    })
+        .then(
+        response => {
+            let responseData = response.data;
+            res = new getResponse(responseData.codeState, responseData.message, responseData.status, responseData.data);
+            console.log("< ==================<##DEBUG=>RESPONSE PUT RESOURCE========================");
+            console.log(res);
+            console.log("====================##DEBUG====================== />");
+            call(res);
+        })
+        .catch(error => {
+            alert("estoy aquí, en el error de putrESOURCE " + arrayEndpoints.resources + code);
+            res = new getResponse(0, error.message, false);
+            call(res);
+
+        });
+}
+
+/**
  * Eliminando el recurso indicado via code.
  * @param {*} code 
  * @param {*} call 

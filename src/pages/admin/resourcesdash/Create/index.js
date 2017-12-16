@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 
+import FormResource from './../partials/Form/';
+
 export default class Create extends Component {
     render() {
         return (
-            <h1>Crear un Recurso</h1>
+            <FormResource
+                type="create"
+            />
         );
     }
 }

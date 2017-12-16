@@ -70,8 +70,8 @@ export class InputText extends Component {
 
         if (this.state.status) { //Si es correcto enviarlo.
             _response.status = true;
+            _response.message = "OK"; 
             _response.value = this.state.value;
-            _response.message = "OK"
 
             return _response;   //Devuelvo el dato valido.
         }

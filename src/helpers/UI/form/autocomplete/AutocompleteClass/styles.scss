@@ -1,0 +1,17 @@
+.autocomplete{
+    // background: coral !important;
+    margin-bottom: 1rem !important;
+    input{
+        // background: lightseagreen !important;
+        color: #040404 !important;
+    }
+
+    label{
+        font-size: 1.2rem !important;
+        color: #9e9e9e !important;
+
+        &.active{
+            color: #26a69a !important;
+        }
+    }
+}

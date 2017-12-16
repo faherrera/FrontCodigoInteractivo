@@ -18,10 +18,11 @@ import { getAllCourses} from './../../../../requests/CoursesRequest';
 import { filterByHisCode} from './../Utils/Filter';
 
 //Factory
-import { CourseFactoryAutocomplete } from './../Utils/Factory';
+import { ClassesFactoryAutocomplete } from './../Utils/Factory';
 
 //Assets
 import './styles.css';
+import { getAllClasses } from '../../../../requests/ClassesRequest';
 
 export function Response(status = false, value = '', message = '') {
     this.status = status;
@@ -40,7 +41,7 @@ const dataSourceConfig = {
     value: 'value',
 };
 
-export class AutocompleteCourse extends Component {
+export class AutocompleteClass extends Component {
 
     constructor(props) {
         super(props);
@@ -51,7 +52,7 @@ export class AutocompleteCourse extends Component {
             status: false,
             loading: false,
             message: 'No hay ningún dato cargado',
-            searchText:''
+            searchText:'',
         }
     }
     
@@ -78,12 +79,12 @@ export class AutocompleteCourse extends Component {
     populateList(){
 
         //Traigo los cursos.
-        getAllCourses((res)=>{
+        getAllClasses((res)=>{
 
             if (res.status) {
                 console.log("< ==================<##DEBUG=>POPULATELIST========================");
 
-                let factoryList = CourseFactoryAutocomplete(res.data);
+                let factoryList = ClassesFactoryAutocomplete(res.data);
                 console.log(factoryList);
                 
                 let filtering = filterByHisCode(this.state.value, factoryList);
@@ -108,25 +109,7 @@ export class AutocompleteCourse extends Component {
       
         // console.clear();
         this.populateList();
-        // if (this.state.listado.length > 0) {
-
-            
-        //     console.log("< ==================<##DEBUG=>CDM autocomplete========================");
-        //     console.log("El numero de la clase es-> " +this.state.value);
-
-        //     let factoryList = CourseFactoryAutocomplete(this.state.listado);
-            
-        //     let filtering = filterByHisCode(this.state.value, factoryList);
-        //     console.log("filtering");
-        //     console.log(filtering);
-
-        //     return this.setState({
-        //         searchText: (filtering != undefined) ? filtering.title : '',
-        //         status: true,
-        //         listado:factoryList,
-        //     });
-        // }
-        // console.log("====================##DEBUG=>Autocomplete====================== />");
+       
         
     }
 
@@ -158,10 +141,9 @@ export class AutocompleteCourse extends Component {
 
         let _response = new Response(); //Instancio una respuesta.
 
-         /**
+        /**
          * En caso de que no tenga valor o sea igual a 0 debo indicar que stats es false.
          */
-
         if (this.state.value) {
             if (this.state.status) { //Si es correcto enviarlo.
                 _response.status = true;
@@ -169,18 +151,15 @@ export class AutocompleteCourse extends Component {
                 _response.message = "OK"
                 return _response;   //Devuelvo el dato valido.
             }
-    
             _response.message = this.state.message;
-    
-            return _response;
-            
-        }
 
-        _response.message = "Debe seleccionar un valor correcto para el curso perteneciente.";
+            return _response;
+        }
+        _response.message = "Debe seleccionar un valor correcto para la clase perteneciente.";
 
         return _response;
 
-
+        
 
     }
 
@@ -194,7 +173,7 @@ export class AutocompleteCourse extends Component {
 
         if (!this.state.status) {
 
-            return <Input s={12} label="Elegír el curso al cual pertenece" defaultValue="No hay conexión, por favor revisar." disabled />
+            return <Input s={12} label="Elegír la clase a la cual pertenece" defaultValue="No hay conexión, por favor revisar." disabled />
         }
 
         return (
@@ -202,7 +181,7 @@ export class AutocompleteCourse extends Component {
             <AutoComplete
                 className="autocomplete"
                 fullWidth={true}
-                floatingLabelText="Elegír el curso al cual pertenece"
+                floatingLabelText="Elegír la clase a la cual pertenece"
                 filter={AutoComplete.fuzzyFilter}
                 dataSource={this.state.listado}
                 dataSourceConfig={dataSourceConfig}
