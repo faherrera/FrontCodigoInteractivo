@@ -1,0 +1,13 @@
+.auth__container{
+    display: none;
+    
+    @media screen and (min-width:'992px'){
+        display: flex;
+        // background: blue;
+        
+        .btn-flat{
+            padding: 0 !important;
+        }
+    }
+    
+}

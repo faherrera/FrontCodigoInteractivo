@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
 //Validations.
-import { isEmpty, inputValidate, inputInvalidate } from "./../validation";
+import { isEmpty, validationEmail, inputValidate, inputInvalidate } from "./../validation";
 
 //Config.
 import { Response } from "./../config";
 
 /**
- * Input text, para ingresar y validar texto plato, sean usuarios ,nombres,apellidos etc.
+ * Input Password, para ingresar y validar Password.
  * {Params} =>
  * 1. placeholder => El place o hint.
  * 2. id => Identificador.
@@ -26,31 +26,30 @@ import { Response } from "./../config";
  *      3. message=>    Mensaje que se agrega en caso de que sea status false.
  * 
  * ##Ejemplo
-* <InputText
-            label="Nombre del recurso"
-            placeholder="Example: Link al repositorio"
-            required={true}
-            ref="titleResource"
-            value={this.state.resource.TitleResource}
-        />
+*   <InputEmail
+        label="Email"
+        placeholder="Example: cdaud777@gmail.com"
+        required={true}
+        ref="emailSign"
+        value={this.state.resource.TitleResource}
+    />
  *   
  */
-export class InputText extends Component {
+export class InputPassword extends Component {
 
     constructor(props) {
         super(props);
 
 
         this.state = {
-            placeholder: this.props.placeholder != null ? this.props.placeholder : 'Ejemplo: Place',
-            id: this.props.id != null ? this.props.id : 'first_name',
-            label: this.props.label != null ? this.props.label : 'Label Text',
-            value: this.props.value != null ? this.props.value : '',
-            disabled: props.disabled ? true : false,
+            placeholder: props.placeholder ? props.placeholder : 'Aquí va el Password',
+            id: props.id ? props.id : 'pass',
+            label: props.label ? props.label : 'Contraseña',
+            value: props.value ? props.value : '',
             isValidate: false,
             style: {},
-            required: this.props.required != null ? (this.props.required) ? '(**)' : '' : '',
-            status: this.props.required != null ? ((this.props.required) ? false : true) : false
+            required: props.required ? (props.required) ? '(**)' : '' : '',
+            status: props.required ? (props.required) ? false : true : false
         }
     }
 
@@ -73,14 +72,14 @@ export class InputText extends Component {
 
             }
         } else {
-            if (e.target.value.trim().length === 0) {
-                this.setState({
-                    isValidate: true,
-                    style: {},
-                    status: true
-                })
-            }
-            if (e.target.value.trim().length > 0) {
+            // if (e.target.value.trim().length === 0) {
+            //     this.setState({
+            //         isValidate: true,
+            //         style: {},
+            //         status: true
+            //     })
+            // }
+            if (e.target.value.trim().length >= 0) {
                 this.setState({
                     isValidate: true,
                     style: inputValidate,
@@ -98,9 +97,8 @@ export class InputText extends Component {
 
         if (this.state.status) { //Si es correcto enviarlo.
             _response.status = true;
-            _response.message = "OK"; 
             _response.value = this.state.value;
-
+            _response.message = "OK"
             return _response;   //Devuelvo el dato valido.
         }
 
@@ -116,23 +114,21 @@ export class InputText extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.value != null) {
-            this.setState({
-                value: nextProps.value != null ? nextProps.value : '',
-                status: true,
-                isValidate: true,
-                style: inputValidate,
+        this.setState({
+            value: nextProps.value != null ? nextProps.value : '',
 
-            });
-
-        }
+        });
     }
     render() {
         return (
-            <div className="input-field" {...(this.state.disabled) ? 'disabled' : null}>
-                <input style={this.state.style} placeholder={this.state.placeholder} id={this.state.id} type="text" value={this.state.value} onChange={this.handleChangeValue.bind(this)} onBlur={this.handleBlur.bind(this)} />
-                <label htmlFor={this.state.id}>{this.state.label} {this.state.required} </label>
+            <div className="input-field" data-name={this.props.dataName} data-validation={this.state.status} >
+                <input style={this.state.style} placeholder={this.state.placeholder} id={this.state.id} type="password" value={this.state.value} onChange={this.handleChangeValue.bind(this)} onBlur={this.handleBlur.bind(this)} />
+                <label htmlFor={this.state.id}
+                    data-error="Email no valido" data-success="Correctamente validado"
+                >{this.state.label} {this.state.required}
+                </label>
             </div>
         );
     }
-}
+
+} 

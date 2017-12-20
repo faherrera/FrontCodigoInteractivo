@@ -3,7 +3,7 @@ import React from 'react';
 //Assets
 
 import './testimonials.css';
-
+import userTestimonial from "./user.jpg";
 export default class Testimonials extends React.Component{
 
 
@@ -19,7 +19,7 @@ export default class Testimonials extends React.Component{
                                             <blockquote>
                                                 <p>
                                                     <i className="material-icons">format_quote</i>
-                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                                    Una institución totalmente seria, tienen metodología de enseñanza y saben llegar a través de su experiencia. Recomendado ya voy llevando 2 cursos y totalmente agradecido por todo.
                                             <i className="material-icons">format_quote</i>
 
                                                 </p>
@@ -30,7 +30,7 @@ export default class Testimonials extends React.Component{
                                             <div className="row">
                                                 <div className="col s6">
 
-                                                    <img src="https://faherrera.github.io/images/perfil/burns_400x400.jpg" alt="" className="circle img-responsive testimonial-img-student " />
+                                                    <img src={userTestimonial} alt="" className="circle img-responsive testimonial-img-student " />
 
                                                 </div>
 

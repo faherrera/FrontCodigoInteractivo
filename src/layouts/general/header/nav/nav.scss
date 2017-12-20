@@ -1,8 +1,25 @@
 .nav-principal{
   background: #455A64;
 
-  .brand-logo{
-      font-size: 3rem;  
-      font-weight: 300; 
+  .logo--principal{
+    font-weight: 300; 
+    font-size: 1.2rem;
+    @media screen and (min-width:'768px'){
+        font-size: 3rem;  
+        
+      }
   }
+
 }
+
+
+.nav-wrapper{
+  // background: red;
+  display: flex;
+  justify-content: space-between;
+  .brand-logo{
+    
+  }
+  
+}
+

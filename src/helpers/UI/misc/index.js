@@ -6,8 +6,8 @@ import CircularProgress from 'material-ui/CircularProgress';
 /**
  * Progress Circle, this Component is a Management of Progress. 
  * This receives two params : 
- * Active: 
- * size: 
+ * Active: Indica si está activo o no, puede ser omitido si usamos el render según state del padre.
+ * size: Tamaño que ocupará el circulo.
  */
 
 export  class  ProgressCircle extends Component {

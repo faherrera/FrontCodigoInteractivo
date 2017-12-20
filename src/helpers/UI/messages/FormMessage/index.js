@@ -1,5 +1,9 @@
 import React from 'react';
 
+/**
+ * FormMessage => Componente que recibe un array de los mensajes, y aparte filtra los que dicen OK.
+ * {props} messages => Recibe un array. 
+ */
 export class FormMessage extends React.Component {
     constructor(props){
         super(props);
@@ -31,7 +35,10 @@ export class FormMessage extends React.Component {
         return (
             <ul >
                 <li>
-                    <div className={(this.state.messages == undefined || this.state.messages) ? `hide` : `collapsible-header red darken-4 white-text`}>
+                    <div 
+                        className={(this.state.messages.length > 0) ? `collapsible-header red darken-4 white-text` : `hide` }
+                        // className="collapsible-header red darken-4 white-text"
+                        >
                         <i className="material-icons">info</i>
                         Mensajes
                     </div>

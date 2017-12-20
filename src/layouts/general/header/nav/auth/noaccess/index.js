@@ -8,8 +8,8 @@ export default class Noaccess extends React.Component{
     render(){
         return(
             <div>
-                <Login deviceLoginStyle={this.props.deviceLoginStyle}/>
-                <SignUp deviceSignStyle={this.props.deviceSignStyle}/>
+                <Login />
+                <SignUp />
             </div>
         )
     }
