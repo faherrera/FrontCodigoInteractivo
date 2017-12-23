@@ -36,6 +36,8 @@ export const arrayEndpoints = {
     'courses': urlApi + 'courses/',
     'class': urlApi + 'ClassesCourse/',
     'resources': urlApi + 'ResClass/',
+    'signup': urlApi + 'Signup/',
+    'login': urlApi + 'Login/',
 }
 
 

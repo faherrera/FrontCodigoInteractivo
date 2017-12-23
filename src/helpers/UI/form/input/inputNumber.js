@@ -22,7 +22,9 @@ export class InputNumber extends Component {
             style: {},
             disabled: props.disabled ? true : false,
             required: this.props.required != null ? (this.props.required) ? '(**)' : '' : '',
-            status: this.props.required != null ? (this.props.required) ? false : true : false
+            status: this.props.required != null ? (this.props.required) ? false : true : false,
+            min: props.min ? props.min : 3,
+            max: props.max ? props.max : 12
         }
 
         this.handleChangeValue = this.handleChangeValue.bind(this);
@@ -41,11 +43,17 @@ export class InputNumber extends Component {
         if (this.state.required) {
             if (isEmpty(e.target.value)) {
                 if (validationNumber(e.target.value)) {
-                    this.setState({
-                        isValidate: true,
-                        style: inputValidate,
-                        status: true
-                    })
+                    
+                    if (e.target.value.length <= this.state.max && e.target.value.length >= this.state.min ) {
+
+                        this.setState({
+                            isValidate: true,
+                            style: inputValidate,
+                            status: true
+                        })
+                    
+                    }
+
                 } else {
                     this.setState({
                         isValidate: false,
@@ -84,10 +92,12 @@ export class InputNumber extends Component {
 
     handleChangeValue(e) {
         if (this.numberValidate(e.target.value)) {
-
-            this.setState({
-                value: e.target.value
-            });
+            if (e.target.value.length <= this.state.max) {
+                
+                this.setState({
+                    value: e.target.value
+                });
+            }
         }
     }
 
@@ -102,6 +112,12 @@ export class InputNumber extends Component {
 
         let _response = new Response(); //Instancio una respuesta.
 
+        if (this.state.value.length > this.state.max || this.state.value.length < this.state.min){
+            _response.message = `El numero de caracteres debe estár entre ${this.state.min} y ${this.state.max}`;
+
+            return _response;
+        }
+       
 
         if (this.state.status || this.state.value !== '') { //Si es correcto enviarlo.
             _response.status = true;

@@ -3,18 +3,19 @@
 //Instance Classes
 import { formResponse } from "./../index";
 
-export function SignUpResponse(name, user, email, password) {
+export function SignUpResponse(name, user, email, password,dni) {
     let response = new formResponse();
 
-    if (name.status && user.status && email.status && password.status) {
+    if (name.status && user.status && email.status && password.status && dni.status) {
 
         response.data.Name = name.value;
         response.data.Username = user.value;
         response.data.Email = email.value;
         response.data.Password = password.value;
+        response.data.DNI = dni.value;
         
     } else {
-        response.message.push(name.message, user.message, email.message, password.message);
+        response.message.push(name.message, user.message, email.message, password.message,dni.message);
     }
 
 
