@@ -3,7 +3,7 @@ import axios from 'axios';
 // import _ from 'lodash';
 
 //URL REQUEST
-import { arrayEndpoints, arrayRoutes } from './../routesConfig';
+import { arrayEndpoints, arrayRoutesDash } from './../routesConfig';
 
 //Response.
 import { getResponse } from "./../responses/";

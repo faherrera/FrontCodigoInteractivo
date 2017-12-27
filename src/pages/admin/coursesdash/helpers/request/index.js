@@ -2,9 +2,9 @@ import axios from 'axios';
 
 //Responses
 import { getResponse} from './../../../../../helpers/responses';
-import { arrayRoutes} from './../../../../../helpers/routesConfig';
+import { arrayRoutesDash} from './../../../../../helpers/routesConfig';
 
-const endpoint = arrayRoutes.courses;
+const endpoint = arrayRoutesDash.courses;
 
 export function postCourse (course,successCall,errorCall) {
     console.log('Entrando en request');

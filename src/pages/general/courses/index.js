@@ -4,26 +4,17 @@ import React, { Component } from 'react';
     import Detail from './detail/';
     import Offer from './offer/';
 
+
+//UI
+    //OWN
+    //import {ProgressCircle} from './../../../helpers/UI/misc/';
+
 export default class Courses extends Component {
-    constructor(props){
-        super(props);
-
-        this.state = {
-            code: props.code || 0,
-
-        }
-    }
-
+    
     render() {
         
-        if (this.state.code) {
-            return (
-                <Detail />
-            );
-        }
-        return (
-            <Offer />
-        );
+        if(this.props.code) return <Detail code={this.props.code}/>
 
+        return <Offer />
     }
 }

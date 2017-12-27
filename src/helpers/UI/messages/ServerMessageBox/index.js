@@ -23,8 +23,12 @@ export class ServerMessageBox extends Component {
 
         
         this.state = {
-            message : this.props.message,
-            title: this.props.title  ? this.props.title : 'Mensaje de Codigo Interactivo',
+            message : props.message,
+            title: props.title  ? props.title : 'Mensaje de Codigo Interactivo',
+            errorServer: props.error || true,
+            color: props.color || 'cyan',
+            btnText: props.btnText ||'',
+            btnIcon:props.btnIcon || 'replay',
         }
     }
 
@@ -35,16 +39,23 @@ export class ServerMessageBox extends Component {
     }
 
     render() {
+        let classButton = this.state.errorServer ? 'waves-effect white btn black-text valign-wrapper' : 'hide';
+
         return (
             <section className="message z-depth-2 ">
-                <h5 className={`header orange accent-3`}> {this.state.title} </h5>
+                <h5 className={`header ${this.state.color} accent-3`}> {this.state.title} </h5>
+                
                 <p>
                     {this.state.message === "Network Error" ? "Error de conexion, recargue por favor" : this.state.message}
                 </p>
                 
                 <button 
                     onClick={this.props.onClick}
-                    className="waves-effect white btn black-text"> <i className="material-icons large" >replay</i> </button>
+                    className={classButton}
+                    style={{display:'flex'}}
+                    >{this.state.btnText}<i className="material-icons large" >{this.state.btnIcon}</i> 
+                </button>
+
             </section>
         );
     }

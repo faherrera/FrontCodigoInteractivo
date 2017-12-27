@@ -23,7 +23,7 @@ import React, { Component } from 'react';
     import { getResource,deleteResource } from '../../../../helpers/requests/ResourcesClassesRequest';
 
 //Routes
-    import { arrayRoutes} from './../../../../helpers/routesConfig';
+    import { arrayRoutesDash} from './../../../../helpers/routesConfig';
 
 //Components
     import Edit from './../Edit/';
@@ -116,7 +116,7 @@ export default class Show extends Component {
                     </CollectionItem>
                     <CollectionItem>
                         <strong>Clase perteneciente: </strong>
-                        <span>{(data.TitleClass != undefined) ? <a href={arrayRoutes.class + data.Class_CourseID}> {data.TitleClass} </a> : 'Sin nombre'}</span>
+                        <span>{(data.TitleClass != undefined) ? <a href={arrayRoutesDash.class + data.Class_CourseID}> {data.TitleClass} </a> : 'Sin nombre'}</span>
                     </CollectionItem>
                 </Collection>
 

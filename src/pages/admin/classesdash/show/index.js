@@ -33,7 +33,7 @@ import { getClass, deleteClass} from './../../../../helpers/requests/ClassesRequ
 import EditClass from './../edit/';
 
 //Routes
-import {  arrayRoutes } from "./../../../../helpers/routesConfig";
+import {  arrayRoutesDash } from "./../../../../helpers/routesConfig";
 export default class ShowClass extends Component {
 
     constructor(props){
@@ -130,7 +130,7 @@ export default class ShowClass extends Component {
                         {
                             (!data.Resources) ? <CollectionItem><span> No hay recursos </span> </CollectionItem>:
                                 data.Resources.map((datum,i) => <CollectionItem key={i}>
-                                    {i + 1}- <a href={arrayRoutes.resources + datum.CodeResource}>{datum.TitleResource}</a> </CollectionItem>)
+                                    {i + 1}- <a href={arrayRoutesDash.resources + datum.CodeResource}>{datum.TitleResource}</a> </CollectionItem>)
                         }
                         
                     </Collection>

@@ -19,7 +19,7 @@ import { Modal, Button, Card, Col, CardTitle} from 'react-materialize';
 
 import { ProgressCircle } from './../../../../helpers/UI/misc';
 import { ServerMessageBox } from './../../../../helpers/UI/messages/ServerMessageBox';
-import { arrayRoutes,arrayUpload} from './../../../../helpers/routesConfig';
+import { arrayRoutesDash,arrayUpload} from './../../../../helpers/routesConfig';
 
 const styles = {
     table: {
@@ -110,7 +110,7 @@ export default class TableCourse extends Component {
 
     handleShow(e){
         // alert(e.target.name);
-        window.location = arrayRoutes.courses+e.target.name;
+        window.location = arrayRoutesDash.courses+e.target.name;
     }
 
     render() {

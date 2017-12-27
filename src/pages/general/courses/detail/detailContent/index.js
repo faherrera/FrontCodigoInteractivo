@@ -47,6 +47,8 @@ export default class DetailContent extends React.Component{
 
 
     render() {
+        let { Classes, Description, ProfessorID} = this.props.course;
+
         return (
             <div className="detail-course__content row">
                 <div className="tab-section">
@@ -68,13 +70,13 @@ export default class DetailContent extends React.Component{
                         index={this.state.slideIndex}
                         onChangeIndex={this.handleChange}
                     >
-                        <Listing/>
+                        <Listing Classes={Classes}/>
 
                         <Temary /> 
                         
-                        <About />
+                        <About Description={Description}/>
                         
-                        <Instructor/>
+                        <Instructor ProfessorID={ProfessorID}/>
                         
                     </SwipeableViews>
 

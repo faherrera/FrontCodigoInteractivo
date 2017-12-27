@@ -11,7 +11,7 @@ import { ProgressCircle } from "./../../../../helpers/UI/misc/index";
 import {getAllClasses} from './../../../../helpers/requests/ClassesRequest';
 
 //Routes
-import {arrayRoutes} from './../../../../helpers/routesConfig';
+import {arrayRoutesDash} from './../../../../helpers/routesConfig';
 const styles = {
     options: { display: 'flex', alignItems: 'center', justifyContent: 'center', width: '50px' }
 }
@@ -82,7 +82,7 @@ export default class ListClass extends Component {
                                             </strong>
                                         </td>
                                         <td>
-                                            <a href={arrayRoutes.class+c.CodeClass} className="btn blue accent-3" style={styles.options}>
+                                            <a href={arrayRoutesDash.class+c.CodeClass} className="btn blue accent-3" style={styles.options}>
                                                 <FontIcon className="blue accent-3 material-icons">forward</FontIcon>
                                             </a>
                                         </td>

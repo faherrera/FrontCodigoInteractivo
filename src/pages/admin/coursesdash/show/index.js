@@ -20,7 +20,7 @@ import AlertRemove from './../../../../helpers/UI/alerts';
 
 ///Components 
 import EditCourse from './../edit/';
-import { urlApi, urlApp, urlAppDashboard, arrayRoutes} from './../../../../helpers/routesConfig';
+import { urlApi, urlApp, urlAppDashboard, arrayRoutesDash} from './../../../../helpers/routesConfig';
 
 //Assets
 import './style.css';
@@ -168,7 +168,7 @@ export default class ShowCourse extends Component {
                         (!this.state.course.Classes)
                         ? <CollectionItem>|| Este curso aún no tiene clases ||</CollectionItem> 
                             : this.state.course.Classes.map((cls, index) =>
-                                <CollectionItem key={index}>{index + 1} - <a href={arrayRoutes.class+ cls.CodeClass}>{cls.TitleClass}</a>  </CollectionItem>)
+                                <CollectionItem key={index}>{index + 1} - <a href={arrayRoutesDash.class+ cls.CodeClass}>{cls.TitleClass}</a>  </CollectionItem>)
 
                     }
                 </Collection>

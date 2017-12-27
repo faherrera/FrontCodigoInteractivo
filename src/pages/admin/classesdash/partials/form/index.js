@@ -26,7 +26,7 @@ import { AutocompleteCourse } from './../../../../../helpers/UI/form/autocomplet
 import {ClassResponse} from './../../../../../helpers/responses/FormResponse/FormResponseClass';
 
 //Routes
-import { arrayRoutes} from './../../../../../helpers/routesConfig';
+import { arrayRoutesDash} from './../../../../../helpers/routesConfig';
 //Request 
 import { putClass ,postClass } from "./../../../../../helpers/requests/ClassesRequest";
 import { getAllCourses } from '../../../../../helpers/requests/CoursesRequest';
@@ -94,7 +94,7 @@ export default class FormClasses extends React.Component {
                             loading:false,
                         });
 
-                        return window.location = arrayRoutes.class;
+                        return window.location = arrayRoutesDash.class;
                     }
                     
                     this.setState({

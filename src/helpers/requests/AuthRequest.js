@@ -5,11 +5,12 @@
  * @param {*} data => Data que viene del servidor. 
  */
 export const storeDataInLocalStorage = (data) => {
-    let {Username,Token,Email} = data;
+    let {Username,Token,Email,Name} = data;
 
     localStorage.setItem("Username",Username);
     localStorage.setItem("Token",Token);
     localStorage.setItem("Email",Email);
+    localStorage.setItem("Name",Name);
 
     console.log(localStorage);
 }

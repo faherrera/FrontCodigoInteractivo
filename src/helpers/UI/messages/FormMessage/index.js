@@ -42,7 +42,7 @@ export class FormMessage extends React.Component {
             <ul  >
                 <li>
                     <div 
-                        className={(this.state.messages.length > 0) ? `collapsible-header red darken-4 white-text` : `hide` }
+                        className={(this.state.messages.length > 0) ? `collapsible-header ${this.state.color} darken-4 white-text` : `hide` }
                         onClick={this.handleToggle.bind(this)}
                         // className="collapsible-header red darken-4 white-text"
                         >
@@ -55,7 +55,7 @@ export class FormMessage extends React.Component {
                                 this.state.messages.map((value, index) => {
                                     if (value != "OK") {
                                         if (value == "Network Error") {
-                                            return <li className="red darken-4 white-text" key={index}> Error en la conexión, probablemente el servidor esté caido. </li>
+                                            return <li className= {`${this.state.color} darken-4 white-text`} key={index}> Error en la conexión, probablemente el servidor esté caido. </li>
                                             
                                         }
 

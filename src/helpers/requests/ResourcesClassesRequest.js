@@ -3,7 +3,7 @@ import axios from 'axios';
 // import _ from 'lodash';
 
 //URL REQUEST
-import { arrayEndpoints, arrayRoutes } from './../routesConfig';
+import { arrayEndpoints, arrayRoutesDash } from './../routesConfig';
 
 //Response.
 import { getResponse } from "./../responses/";
@@ -138,7 +138,7 @@ export const deleteResource = (code, call) => {
         url: arrayEndpoints.resources + code,
     }).then(response => {
         alert('correctamente eliminado');
-        return window.location.href = arrayRoutes.resources;
+        return window.location.href = arrayRoutesDash.resources;
     }).catch(error => {
         alert('Error en delete de resource' + error);
     });

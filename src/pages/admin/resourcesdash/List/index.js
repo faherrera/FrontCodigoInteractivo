@@ -19,7 +19,7 @@ import { filterFromCode } from "./../../../../helpers/filters/ClassFilter";
     import { ServerMessageBox } from "./../../../../helpers/UI/messages/ServerMessageBox/";
 
 //Routes
-import { arrayRoutes} from './../../../../helpers/routesConfig'
+import { arrayRoutesDash} from './../../../../helpers/routesConfig'
 export default class List extends Component {
 
     constructor(props){
@@ -107,7 +107,7 @@ export default class List extends Component {
                                 <td><a target="_blank" href={resource.ExternalLink}>{resource.ExternalLink}</a> </td>
                                 <td>
                                     <strong>
-                                        {(resource.TitleClass != undefined) ? <a href={arrayRoutes.class + resource.Class_CourseID}> {resource.TitleClass} </a>  : 'Sin nombre'}
+                                        {(resource.TitleClass != undefined) ? <a href={arrayRoutesDash.class + resource.Class_CourseID}> {resource.TitleClass} </a>  : 'Sin nombre'}
                                     </strong>
                                 </td>
                                 <td>

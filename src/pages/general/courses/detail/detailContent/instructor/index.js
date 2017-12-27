@@ -1,9 +1,54 @@
 import React, { Component } from 'react';
 
 // Assets
+    import noImage from './../../../../../../assets/img/noimage.jpg';
+
+//Request
+    import { getUser } from './../../../../../../helpers/requests/UserRequest';
+    
+//UI
+    import { ProgressCircle } from './../../../../../../helpers/UI/misc';
+    //Message
+    import { ServerMessageBox } from './../../../../../../helpers/UI/messages/ServerMessageBox/';
+
 
 class Instructor extends Component {
+
+    state = {
+        user:{},
+        loading:true,
+        message:'',
+        errorServer:false
+    }
+    componentDidMount() {
+        this.gettingUser();
+    }
+
+    gettingUser(){
+        let code = this.props.ProfessorID;
+
+        getUser(code,(res)=>{
+            if (res.status) {
+                
+            return this.setState({
+                    user:res.data,
+                    loading:false,
+                });
+
+            }
+
+            return this.setState({
+                message:res.message,
+                loading:false
+            });
+
+        });
+    }
     render() {
+
+        if (this.state.loading) return <ProgressCircle active size={100}/>
+        if (this.state.message) return <ServerMessageBox message={this.state.message}/>
+
         return (
             <div className="tab-item collection">
 
@@ -11,16 +56,13 @@ class Instructor extends Component {
                     <div className="card-panel grey lighten-5 z-depth-1">
                         <div className="row valign-wrapper">
                             <div className="col s4">
-                                <img src="https://faherrera.github.io/images/perfil/burns_400x400.jpg" alt="" className="circle responsive-img" />
+                                <img src={noImage} alt="" className="circle responsive-img" />
                             </div>
                             <div className="col s8 center">
-                                <h4 className="center-align"> Facundo Herrera </h4>
+                                <h4 className="center-align"> {this.state.user.Name} </h4>
                                 <ul>
-                                    <li> faherrera.dev@gmail </li>
+                                    <li> {this.state.user.Email} </li>
                                 </ul>
-                                {/*<a className="btn-floating btn-large waves-effect waves-light blue lighten-2 "><i className="material-icons">group</i></a>*/}
-
-
                             </div>
                         </div>
                     </div>

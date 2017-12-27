@@ -23,11 +23,16 @@ export const endPointResources = urlApi +'ResClass/'
 export const routeCourse = urlAppDashboard +'courses/';
 export const routeClass = urlAppDashboard +'classes/';
 
-//Array de Routes.
-export const arrayRoutes = {
+//Array de Routes para el Dashboard.
+export const arrayRoutesDash = {
     'courses': urlAppDashboard + 'courses/',
     'class': urlAppDashboard + 'classes/',
     'resources': urlAppDashboard + 'resources/',
+}
+
+//Array de Routes para el Dashboard.
+export const arrayRoutesGeneral = {
+    'courses': urlApp + 'cursos/',
 }
 
 
@@ -38,6 +43,7 @@ export const arrayEndpoints = {
     'resources': urlApi + 'ResClass/',
     'signup': urlApi + 'Signup/',
     'login': urlApi + 'Login/',
+    'users': urlApi + 'UserRegister/',
 }
 
 
@@ -62,6 +68,6 @@ export const routesMenu = {
 
     },
     general: {
-        nuestrosCursos: `${urlApp}courses`,
+        nuestrosCursos: `${urlApp}cursos`,
     }
 }

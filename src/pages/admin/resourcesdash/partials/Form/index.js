@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 
 //Routes
-    import { arrayRoutes } from './../../../../../helpers/routesConfig';
+    import { arrayRoutesDash } from './../../../../../helpers/routesConfig';
 
 //UI
     //UI CODIGO INTERACTIVO.
@@ -81,7 +81,7 @@ export default class FormResource extends Component {
                 //Aquì va la peticiòn create que recibe un callback.
                 postResource(responseResource.data,(res) => {
                     if (res.status) {
-                        let route = arrayRoutes.resources + responseResource.data.CodeResource;
+                        let route = arrayRoutesDash.resources + responseResource.data.CodeResource;
                         return window.location = route;
 
                     }
@@ -108,7 +108,7 @@ export default class FormResource extends Component {
                 //Aquì va la peticiòn create que recibe un callback.
                 putResource(this.state.resource.CodeResource,responseResource.data,(res) => {
                     if (res.status) {
-                        let route = arrayRoutes.resources + responseResource.data.CodeResource;
+                        let route = arrayRoutesDash.resources + responseResource.data.CodeResource;
                         return window.location = route;
 
                     }

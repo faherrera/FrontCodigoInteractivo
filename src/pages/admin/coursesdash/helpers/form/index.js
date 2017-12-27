@@ -41,7 +41,7 @@ import { CourseResponse } from './../../../../../helpers/responses/FormResponse/
 import { postCourse ,putCourse} from './../../../../../helpers/requests/CoursesRequest';
 
 //Routes
-import { arrayRoutes } from './../../../../../helpers/routesConfig';
+import { arrayRoutesDash } from './../../../../../helpers/routesConfig';
 
 // import { postCourse } from './../../helpers/request/';
 
@@ -86,7 +86,7 @@ export default class FormCourse extends React.Component {
 
                 postCourse(formRes.data,(res)=>{
                     if (res.status) {
-                     return   window.location = arrayRoutes.course
+                     return   window.location = arrayRoutesDash.course
                     }
 
                     this.setState({
@@ -124,7 +124,7 @@ export default class FormCourse extends React.Component {
                 putCourse(this.state.course.Code,formRes.data,(res)=>{
 
                     if (res.status) {
-                        return window.location = arrayRoutes.course
+                        return window.location = arrayRoutesDash.course
                     }
 
                     console.log("< ==================<##DEBUG=>EDITCOURE => STAATUS TRUE ======================== / // >>");

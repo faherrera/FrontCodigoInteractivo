@@ -1,10 +1,14 @@
 import React from 'react';
 
-import './offerItem.css';
+//Assets
+    import './offerItem.css';
 
+//Routes
+import {arrayRoutesGeneral} from './../../../../../helpers/routesConfig'
 export default class OfferItem extends React.Component {
 
     render() {
+        let {code} = this.props;
 
         return (
             <div className={"offerCourseItem"+" "+this.props.itemClass }>
@@ -13,7 +17,7 @@ export default class OfferItem extends React.Component {
                     
                     <div className="card-image" >
                         
-                        <img src={this.props.imgCard} style={{ height: '240px' }}/>
+                        <img src={this.props.imgCard} style={{ height: '240px' }} alt={this.props.title}/>
                         
                     
                     </div>
@@ -31,7 +35,7 @@ export default class OfferItem extends React.Component {
                             </div>
 
                             <div className="col s6 right-align ">
-                                <a href="#!" className="teal-text">Ver Más</a>
+                                <a href={arrayRoutesGeneral.courses+code} className="teal-text" >Ver Más</a>
                             </div>
                         </div>
                    

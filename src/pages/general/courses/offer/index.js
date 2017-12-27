@@ -1,8 +1,22 @@
 import React from 'react';
 
+//Assets
+    import noImage from './../../../../assets/img/noimage.jpg';
+
 //Components
-import OfferItem from './offerItem';    //Item Course
-import Filters from './filters';
+    import OfferItem from './offerItem';    //Item Course
+    import Filters from './filters';
+
+//UI
+    import { ProgressCircle } from './../../../../helpers/UI/misc';
+    import { ServerMessageBox} from './../../../../helpers/UI/messages/ServerMessageBox';
+
+//Request
+    import { getAllCourses } from './../../../../helpers/requests/CoursesRequest';
+
+//Routes
+    import { arrayUpload } from './../../../../helpers/routesConfig';
+
 
 export default class Offer extends React.Component{
 
@@ -10,12 +24,49 @@ export default class Offer extends React.Component{
         super(props);
 
         this.state = {
-            filter: ['backend']
+            // filter: ['backend'],
+            loading: true,
+            courses:[],
+            message:null,
         }
+    }
+
+    componentDidMount() {
+       
+
+        this.populateOffer();
+    }
+    populateOffer() {
+        this.setState({
+            message: null,
+            loading: true
+        });
+
+        getAllCourses((res) => {
+            if (res.status) {
+                return this.setState({
+                    courses: res.data,
+                    loading:false
+                });
+            }
+
+            return this.setState({
+                loading:false,
+                message: res.message,
+            });
+
+        });
     }
 
     render(){
         
+        if(this.state.loading)  return <ProgressCircle active/>
+        
+        if (this.state.message) return <ServerMessageBox message={this.state.message} onClick={this.populateOffer.bind(this)}/>
+
+        let {courses} = this.state; 
+        let pathImage = arrayUpload.courses;
+
         return(
             <section className="page-offer">
 
@@ -28,38 +79,24 @@ export default class Offer extends React.Component{
                 </div>
 
                 <div className="container">
-
-                    
-                    {
-                        // Section Filters 
-                        //<Filters/>
-                    }
-
                     <div className="row">
-                        <OfferItem
-                            itemClass="col s12 m6 l4"
-                            imgCard="https://s3-eu-west-1.amazonaws.com/course.oc-static.com/courses/3609661/14575206662551_illu_Cre%CC%81ez%20votre%20premie%CC%80re%20application%20pour%20Android.png"
-                            title="Desarollo Android Nativo"
-                            shortDescription="En este curso realizaremos nuestros primeros pasos en Android, prepararemos nuestro entorno de desarrollo, conoceremos Android Studio, la estructura de una aplicación en Android y Gradle."
-                            level="Principiante"
-                        />
-                        <OfferItem
-                            itemClass="col s12 m6 l4 "
-                            imgCard="http://materializecss.com/images/sample-1.jpg"
-                            title="Desarollo Swift"
-                            shortDescription="I am a very simple card. I am good at containing small bits of information.I am convenient because I require little markup to use effectively."
-                            level="Intermedio"
 
-                        />
-                        <OfferItem
-                            itemClass="col s12 m6 l4 "
-                            imgCard="https://www.sitepoint.com/wp-content/themes/sitepoint/assets/images/icon.php.png"
-                            title="Desarollo PHP7"
-                            shortDescription="I am a very simple card. I am good at containing small bits of information.I am convenient because I require little markup to use effectively."
-                            level="Avanzado"
-
-                        />
-
+                        {
+                            
+                            courses.map((item,index)=>{
+                                return <OfferItem
+                                    key={index}
+                                    itemClass="col s12 m6 l4"
+                                    imgCard={item.Thumbnail ? pathImage + item.Thumbnail : noImage}
+                                    title={item.Name}
+                                    shortDescription={item.Description}
+                                    level={item.modeArray[item.Mode]}
+                                    code={item.Code}
+                                />
+                            })
+                        }
+                       
+                        
                     </div>
                 </div>
             </section>
