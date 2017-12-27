@@ -23,7 +23,7 @@ import React, { Component } from 'react';
     import { getResource,deleteResource } from '../../../../helpers/requests/ResourcesClassesRequest';
 
 //Routes
-    import { arrayRoutes} from './../../../../helpers/requestConfig';
+    import { arrayRoutes} from './../../../../helpers/routesConfig';
 
 //Components
     import Edit from './../Edit/';

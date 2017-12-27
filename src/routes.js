@@ -6,13 +6,14 @@ import App from './App.js';
 
 //Components PAGES.
     //GENERAL LAY
+        import General from './pages/general/';
+
         import Home from './pages/general/home/';
         
         import Offer from './pages/general/courses/offer';
+        import CoursesGeneral from './pages/general/courses/';
 
         import DetailCourse from './pages/general/courses/detail';
-
-        import Class from './pages/general/courses/class';
 
     //ADMIN LAY
         import Courses from './pages/admin/';
@@ -30,17 +31,15 @@ import App from './App.js';
 const AppRoutes = () => 
 <App>
     <Switch>
-        //From Page General
+        {
+            //From Page General
+        }
         <Route exact path="/" component={Home} />
-        <Route exact path="/courses" component={Offer} />
-        <Route exact path="/detailcourse" component={DetailCourse} />
-
-        <Route exact path="/class" component={Class} />
-
+        <Route exact path="/:name/:code?" component={General} />
+        
+        {/* Dashboard*/}
         <Route exact path="/dashboard/:name/" component={Courses} />
         <Route exact path="/dashboard/:name/:id" component={Courses} />
-        {/* <Route exact path="/dashboard/" component={DashBoard} /> */}
-        {/* <Route exact path="/coursesdash" component={CoursesDash} /> */}
 
         //Case of Error.
         <Route component={Page404} />

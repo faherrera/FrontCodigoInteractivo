@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 
-import { urlApi } from './../../../../../helpers/requestConfig';
+import { urlApi } from './../../../../../helpers/routesConfig';
 
 //UI
 
@@ -26,7 +26,7 @@ import { AutocompleteCourse } from './../../../../../helpers/UI/form/autocomplet
 import {ClassResponse} from './../../../../../helpers/responses/FormResponse/FormResponseClass';
 
 //Routes
-import { arrayRoutes} from './../../../../../helpers/requestConfig';
+import { arrayRoutes} from './../../../../../helpers/routesConfig';
 //Request 
 import { putClass ,postClass } from "./../../../../../helpers/requests/ClassesRequest";
 import { getAllCourses } from '../../../../../helpers/requests/CoursesRequest';

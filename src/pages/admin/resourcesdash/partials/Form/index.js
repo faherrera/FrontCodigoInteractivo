@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 
 //Routes
-    import { arrayRoutes } from './../../../../../helpers/requestConfig';
+    import { arrayRoutes } from './../../../../../helpers/routesConfig';
 
 //UI
     //UI CODIGO INTERACTIVO.

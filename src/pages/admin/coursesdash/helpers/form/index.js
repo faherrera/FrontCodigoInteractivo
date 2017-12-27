@@ -41,7 +41,7 @@ import { CourseResponse } from './../../../../../helpers/responses/FormResponse/
 import { postCourse ,putCourse} from './../../../../../helpers/requests/CoursesRequest';
 
 //Routes
-import { arrayRoutes } from './../../../../../helpers/requestConfig';
+import { arrayRoutes } from './../../../../../helpers/routesConfig';
 
 // import { postCourse } from './../../helpers/request/';
 

@@ -6,6 +6,8 @@ import React, { Component } from 'react';
     //OWN 
     import SignUp from './SignUp/';
     import Login from './Login/';
+//Routes
+import { routesMenu } from './../../../../../../helpers/routesConfig';
 
 export default class MenuUser extends Component {
     render() {
@@ -18,7 +20,7 @@ export default class MenuUser extends Component {
                 <SignUp />
                 <SideNavItem divider />
                 <SideNavItem subheader>Codigo Interactivo</SideNavItem>
-                <SideNavItem waves href='#!third'>Nuestros cursos</SideNavItem>
+                <SideNavItem waves href={routesMenu.general.nuestrosCursos}>Nuestros cursos</SideNavItem>
                 <SideNavItem waves href='#!third'>¿Quienes somos?</SideNavItem>
                 <SideNavItem waves href='#!third'>Contacto</SideNavItem>
             </SideNav>

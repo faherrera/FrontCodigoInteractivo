@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 //Url
-import {urlApi} from './../../../../../helpers/requestConfig'
+import {urlApi} from './../../../../../helpers/routesConfig'
 
 export function postClass(ClassCourse, successCall, errorCall) {
     console.log('Entrando en request');

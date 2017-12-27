@@ -11,7 +11,7 @@ import { ProgressCircle } from './../../../misc';
 
 
 //Request Config
-import { urlApi } from './../../../../requestConfig';
+import { urlApi } from './../../../../routesConfig';
 import { getAllCourses} from './../../../../requests/CoursesRequest';
 
 //Filters 

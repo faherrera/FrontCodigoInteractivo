@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { urlApi,endPointCourse,arrayEndpoints } from './../requestConfig';
+import { urlApi,endPointCourse,arrayEndpoints } from './../routesConfig';
 
 import {
     getResponse

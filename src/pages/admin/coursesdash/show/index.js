@@ -20,7 +20,7 @@ import AlertRemove from './../../../../helpers/UI/alerts';
 
 ///Components 
 import EditCourse from './../edit/';
-import { urlApi, urlApp, urlAppDashboard, arrayRoutes} from './../../../../helpers/requestConfig';
+import { urlApi, urlApp, urlAppDashboard, arrayRoutes} from './../../../../helpers/routesConfig';
 
 //Assets
 import './style.css';

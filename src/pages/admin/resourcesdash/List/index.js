@@ -19,7 +19,7 @@ import { filterFromCode } from "./../../../../helpers/filters/ClassFilter";
     import { ServerMessageBox } from "./../../../../helpers/UI/messages/ServerMessageBox/";
 
 //Routes
-import { arrayRoutes} from './../../../../helpers/requestConfig'
+import { arrayRoutes} from './../../../../helpers/routesConfig'
 export default class List extends Component {
 
     constructor(props){

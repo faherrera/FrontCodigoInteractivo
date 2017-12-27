@@ -11,7 +11,7 @@ import { ProgressCircle } from "./../../../../helpers/UI/misc/index";
 import {getAllClasses} from './../../../../helpers/requests/ClassesRequest';
 
 //Routes
-import {arrayRoutes} from './../../../../helpers/requestConfig';
+import {arrayRoutes} from './../../../../helpers/routesConfig';
 const styles = {
     options: { display: 'flex', alignItems: 'center', justifyContent: 'center', width: '50px' }
 }

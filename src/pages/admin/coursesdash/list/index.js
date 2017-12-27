@@ -19,7 +19,7 @@ import { Modal, Button, Card, Col, CardTitle} from 'react-materialize';
 
 import { ProgressCircle } from './../../../../helpers/UI/misc';
 import { ServerMessageBox } from './../../../../helpers/UI/messages/ServerMessageBox';
-import { arrayRoutes,arrayUpload} from './../../../../helpers/requestConfig';
+import { arrayRoutes,arrayUpload} from './../../../../helpers/routesConfig';
 
 const styles = {
     table: {

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 //Responses
 import { getResponse} from './../../../../../helpers/responses';
-import { arrayRoutes} from './../../../../../helpers/requestConfig';
+import { arrayRoutes} from './../../../../../helpers/routesConfig';
 
 const endpoint = arrayRoutes.courses;
 

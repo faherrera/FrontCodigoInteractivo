@@ -3,7 +3,7 @@ import axios from 'axios';
 import _ from 'lodash';
 
 //URL REQUEST
-import { urlApi, endPointClass, routeCourse, arrayEndpoints} from './../requestConfig';
+import { urlApi, endPointClass, routeCourse, arrayEndpoints} from './../routesConfig';
 
 //REQUEST Courses
 import{getAllCourses} from './CoursesRequest';

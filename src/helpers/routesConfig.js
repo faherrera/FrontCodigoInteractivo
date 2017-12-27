@@ -49,3 +49,19 @@ export const arrayEndpoints = {
      'courses': urlUpload+'Courses/',
      
  }
+
+ /**
+  * Array de rutas en los menú 
+  */
+
+export const routesMenu = {
+    allow: {
+
+    },
+    denied: {
+
+    },
+    general: {
+        nuestrosCursos: `${urlApp}courses`,
+    }
+}

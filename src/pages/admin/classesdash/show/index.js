@@ -24,7 +24,7 @@ import cover from './../../../../assets/img/classPortada.jpg';
 import {
     urlApi,
     routeCourse
-} from './../../../../helpers/requestConfig';
+} from './../../../../helpers/routesConfig';
 
 //Request
 import { getClass, deleteClass} from './../../../../helpers/requests/ClassesRequest';
@@ -33,7 +33,7 @@ import { getClass, deleteClass} from './../../../../helpers/requests/ClassesRequ
 import EditClass from './../edit/';
 
 //Routes
-import {  arrayRoutes } from "./../../../../helpers/requestConfig";
+import {  arrayRoutes } from "./../../../../helpers/routesConfig";
 export default class ShowClass extends Component {
 
     constructor(props){

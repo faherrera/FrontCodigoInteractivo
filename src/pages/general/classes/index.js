@@ -7,7 +7,7 @@ import React, { Component } from 'react';
 import ClassHeader from './classHeader/';
 import ClassContent from './classContent/';
 
-class Class extends Component {
+class Classes extends Component {
     render() {
         return (
             <div className="page-class">
@@ -21,4 +21,4 @@ class Class extends Component {
     }
 }
 
-export default Class;
+export default Classes;
