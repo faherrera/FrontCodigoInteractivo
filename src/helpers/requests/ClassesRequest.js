@@ -46,15 +46,19 @@ export const getClass = (code,call)=>{
 
     let res;
     let endpoint = arrayEndpoints.class + code;
-
+    console.log("El codig es ->  "+code);
     axios.get(endpoint)
             .then(
             response => {
                 let data = response.data;
+                
                 res = new getResponse(data._codeState,data._message,data._status,data._class);
+
+                
                 call(res);
+
             })
-            .catch(error => {
+            .catch((error) => {
                 console.log("< ==================<##DEBUG=>GETCLASS========================");
                 console.log(error.message);
                 // alert("estoy aquí, en el error de getClass " + endpoint);

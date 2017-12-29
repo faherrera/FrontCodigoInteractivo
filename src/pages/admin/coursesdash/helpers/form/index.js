@@ -124,7 +124,7 @@ export default class FormCourse extends React.Component {
                 putCourse(this.state.course.Code,formRes.data,(res)=>{
 
                     if (res.status) {
-                        return window.location = arrayRoutesDash.course
+                        return window.location = arrayRoutesDash.courses
                     }
 
                     console.log("< ==================<##DEBUG=>EDITCOURE => STAATUS TRUE ======================== / // >>");

@@ -1,20 +1,36 @@
 import React from 'react';
-import { List, ListItem } from 'material-ui/List';
+ 
+//UI
+    //Material UI
+    import { List, ListItem } from 'material-ui/List';
+
+//Routes
+import {  arrayRoutesGeneral } from './../../../../../../helpers/routesConfig'
 
 export default class Listing extends React.Component {
 
     //Poblando Listado.
     populateList() {
-        return (
+        if(this.props.Classes.length > 0)
+        {return (
             this.props.Classes.map((item,index) => {
+                let ClassCode = item.CodeClass;
+                
                 return (
                     <ListItem
                         key={item.CodeClass}
                         hoverColor="#b2dfdb">
-                        <a href="#!" className="">{index + 1} - {item.TitleClass}</a>
+                        <a href={arrayRoutesGeneral.classes+ClassCode} >{index + 1} - {item.TitleClass}</a>
                     </ListItem>)
             })
-        )
+        )}
+        return <ListItem
+            hoverColor="#b2dfdb"
+            >
+            <strong> Aún sin clases, pronto las subiremos =) </strong>
+        </ListItem>
+
+
     }
     render() {
         return (

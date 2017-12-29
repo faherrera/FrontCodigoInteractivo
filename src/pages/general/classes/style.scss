@@ -1,6 +1,8 @@
 //Variables
 $bg-class: #1976D2;
+$link: #26a69a;
 
+$text-header: white;
 
 //ClassHeader
 
@@ -12,8 +14,9 @@ $bg-class: #1976D2;
     // background: rgb(156, 193, 141);
     display: flex;
     // padding-bottom: 1rem;
-    padding-top: 1rem;
-
+    padding: 1rem 0;
+    color:$text-header !important;
+    
     i{
         margin-right: 5px;
         // font-size: 8rem;
@@ -21,10 +24,13 @@ $bg-class: #1976D2;
     }
 
     h4{
-        font-weight: 200;
+        font-weight: 400;
         align-self: center;
+        text-decoration: underline;
     }
-
+    a{
+        color:$text-header;
+    }
     @media (max-width: 768px ){
         flex-direction: column;
         text-align: center;
@@ -38,7 +44,7 @@ $bg-class: #1976D2;
         font-size: 1.5rem;
     }
 
-    iframe{
+    iframe,img{
         width: 100%;
         // height: 350px;
         min-height: 500px;

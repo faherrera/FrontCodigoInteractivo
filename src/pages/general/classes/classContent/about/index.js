@@ -2,8 +2,49 @@ import React, { Component } from 'react';
 
 //Assets
 
+//UI
+    //OWN
+    import {ProgressCircle} from './../../../../../helpers/UI/misc/';
+
+//Request
+
+    //Filter
+    import {filterFromCourseCode} from './../../../../../helpers/filters/ClassFilter';
+
+export class Listado extends Component{
+    render(){
+        let {Title,Arr } = this.props;
+
+
+        return (<div className="about-class__listado">
+            <div className="row">
+                <div className="col s12">
+                    <div className="card">
+                        <div className="card-content">
+                            <span className="card-title ">{Title}</span>
+                            <hr />
+                            <div className="collection">
+                                {
+                                    (Arr.lenght) ?
+                                        Arr.map((item, index) => {
+                                            return <a href="#!" key={index} className="collection-item"> {index + 1}. <strong> {item.TitleResource} </strong>  </a>
+                                        }) : <a className="collection-item">  <strong> Por el momento no hay items en este listado =D</strong> </a>
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>);
+    }
+} 
+
 class About extends Component {
+
     render() {
+        let { Description, Resources ,CourseID} = this.props;
+        
         return (
             <div className="about-class">
 
@@ -15,7 +56,7 @@ class About extends Component {
                                     <span className="card-title ">Descripción</span>
                                     <hr />
                                     <p>
-                                        {this.props.description}
+                                        {Description}
                                     </p>
                                 </div>
                             </div>
@@ -23,26 +64,11 @@ class About extends Component {
                     </div>
                 </div>
 
-                <div className="about-class__listado">
-                    <div className="row">
-                        <div className="col s12">
-                            <div className="card">
-                                <div className="card-content">
-                                    <span className="card-title ">Listado de clases</span>
-                                    <hr />
+                <Listado 
+                    Title="Listado de recursos"
+                    Arr={Resources}
+                />
 
-                                    <div className="collection">
-                                        <a href="#!" className="collection-item"> 1. <strong> Introduccion </strong>  </a>
-                                        <a href="#!" className="collection-item"> 2. <strong> Instalacion </strong> </a>
-                                        <a href="#!" className="collection-item"> 3. <strong> Primer desarollo </strong> </a>
-                                        <a href="#!" className="collection-item"> 4. <strong> Conociendo el entorno </strong></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
             </div>
         )
     }

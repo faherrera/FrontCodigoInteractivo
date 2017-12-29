@@ -3,7 +3,7 @@ import React from 'react';
 //Pages
 import Courses from './courses/';
 import Home from './home/';
-import Classes from './classes/';
+import GeneralClasses from './classes/';
 
 let WhiteList = [
     {
@@ -37,15 +37,24 @@ export default class General extends React.Component {
         const code = this.props.match.params.code;
         
         // alert('El name es-> '+name+' y el code es -> '+code);
+        
+        if (name) {
+            if (name === 'clases' && !code) {
+                return this.selectedRoute("cursos") //Lo envio a esta direccion ya que no es posible ingresar a Classes. Sino podría enviarlo a un error de pagina 404
+
+            }
+
+            this.selectedRoute(name)
+        }
+
         if (code) {
             this.setState({
-                code: code
+                code
             });
         }
 
-        if (name) {
-            return this.selectedRoute(name)
-        }
+
+        
 
     }
 
@@ -64,7 +73,7 @@ export default class General extends React.Component {
         const myComponents = [
             <Home code={this.state.code} />,
             <Courses code={this.state.code} />,
-            <Classes code={this.state.code} />,
+            <GeneralClasses code={this.state.code} />,
         ]
 
         return myComponents[this.state.matchIndex];  //Retornando el componente del array.

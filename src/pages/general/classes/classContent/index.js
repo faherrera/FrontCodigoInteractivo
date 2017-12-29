@@ -43,21 +43,25 @@ class ClassContent extends Component {
     };
 
 
-    handleDisqus() {
-        // var disqus_config = function () {
-        //     this.page.url = "/class";  // Replace PAGE_URL with your page's canonical URL variable
-        //     this.page.identifier = '/class/1'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-        // };
-        // (function () { // DON'T EDIT BELOW THIS LINE
-        //     var d = document, s = d.createElement('script');
-        //     s.src = 'https://codigointeractivo.disqus.com/embed.js';
-        //     s.setAttribute('data-timestamp', +new Date());
-        //     (d.head || d.body).appendChild(s);
-        // })();
+    handleDisqus(code) {
+        var disqus_config = function (code) {
+            
+            let url = "/clases";
+            this.page.url = url;  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = url + code; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+        (function () { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://codigointeractivo.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
 
     }
 
     render() {
+        let { Description, Resources, Course ,Code,CourseID} = this.props; 
+
         return (
             <div className="detail-course__content row">
                 <div className="tab-section">
@@ -81,12 +85,15 @@ class ClassContent extends Component {
 
                     <div id="about" className="col s12">
                         <About
-                            description="En el curso de Android aprenderás a desarrollar aplicaciones para dispositivos móviles mediante lenguaje de programación java utilizando la herramienta de google Android studio." />
+                            Description={Description}
+                            Resources={Resources}
+                            CourseID={CourseID}
+                            />
 
                     </div>
 
                     <div id="comunidad" className="col s12">
-                        <div id="disqus_thread" onLoad={this.handleDisqus}></div>
+                            <div id="disqus_thread" onLoad={this.handleDisqus(Code)}></div>
 
                     </div>
 

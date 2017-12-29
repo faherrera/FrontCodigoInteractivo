@@ -33,6 +33,7 @@ export const arrayRoutesDash = {
 //Array de Routes para el Dashboard.
 export const arrayRoutesGeneral = {
     'courses': urlApp + 'cursos/',
+    'classes': urlApp + 'clases/',
 }
 
 

@@ -25,7 +25,7 @@ export const getAllUsers = (call) => {
         .then(
         response => {
             let responseData = response.data;
-            let res = new getResponse(responseData.codeState, responseData.message, responseData.status, responseData.data);
+            let res = new getResponse(responseData.codeState, responseData.message, responseData.status, responseData.users);
             call(res);
         })
         .catch(error => {
@@ -50,7 +50,7 @@ export const getUser = (code, call) => {
         .then(
         response => {
             let responseData = response.data;
-            res = new getResponse(responseData._codeState, responseData._message, responseData._status, responseData._user);
+            res = new getResponse(responseData.codeState, responseData.message, responseData.status, responseData.data);
             call(res);
         })
         .catch(error => {

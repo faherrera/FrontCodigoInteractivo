@@ -1,16 +1,24 @@
 import _ from 'lodash';
 
 //Request
-import { getClass } from "./../requests/ClassesRequest";
-export let filterFromCode = (code) => {
+import {getAllClasses } from "./../requests/ClassesRequest";
+import { getResponse } from '../responses/index';
 
-    getClass(code,(res) => {
+export let filterFromCourseCode = (code) => {
+    let response = getResponse(0,"Problemas con la petición",false,null);
+    console.log("El codigo del curso es el siguiente :-> "+code);
+    getAllClasses((res)=>{
 
-        console.log(res);
-        if (!res.status) {
-            return undefined;
+        if (res.status) {
+            response = getResponse(1,res.messsage,res.status,res.data);
+
         }
 
-        return res.data;
+        console.log("///////////////////InicioDEBUG === FilterFromCourseCode////////////////");
+                console.log(response)
+        console.log("*******************FinalizacionDEBUG === FilterFromCourseCode**************");
+        
+
     });
+
 };

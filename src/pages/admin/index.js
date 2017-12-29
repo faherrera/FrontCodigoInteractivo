@@ -26,7 +26,7 @@ let WhiteList = [
     },
 ];
 
-export default class Courses extends React.Component{
+export default class Dashboard extends React.Component{
     constructor(props){
         super(props);
 
@@ -52,6 +52,8 @@ export default class Courses extends React.Component{
                 id:id
             });
         }
+
+        // alert(" Este es la ruta "+name + " " +id);
         
     }
 

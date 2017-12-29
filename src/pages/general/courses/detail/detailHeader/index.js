@@ -1,33 +1,53 @@
 import React, { Component } from 'react';
 
 //Assets
-import './styles.css';
+    import './styles.css';
+    import noImage from './../../../../../assets/img/noimage.jpg';
+
+//Routes
+    import {arrayUpload} from './../../../../../helpers/routesConfig';
 
 class DetailHeader extends Component {
     
+    renderVideoOrImage = () => {
+        let { course } = this.props; 
+        
+        let Thumbnail = course.Thumbnail ? arrayUpload.courses+course.Thumbnail : noImage;
+
+        if (!course.Video_preview) {
+            return (
+                <div className="video-preview card-panel col s12 l8 ">
+                    <img src={Thumbnail} alt="Imagen del curso" srcset=""/>
+                </div>
+            );
+        }
+        
+        return(
+            <div className="video-preview card-panel col s12 l8 ">
+                <iframe src={course.Video_preview}></iframe>
+            </div>
+        );
+
+    }
     render() {
         let {course} = this.props; 
         //En caso de que video_preview sea nulo, doy un video por defecto.
-        let pathVideoDefault = "https://www.youtube.com/embed/e11AiawcDUY"; 
 
-        let classes = course.Classes; 
-        console.log(course.Level);
+        let classes = course.Classes.length ? `${course.Classes.length} Clases` : "Subida en progreso" ;         
         return (
             <div className="detail-course__header">
                 <div className="container">
                     <div className="detail-course__title">
                         <div className="detail-logo">
-                            <i className="large material-icons">stay_primary_portrait</i>
+                            <i className="large material-icons">developer_mode</i>
                         </div>
                         <h3> {course.Name} </h3>
                     </div>
 
                     <div className="detail-course__preview-container">
                         <div className="row">
-                            <div className="video-preview card-panel col s12 l8 ">
-                                <iframe src={course.Video_preview || pathVideoDefault}></iframe>
-                            </div>
-
+                            
+                            {this.renderVideoOrImage()}
                             <ul className=" menu-preview col s12 l4">
                                 <li>
                                     <i className=" medium material-icons">stars</i>
@@ -35,8 +55,8 @@ class DetailHeader extends Component {
                                 </li>
 
                                 <li >
-                                    <i className=" medium material-icons">alarm</i>
-                                    <span> {`${classes.length} Clases`} </span>
+                                    <i className=" medium material-icons">sentiment_very_satisfied</i>
+                                    <span> {classes} </span>
                                 </li>
 
                                 <li >
@@ -45,7 +65,7 @@ class DetailHeader extends Component {
                                 </li>
 
                                 <li >
-                                    <i className=" medium material-icons">computer</i>
+                                    <i className=" medium material-icons">{course.Level == 2 ? 'public' : "computer"}</i>
                                     <span> {course.levelArray[course.Level]} </span>
                                 </li>
 

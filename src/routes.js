@@ -16,7 +16,7 @@ import App from './App.js';
         import DetailCourse from './pages/general/courses/detail';
 
     //ADMIN LAY
-        import Courses from './pages/admin/';
+        import Dashboard from './pages/admin/';
         import CoursesDash from './pages/admin/coursesdash';
 
     //Error Page
@@ -31,15 +31,15 @@ import App from './App.js';
 const AppRoutes = () => 
 <App>
     <Switch>
-        {
-            //From Page General
-        }
-        <Route exact path="/" component={Home} />
-        <Route exact path="/:name/:code?" component={General} />
-        
+        {/*From Page General*/}
+            <Route exact path="/" component={Home} />
+
         {/* Dashboard*/}
-        <Route exact path="/dashboard/:name/" component={Courses} />
-        <Route exact path="/dashboard/:name/:id" component={Courses} />
+            <Route exact path="/dashboard/:name/:id?" component={Dashboard} />
+
+        {/* General*/}
+            <Route exact path="/:name/:code?" component={General} />
+        
 
         //Case of Error.
         <Route component={Page404} />

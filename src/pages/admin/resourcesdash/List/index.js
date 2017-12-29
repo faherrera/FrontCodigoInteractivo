@@ -9,8 +9,6 @@ import React, { Component } from 'react';
 //Requests getAllResources
     import {getAllResources  } from "./../../../../helpers/requests/ResourcesClassesRequest";
 
-//Filters
-import { filterFromCode } from "./../../../../helpers/filters/ClassFilter";
 
 //UI CodigoInteractivo
     //Progress
