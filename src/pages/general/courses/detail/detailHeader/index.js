@@ -51,7 +51,7 @@ class DetailHeader extends Component {
                             <ul className=" menu-preview col s12 l4">
                                 <li>
                                     <i className=" medium material-icons">stars</i>
-                                    <span > {course.modeArray[course.Mode]} </span>
+                                    <span > {course.Mode} </span>
                                 </li>
 
                                 <li >
@@ -66,7 +66,7 @@ class DetailHeader extends Component {
 
                                 <li >
                                     <i className=" medium material-icons">{course.Level == 2 ? 'public' : "computer"}</i>
-                                    <span> {course.levelArray[course.Level]} </span>
+                                    <span> {course.Level} </span>
                                 </li>
 
                             </ul>

@@ -31,7 +31,7 @@ export  class  ProgressCircle extends Component {
     render() {
         return (
             <div className={(this.state.active) ? 'center' : 'hide'}>
-                <CircularProgress size={this.state.size} thickness={3} />
+                <CircularProgress size={this.state.size} thickness={3} style={{padding:'1rem'}}/>
             </div>
         );
     }

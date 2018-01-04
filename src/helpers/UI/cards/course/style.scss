@@ -1,0 +1,35 @@
+$title_color: #455A64;
+$text_color: #78909C;
+
+.course-card{
+    img{
+        height: 200px;
+        object-fit: cover;
+        overflow:hidden;
+    }
+
+    &__title{
+        margin: 0;
+        margin-bottom: .5rem;
+        font-weight: 500;
+        color: $title_color ;
+        ;
+    }
+
+    &__text{
+        color: $text_color ;
+    }
+    .actions-container{
+        display: flex;
+        justify-content: space-between;
+
+        span{
+            display: flex;
+            align-items: center;
+            text-transform: uppercase;
+            i{
+                margin-right: 2px;
+            }
+        }
+    }
+}

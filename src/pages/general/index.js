@@ -4,6 +4,7 @@ import React from 'react';
 import Courses from './courses/';
 import Home from './home/';
 import GeneralClasses from './classes/';
+import UserSection from './user/';
 
 let WhiteList = [
     {
@@ -18,6 +19,10 @@ let WhiteList = [
         index: 2,
         match: 'clases',
     },
+    {
+        index: 3,
+        match: 'usuario',
+    },
 ];
 
 export default class General extends React.Component {
@@ -26,7 +31,7 @@ export default class General extends React.Component {
 
         this.state = {
             matchIndex: 0,
-            code: null
+            param: null
         }
 
         this.selectedRoute = this.selectedRoute.bind(this);
@@ -34,12 +39,12 @@ export default class General extends React.Component {
 
     componentDidMount() {
         const name = this.props.match.params.name;
-        const code = this.props.match.params.code;
+        const param = this.props.match.params.param;
         
-        // alert('El name es-> '+name+' y el code es -> '+code);
+        // alert('El name es-> '+name+' y el param es -> '+param);
         
         if (name) {
-            if (name === 'clases' && !code) {
+            if (name === 'clases' && !param) {
                 return this.selectedRoute("cursos") //Lo envio a esta direccion ya que no es posible ingresar a Classes. Sino podría enviarlo a un error de pagina 404
 
             }
@@ -47,9 +52,9 @@ export default class General extends React.Component {
             this.selectedRoute(name)
         }
 
-        if (code) {
+        if (param) {
             this.setState({
-                code
+                param
             });
         }
 
@@ -71,9 +76,10 @@ export default class General extends React.Component {
 
     render() {
         const myComponents = [
-            <Home code={this.state.code} />,
-            <Courses code={this.state.code} />,
-            <GeneralClasses code={this.state.code} />,
+            <Home code={this.state.param} />,
+            <Courses code={this.state.param} />,
+            <GeneralClasses code={this.state.param} />,
+            <UserSection  param={this.state.param}/>,
         ]
 
         return myComponents[this.state.matchIndex];  //Retornando el componente del array.

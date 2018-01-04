@@ -38,7 +38,7 @@ const AppRoutes = () =>
             <Route exact path="/dashboard/:name/:id?" component={Dashboard} />
 
         {/* General*/}
-            <Route exact path="/:name/:code?" component={General} />
+            <Route exact path="/:name/:param?" component={General} />
         
 
         //Case of Error.

@@ -19,7 +19,7 @@ export default class MenuUser extends Component {
         closeSession();
     }
     render() {
-        const {Username,Email,Token} = this.props.dataUser;
+        const {Username,Email,Token,Name} = this.props.dataUser;
         return (
             <SideNav
                 trigger={<a href="#!" onClick={this.handleMenu} ><i className="large material-icons" >menu</i></a>}
@@ -29,7 +29,7 @@ export default class MenuUser extends Component {
                     user={{
                         background: 'https://static.bhphoto.com/images/images500x500/Rosco_RS6811_68_Filter_Sky_1158010036000_44470.jpg',
                         image: 'http://next.materializecss.com/images/yuna.jpg',
-                        name: Username,
+                        name: Name,
                         email: Email
                     }}
                 />

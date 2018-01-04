@@ -90,7 +90,7 @@ export default class Offer extends React.Component{
                                     imgCard={item.Thumbnail ? pathImage + item.Thumbnail : noImage}
                                     title={item.Name}
                                     shortDescription={item.Description}
-                                    level={item.modeArray[item.Mode]}
+                                    level={item.Level}
                                     code={item.Code}
                                 />
                             })
