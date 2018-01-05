@@ -4,7 +4,7 @@ $text_color: #78909C;
 .course-card{
     img{
         height: 200px;
-        object-fit: cover;
+        object-fit: contain;
         overflow:hidden;
     }
 
@@ -18,7 +18,12 @@ $text_color: #78909C;
 
     &__text{
         color: $text_color ;
+        height: 100px;
+        overflow: hidden;
     }
+
+    
+
     .actions-container{
         display: flex;
         justify-content: space-between;

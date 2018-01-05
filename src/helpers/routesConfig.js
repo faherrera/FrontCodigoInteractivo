@@ -30,10 +30,11 @@ export const arrayRoutesDash = {
     'resources': urlAppDashboard + 'resources/',
 }
 
-//Array de Routes para el Dashboard.
+//Array de Routes Layout General.
 export const arrayRoutesGeneral = {
     'courses': urlApp + 'cursos/',
     'classes': urlApp + 'clases/',
+    'usuario': urlApp + 'usuario/',
 }
 
 
@@ -55,6 +56,7 @@ export const arrayEndpoints = {
 
  export const arrayUpload ={
      'courses': urlUpload+'Courses/',
+     'users': urlUpload+'Users/'
      
  }
 
@@ -64,7 +66,10 @@ export const arrayEndpoints = {
 
 export const routesMenu = {
     allow: {
-
+        mycourses: `${arrayRoutesGeneral.usuario}miscursos`,
+        pending: `${arrayRoutesGeneral.usuario}pendientes`,
+        account: `${arrayRoutesGeneral.usuario}account`,
+        
     },
     denied: {
 

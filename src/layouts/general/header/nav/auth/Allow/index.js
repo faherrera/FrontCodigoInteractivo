@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 
+//Assets
+    import noUserImage from "./../../../../../../assets/img/noUserImage.jpg";
 //UI
     //Materialize
     import { SideNav, SideNavItem, Button } from 'react-materialize'
 
 //Request
-import { closeSession } from './../../../../../../helpers/requests/AuthRequest';
+    import { closeSession } from './../../../../../../helpers/requests/AuthRequest';
+//Routes
+    import {arrayRoutesGeneral, routesMenu,arrayUpload} from './../../../../../../helpers/routesConfig';
 
 export default class MenuUser extends Component {
     constructor(props){
@@ -19,7 +23,19 @@ export default class MenuUser extends Component {
         closeSession();
     }
     render() {
-        const {Username,Email,Token,Name} = this.props.dataUser;
+        const {Username,
+                Email,
+                Token,
+                Name,
+                Thumbnail } = this.props.dataUser;
+    
+                console.log("///////////////////InicioDEBUG === DataLocalStorage////////////////");
+                        console.log(this.props.dataUser)
+                console.log("*******************FinalizacionDEBUG === DataLocalStorage**************");
+                
+        let Image = Thumbnail ? arrayUpload.users+Thumbnail : noUserImage;
+
+        
         return (
             <SideNav
                 trigger={<a href="#!" onClick={this.handleMenu} ><i className="large material-icons" >menu</i></a>}
@@ -28,15 +44,18 @@ export default class MenuUser extends Component {
                 <SideNavItem userView
                     user={{
                         background: 'https://static.bhphoto.com/images/images500x500/Rosco_RS6811_68_Filter_Sky_1158010036000_44470.jpg',
-                        image: 'http://next.materializecss.com/images/yuna.jpg',
+                        image: Image,
                         name: Name,
                         email: Email
                     }}
                 />
-                <SideNavItem href='#!second' icon="view_module" >Mis cursos</SideNavItem>
+                <SideNavItem href={routesMenu.general.nuestrosCursos} icon="developer_board" >Oferta de cursos </SideNavItem>
+
                 <SideNavItem divider />
-                <SideNavItem subheader>Configuraciones</SideNavItem>
-                <SideNavItem href='#!icon' icon='account_circle'>Mi cuenta</SideNavItem>
+                <SideNavItem subheader>Mi cuenta</SideNavItem>
+                <SideNavItem href={routesMenu.allow.mycourses} icon="view_module" >Mis cursos</SideNavItem>
+                <SideNavItem href={routesMenu.allow.pending} icon="access_time" >Pendientes de confirmación</SideNavItem>
+                <SideNavItem href={routesMenu.allow.account} icon='account_circle'>Configuraciónes</SideNavItem>
                 <SideNavItem waves href='#!third' icon='arrow_back' onClick={this.handleSignOut}>Cerrar sesión</SideNavItem>
             </SideNav>
 

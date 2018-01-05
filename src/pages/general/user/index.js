@@ -12,7 +12,26 @@ import noUserImage from './../../../assets/img/noUserImage.jpg'
     import MyCourses from './mycourses/';
 
 export default class UserSection extends Component {
+
+    state = {
+        tab : this.selectTab(),
+    }
+
+
+    selectTab(){
+        let { param } = this.props;
+
+        let whiteList = ["cursos","pendientes","account"];
+
+        if (whiteList.indexOf(param) == -1 || !param) {
+            return whiteList[0];
+        }
+
+        return whiteList[whiteList.indexOf(param)]
+    }
+
     render() {
+
         return (
             <div className="user-page">
                 <div className="user-container ">
@@ -22,10 +41,21 @@ export default class UserSection extends Component {
                     </div>
                     <div className="user-content black-text">
                         <Tabs className='user__navigation-tab'>
-                            <Tab className="indicator-tab" title="Mis cursos" active>
-                                <MyCourses />
+                            <Tab className="indicator-tab" title="Mis cursos" active={this.state.tab == "cursos" ? true : null}>
+                                <MyCourses 
+                                    filter="Access"
+                                    valueFilter="true"
+                                />
                             </Tab>
-                            <Tab className="indicator-tab" title="Configuracion" >
+                            <Tab className="indicator-tab" title="Pendiente de confirmación" active={this.state.tab == "pendientes" ? true : null}>
+                                <MyCourses 
+                                    filter="Access"
+                                    valueFilter="false"
+                                />
+                            </Tab>
+                            <Tab className="indicator-tab" title="Configuracion" 
+                                active={this.state.tab == "account" ? true : null}
+                                >
                                 Modificar configuración.
                             </Tab>
                         </Tabs>

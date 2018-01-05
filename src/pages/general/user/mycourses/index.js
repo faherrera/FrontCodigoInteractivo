@@ -11,7 +11,9 @@ import './style.css';
         import {ProgressCircle} from './../../../../helpers/UI/misc/'
 
 //Request
-    import { getAllCoursesOfUser } from "./../../../../helpers/requests/UserCourseRequest";
+import { getAllCoursesOfUserWithFilters } from "./../../../../helpers/requests/UserCourseRequest";
+//Routes
+    import { arrayRoutesGeneral } from "./../../../../helpers/routesConfig";
 export default class MyCourses extends Component {
 
     state = {
@@ -26,11 +28,13 @@ export default class MyCourses extends Component {
     }
 
     requestForMyCourses(){
+        let{filter,valueFilter} = this.props;
+
         let username = window.localStorage.Username;
 
         if(!username) return this.setState({message:'No hay usuario cargado.',loading:'false'});
 
-        getAllCoursesOfUser(username,(res)=>{
+        getAllCoursesOfUserWithFilters(username,filter,valueFilter,(res)=>{
             if (res.status) {
                 return this.setState({
                     loading:false,
@@ -50,12 +54,14 @@ export default class MyCourses extends Component {
         if (!this.state.courses.length) return <Collection><CollectionItem  active >No tiene cursos asociados aún </CollectionItem></Collection>
 
         return this.state.courses.map((item,index) => (
-            <Col m={4} s={6} key={index}>
+            <Col m={4} s={12} key={index}>
                 <SimpleCourseCard
-                    title="React Native"
-                    description="Construir apps nativas nunca fue tan fácil. Aplica tus conocimientos de JavaScript y React para crear una app de iOS y Android reutilizando el mismo código."
-                    level="Intermedio"
-                    code="111"
+                    title={item.Course.Name}
+                    image={item.Course.Thumbnail}
+                    description={item.Course.Description}
+                    level={item.Course.Level}
+                    mode={item.Course.Mode}
+                    linkOption={ arrayRoutesGeneral.courses+item.Course.Code}
                 />
             </Col>
         ));
@@ -65,12 +71,8 @@ export default class MyCourses extends Component {
         if(this.state.loading) return <ProgressCircle active size={150}/>
         if (this.state.message) return <Collection><CollectionItem  active >{this.state.message} </CollectionItem></Collection>
         return (
-            <div className="row">
-                <div className="course_item row">
-                    
-                    {this.mapMyCourses()}
-
-                </div>
+            <div className="row">                    
+                {this.mapMyCourses()}
             </div>
         );
     }

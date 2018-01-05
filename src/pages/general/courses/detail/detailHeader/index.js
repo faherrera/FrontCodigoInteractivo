@@ -16,14 +16,14 @@ class DetailHeader extends Component {
 
         if (!course.Video_preview) {
             return (
-                <div className="video-preview card-panel col s12 l8 ">
+                <div className="video-preview ">
                     <img src={Thumbnail} alt="Imagen del curso" srcset=""/>
                 </div>
             );
         }
         
         return(
-            <div className="video-preview card-panel col s12 l8 ">
+            <div className="video-preview ">
                 <iframe src={course.Video_preview}></iframe>
             </div>
         );
@@ -44,34 +44,34 @@ class DetailHeader extends Component {
                         <h3> {course.Name} </h3>
                     </div>
 
-                    <div className="detail-course__preview-container">
-                        <div className="row">
-                            
+                    <div className="detail-course__preview-container">                            
                             {this.renderVideoOrImage()}
-                            <ul className=" menu-preview col s12 l4">
-                                <li>
-                                    <i className=" medium material-icons">stars</i>
-                                    <span > {course.Mode} </span>
-                                </li>
+                            <div className="menu-preview">
+                                <ul >
+                                    <li>
+                                        <i className=" material-icons">mouse</i>
+                                        <span > {course.Level} </span>
+                                    </li>
 
-                                <li >
-                                    <i className=" medium material-icons">sentiment_very_satisfied</i>
-                                    <span> {classes} </span>
-                                </li>
+                                    <li >
+                                        <i className=" material-icons">sentiment_very_satisfied</i>
+                                        <span> {classes} </span>
+                                    </li>
 
-                                <li >
-                                    <i className=" medium material-icons">date_range</i>
-                                    <span> 12/03/17 - 13/04/17 </span>
-                                </li>
+                                    <li >
+                                        <i className=" material-icons">date_range</i>
+                                        <span> 12/03/17 - 13/04/17 </span>
+                                    </li>
 
-                                <li >
-                                    <i className=" medium material-icons">{course.Level == 2 ? 'public' : "computer"}</i>
-                                    <span> {course.Level} </span>
-                                </li>
+                                    <li >
+                                        <i className=" material-icons">{course.Mode == "presencial" || course.Mode == "Presencial" ? 'location_city' : "headset_mic"}</i>
+                                        <span> {course.Mode} </span>
+                                    </li>
 
-                            </ul>
 
-                        </div>
+                                </ul>
+                            </div>
+
                     </div>
 
                 </div>
