@@ -3,46 +3,48 @@ import React from 'react';
 //Assets
     import './offerItem.css';
 
+//UI
+    //Materialize
+        import {Button,Modal} from 'react-materialize';
+    //OWN
+        import SimpleCourseCard from './../../../../../helpers/UI/cards/course/';
+        import ModalEnroll from './ModalEnroll/';
 //Routes
-import {arrayRoutesGeneral} from './../../../../../helpers/routesConfig'
+    import { arrayRoutesGeneral } from './../../../../../helpers/routesConfig';
+
 export default class OfferItem extends React.Component {
 
     render() {
-        let {code} = this.props;
+
+        let {Thumbnail,Name,Level,Code} = this.props.course;
 
         return (
-            <div className={"offerCourseItem"+" "+this.props.itemClass }>
-
-                <div className="card hoverable">
-                    
-                    <div className="card-image" >
+            <SimpleCourseCard
+                // key={index}
+                className="col s12 m6 l4"
+                image={Thumbnail}
+                title={Name}
+                level={Level}
+                actions={
+                    [
+                        <Button
+                            key="seeMore"
+                            waves="green"
+                            node='a'
+                            href={arrayRoutesGeneral.courses + Code}
+                            className="grey lighten-5 black-text"
+                        >
+                            Detalles
                         
-                        <img src={this.props.imgCard} style={{ height: '240px' }} alt={this.props.title}/>
-                        
-                    
-                    </div>
+                        </Button>,
+                        <ModalEnroll Name={Name} Code={Code} key="modal" />
+                    ]}
 
-                    <div className="card-content">
-                        <span className="card-title">{this.props.title}</span>
-                    </div>
-                    
-                    <div className="card-action">
-                        
-                        <div className="row">
-
-                            <div className="col s6">
-                                <i className="material-icons verticalAlign">info_outline</i> <span>{this.props.level}</span>
-                            </div>
-
-                            <div className="col s6 right-align ">
-                                <a href={arrayRoutesGeneral.courses+code} className="teal-text" >Ver Más</a>
-                            </div>
-                        </div>
-                   
-                    </div>
-                    
-                </div>
-            </div>
+            />
         );
     }
 }
+
+
+
+

@@ -17,31 +17,33 @@ import React, { Component } from 'react';
  */
 export default class SimpleCourseCard extends Component {
     actions = ()=> {
-        let { level, linkOption ,mode} = this.props;
+        let { level, linkOption , mode , actions} = this.props;
 
         return (<div key="simple" className="actions-container">
-            <span> <i className="material-icons">info_outline</i> {level} </span>
-            <a href={linkOption}>Ver más</a>
+            {actions}
         </div>)
 
     };
 
     render() {
 
-        let {title,description,image} = this.props;
+        let {title,description,image,className} = this.props;
 
         image = image ? arrayUpload.courses + image : noImage;
 
         return (
 
             <Card
-                className="course-card"
+                className={`course-card ${className}`}
                 header={<CardTitle image={image}></CardTitle>}
                 actions={[this.actions()]}>
-                <h5 className="course-card__title"> {title} </h5>
-                <p 
-                    ref="textoCard" 
-                    className="course-card__text">{description}</p>
+                <h5 className="course-card__title center-align"> {title} </h5>
+                {
+                    //<p 
+                    // ref="textoCard" 
+                    // className="course-card__text">{description}
+                    // </p>
+                }
             </Card>
 
         );

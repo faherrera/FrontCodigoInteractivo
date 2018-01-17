@@ -6,16 +6,21 @@ import React from 'react';
 //Components
     import OfferItem from './offerItem';    //Item Course
     import Filters from './filters';
-
+    
+    
 //UI
-    import { ProgressCircle } from './../../../../helpers/UI/misc';
-    import { ServerMessageBox} from './../../../../helpers/UI/messages/ServerMessageBox';
+    //Own
+        import { ProgressCircle } from './../../../../helpers/UI/misc';
+        import { ServerMessageBox} from './../../../../helpers/UI/messages/ServerMessageBox';
+        import SimpleCourseCard from './../../../../helpers/UI/cards/course/';
+    //Materialize
+        import {Button,Icon} from 'react-materialize';
 
 //Request
     import { getAllCourses } from './../../../../helpers/requests/CoursesRequest';
 
 //Routes
-    import { arrayUpload } from './../../../../helpers/routesConfig';
+    import { arrayUpload ,arrayRoutesGeneral} from './../../../../helpers/routesConfig';
 
 
 export default class Offer extends React.Component{
@@ -85,14 +90,10 @@ export default class Offer extends React.Component{
                             
                             courses.map((item,index)=>{
                                 return <OfferItem
-                                    key={index}
-                                    itemClass="col s12 m6 l4"
-                                    imgCard={item.Thumbnail ? pathImage + item.Thumbnail : noImage}
-                                    title={item.Name}
-                                    shortDescription={item.Description}
-                                    level={item.Level}
-                                    code={item.Code}
-                                />
+                                            key={index}
+                                            course={item}
+                                        />
+
                             })
                         }
                        
