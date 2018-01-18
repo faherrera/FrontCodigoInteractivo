@@ -27,14 +27,14 @@ export default class SimpleCourseCard extends Component {
 
     render() {
 
-        let {title,description,image,className} = this.props;
+        let {title,description,image} = this.props;
 
         image = image ? arrayUpload.courses + image : noImage;
 
         return (
 
             <Card
-                className={`course-card ${className}`}
+                className={`course-card`}
                 header={<CardTitle image={image}></CardTitle>}
                 actions={[this.actions()]}>
                 <h5 className="course-card__title center-align"> {title} </h5>

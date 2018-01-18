@@ -64,3 +64,32 @@ export const getAllCoursesOfUserWithFilters = (username,filter = 'access',valueF
             call(res);
         });
 };
+
+/**
+ * Linkear el user course, estará como pendiente por el momento (access false)
+ * @param {*} data 
+ * @param {*} call 
+ */
+export const postUserCourse = (data,call) => {
+
+    axios({
+        method:"POST",
+        url: arrayEndpoints.userCourse,
+        data
+    })
+    .then(
+        response => {
+            let responseData = response.data;
+
+            let res = new getResponse(responseData.codeState, responseData.message, responseData.status, responseData.data);
+
+            call(res);
+
+        }
+    )
+    .catch(error => {
+        alert("estoy aquí, en el error de postUserCourse " + arrayEndpoints.userCourse);
+        let res = new getResponse(0, error.message, false);
+        call(res);
+    });
+}

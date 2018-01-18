@@ -5,7 +5,7 @@ import './style.css';
 
 //UI
     //materialize
-        import { Col, Collection, CollectionItem} from "react-materialize";
+        import { Col, Collection, CollectionItem,Button,Icon} from "react-materialize";
     //OWN
         import SimpleCourseCard from './../../../../helpers/UI/cards/course/'
         import {ProgressCircle} from './../../../../helpers/UI/misc/'
@@ -49,8 +49,13 @@ export default class MyCourses extends Component {
         });
     }
 
-    mapMyCourses = () =>{
+    handleBtnAccess(access){
+        if (access) return <Button key="btnAccess" className="green accent-3" style={{cursor:'auto'}} >Con acceso<Icon right>lock_open</Icon></Button>
+        return <Button key="btnAccess" className="red accent-3" style={{cursor:'auto'}}>Pendiente<Icon right>lock</Icon></Button>
         
+    }
+    mapMyCourses = () =>{
+
         if (!this.state.courses.length) return <Collection><CollectionItem  active >No tiene cursos asociados aún </CollectionItem></Collection>
 
         return this.state.courses.map((item,index) => (
@@ -61,7 +66,20 @@ export default class MyCourses extends Component {
                     description={item.Course.Description}
                     level={item.Course.Level}
                     mode={item.Course.Mode}
-                    linkOption={ arrayRoutesGeneral.courses+item.Course.Code}
+                    actions={
+                        [
+                            <Button
+                                key="seeMore"
+                                waves="green"
+                                node='a'
+                                href={arrayRoutesGeneral.courses + item.Course.Code}
+                                className="grey lighten-5 black-text"
+                            >
+                                Detalles
+
+                            </Button>,
+                             this.handleBtnAccess(item.Course.Access)
+                        ]}
                 />
             </Col>
         ));
@@ -71,7 +89,7 @@ export default class MyCourses extends Component {
         if(this.state.loading) return <ProgressCircle active size={150}/>
         if (this.state.message) return <Collection><CollectionItem  active >{this.state.message} </CollectionItem></Collection>
         return (
-            <div className="row">                    
+            <div className="row">
                 {this.mapMyCourses()}
             </div>
         );

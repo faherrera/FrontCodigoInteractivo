@@ -14,7 +14,7 @@ import React from 'react';
         import { ServerMessageBox} from './../../../../helpers/UI/messages/ServerMessageBox';
         import SimpleCourseCard from './../../../../helpers/UI/cards/course/';
     //Materialize
-        import {Button,Icon} from 'react-materialize';
+        import { Button, Icon, Col} from 'react-materialize';
 
 //Request
     import { getAllCourses } from './../../../../helpers/requests/CoursesRequest';
@@ -89,10 +89,13 @@ export default class Offer extends React.Component{
                         {
                             
                             courses.map((item,index)=>{
-                                return <OfferItem
-                                            key={index}
+                                return (<Col s={12} m={4} key={item.Code}>
+                                    <OfferItem
+                                        key={index}
                                             course={item}
                                         />
+                                    </Col>)
+                                        
 
                             })
                         }
