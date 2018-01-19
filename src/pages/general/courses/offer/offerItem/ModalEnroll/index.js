@@ -17,6 +17,12 @@ export default class ModalEnroll extends React.Component {
         message:"",
 
     }
+
+    componentDidMount() {
+        this.setState({
+            message:""
+        });
+    }
     handleLinkUserAndCourse = () => {
         this.setState({
             loading:true
@@ -44,21 +50,13 @@ export default class ModalEnroll extends React.Component {
 
     render() {
         let { Name } = this.props;
-        if (this.state.loading) {
+        if (this.state.loading || this.state.message) {
             return <Modal
                 header='Procesando información'
                 modalOptions={{
                     dismissible:false
                 }}
                 bottomSheet
-                actions={(this.state.message) ? [<Button
-                            key="Cancelar"
-                            waves="red"
-                            className="white black-text"
-                            modal='close'
-                        >
-                            Cancelar
-                    </Button>] : []}
                 trigger={<Button
                     key="addCart"
                     floating
@@ -68,9 +66,21 @@ export default class ModalEnroll extends React.Component {
                     icon='favorite'
                     onClick={this.handleAddCart}
 
-                />}>
+                />}
+                actions={(this.state.message) ? [<Button
+                    key="Cancelar"
+                    waves="red"
+                    className="white black-text"
+                    modal='close'
+                    onClick={()=>{this.setState({message: ""})}}
+                >
+                    Cancelar
+                    </Button>] : []}
+                >
+                
                     <div className="center">
-                        <Preloader flashing size="big"/>
+                        
+                        { (this.state.loading) ? <Preloader flashing size="big"/> : <p> {this.state.message}</p>}
                     </div>
             </Modal>
         }
@@ -78,7 +88,7 @@ export default class ModalEnroll extends React.Component {
                 header="Inscribirse al curso"
                 bottomSheet
                 modalOptions={{
-                    dismissible:false
+                    dismissible:true
                 }}
                 trigger={<Button
                     key="addCart"
@@ -100,14 +110,6 @@ export default class ModalEnroll extends React.Component {
                         >
                             Aceptar
                         </Button>,
-                        <Button
-                            key="Cancelar"
-                            waves="red"
-                            className="white black-text"
-                            modal='close'
-                        >
-                            Cancelar
-                    </Button>,
 
                     ]
                 }

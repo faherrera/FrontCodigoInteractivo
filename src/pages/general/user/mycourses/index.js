@@ -49,7 +49,8 @@ export default class MyCourses extends Component {
         });
     }
 
-    handleBtnAccess(access){
+    handleBtnAccess = (access) => {
+        
         if (access) return <Button key="btnAccess" className="green accent-3" style={{cursor:'auto'}} >Con acceso<Icon right>lock_open</Icon></Button>
         return <Button key="btnAccess" className="red accent-3" style={{cursor:'auto'}}>Pendiente<Icon right>lock</Icon></Button>
         
@@ -59,7 +60,8 @@ export default class MyCourses extends Component {
         if (!this.state.courses.length) return <Collection><CollectionItem  active >No tiene cursos asociados aún </CollectionItem></Collection>
 
         return this.state.courses.map((item,index) => (
-            <Col m={4} s={12} key={index}>
+            
+            <Col s={12} m={6} l={4}  key={index}>
                 <SimpleCourseCard
                     title={item.Course.Name}
                     image={item.Course.Thumbnail}
@@ -67,6 +69,7 @@ export default class MyCourses extends Component {
                     level={item.Course.Level}
                     mode={item.Course.Mode}
                     actions={
+                        
                         [
                             <Button
                                 key="seeMore"
@@ -78,7 +81,7 @@ export default class MyCourses extends Component {
                                 Detalles
 
                             </Button>,
-                             this.handleBtnAccess(item.Course.Access)
+                             this.handleBtnAccess(item.Access)
                         ]}
                 />
             </Col>

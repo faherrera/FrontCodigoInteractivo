@@ -80,7 +80,10 @@ export const postUserCourse = (data,call) => {
     .then(
         response => {
             let responseData = response.data;
-
+            console.log("///////////////////InicioDEBUG === PostLinkUscor////////////////");
+                    console.log(responseData)
+            console.log("*******************FinalizacionDEBUG === PostLinkUscor**************");
+            
             let res = new getResponse(responseData.codeState, responseData.message, responseData.status, responseData.data);
 
             call(res);

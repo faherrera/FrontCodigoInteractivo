@@ -36,5 +36,10 @@ $text_color: #78909C;
                 margin-right: 2px;
             }
         }
+
+        @media (max-width:600px){
+            flex-direction: column;
+            // background: red;
+        }
     }
 }

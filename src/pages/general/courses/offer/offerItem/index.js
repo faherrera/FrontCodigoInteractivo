@@ -1,5 +1,4 @@
 import React from 'react';
-
 //Assets
     import './offerItem.css';
 
@@ -34,7 +33,8 @@ export default class OfferItem extends React.Component {
                                 Detalles
                             
                             </Button>,
-                            <ModalEnroll Name={Name} Code={Code} key="modal" />
+                            <ModalEnroll Name={Name} Code={Code} key="modal" />,
+                            
                         ]}
 
                 />
