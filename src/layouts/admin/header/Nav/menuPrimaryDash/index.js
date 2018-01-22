@@ -1,73 +1,54 @@
 import React from 'react';
 
 //Component UI
-import { MenuItem, List, ListItem } from 'material-ui';
-import Subheader from 'material-ui/Subheader';
-import Divider from 'material-ui/Divider';
+    import { MenuItem, List, ListItem } from 'material-ui';
+    import Subheader from 'material-ui/Subheader';
+    import Divider from 'material-ui/Divider';
+    import ContentInbox from 'material-ui/svg-icons/content/inbox';
+
+//Routes
+    import { arrayRoutesDash } from './../../../../../helpers/routesConfig'
+
 
 const styles = {
     iconStyle : {
-        margin: 0
+        // verticalAlign:'baseline',
+        margin:0,
     }
 }
+
 export default class MenuPrimaryDash extends React.Component {
     render() {
         return (
                 <List>
 
-                    <Subheader>Dashboard</Subheader>
-                    <ListItem
-                        primaryText="Usuarios"
-                        leftIcon={<i className="material-icons verticalAlign" style={styles.iconStyle}>group</i>}
-                        initiallyOpen={false}
-                        primaryTogglesNestedList={true}
-                        nestedItems={[
-                            <ListItem
-                                key={1}
-                            >
-                                <a href="#" className="white-text center-align"> Crear curso </a>
-                            </ListItem>,
-                            <ListItem
-                                key={2}
-                            >
-                                <a href="#" className="white-text center-align"> Listado </a>
-                            </ListItem>,
-                        ]}
+                    <Subheader>Dashboard {window.localStorage.Username}</Subheader>
+
+                <ListItem 
+                        href={arrayRoutesDash.courses}
+                        primaryText="Cursos" 
+                        leftIcon={<ContentInbox />} />
+                <ListItem 
+                        href={arrayRoutesDash.users}
+                        primaryText="Usuarios" 
+                        leftIcon={<ContentInbox />} 
                     />
-                    <Divider />
-                    <ListItem
-                        primaryText="Cursos"
-                        leftIcon={<i className="material-icons verticalAlign" style={styles.iconStyle}>school</i>}
-                        initiallyOpen={false}
-                        primaryTogglesNestedList={true}
-                        nestedItems={[
-                            <ListItem
-                                key={1}
-                            >
-                                <a href="#" className="white-text center-align"> Crear curso </a>
-                            </ListItem>,
-                            <ListItem
-                                key={2}
-                            >
-                                <a href="#" className="white-text center-align"> Listado </a>
-                            </ListItem>,
-                        ]}
+                <ListItem 
+                        href={arrayRoutesDash.resources}
+                        primaryText="Recursos" 
+                        leftIcon={<ContentInbox />} 
                     />
-                    <Divider />
-                    <ListItem
-                        primaryText="Pagos"
-                    leftIcon={<i className="material-icons verticalAlign" style={styles.iconStyle}>attach_money</i>}
-                        initiallyOpen={false}
-                        primaryTogglesNestedList={true}
-                        nestedItems={[
-                            <ListItem
-                                key={2}
-                            >
-                                <a href="#" className="white-text center-align"> Listado </a>
-                            </ListItem>,
-                        ]}
+                <ListItem 
+                        href={arrayRoutesDash.class}
+                        primaryText="Clases" 
+                        leftIcon={<ContentInbox />} 
                     />
-                    <Divider />
+                <ListItem 
+                        href={arrayRoutesDash.courses}
+                        primaryText="Inscripciones" 
+                        leftIcon={<ContentInbox />} 
+                    />
+
                 </List>
         );
     }

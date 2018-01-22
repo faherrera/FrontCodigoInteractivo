@@ -28,6 +28,7 @@ export const arrayRoutesDash = {
     'courses': urlAppDashboard + 'courses/',
     'class': urlAppDashboard + 'classes/',
     'resources': urlAppDashboard + 'resources/',
+    'users': urlAppDashboard + 'users/'
 }
 
 //Array de Routes Layout General.

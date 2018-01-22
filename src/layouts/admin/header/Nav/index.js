@@ -64,13 +64,6 @@ export default class Nav extends React.Component{
 
                     </a>
 
-                    <ul className="right">
-                        
-                        <li style={styles.iconStyle} onClick={this.handleMenuSecondary}>
-                            <i className="material-icons">more_vert</i>
-                        </li>
-
-                    </ul>
 
                 </div>
 
@@ -86,17 +79,7 @@ export default class Nav extends React.Component{
                 
                 </Drawer>
 
-                <Drawer
-                    width={200} 
-                    docked={false}
-                    openSecondary={true} 
-                    open={this.state.openSecondary}
-                    onRequestChange={(openSecondary) => this.setState({ openSecondary })}
-                    >
-
-                        <MenuItem onClick={this.handleCloseSecondary}>Menu Item Sec</MenuItem>
-                    
-                </Drawer>
+               
 
             </nav>
         );
