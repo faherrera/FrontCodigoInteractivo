@@ -90,11 +90,11 @@ export const putUser = (code, data, call) => {
         });
 }
 export const postUser = (data, call) => {
-    console.log('Estoy intentando crear una clase.');
+    console.log('Estoy intentando crear una USERn.');
     let res;
     axios({
         method: 'POST',
-        url: arrayEndpoints.class,
+        url: arrayEndpoints.users,
         data
     })
         .then(

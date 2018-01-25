@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-export default class List extends Component {
+//Components
+    import Form from './../partials/Form/';
+export default class Create extends Component {
     render() {
         return (
-            <h1> User Create </h1>
+            <Form
+            />
         );
     }
+}
+
+Create.propTypes = {
+    // user: PropTypes.object.isRequired,    //Objeto que se va a editar.
 }

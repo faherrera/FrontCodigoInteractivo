@@ -1,29 +1,33 @@
 import React, { Component } from 'react';
 
+//Assets
+import './style.css';
 //UI
-//UI MATERIALIZE
-    import {
-    Card,
-    CardTitle,
-    Collection,
-    CollectionItem
-} from 'react-materialize';
+    //UI MATERIALIZE
+            import {
+            Card,
+            CardTitle,
+            Collection,
+            CollectionItem,
+            Row,
+            Col
+        } from 'react-materialize';
 
-//UI CODIGO INTERACTIVO
-    import {
-    ProgressCircle
-} from './../../../../helpers/UI/misc';
-    import { ButtonShowCard } from './../../../../helpers/UI/form/button/ButtonShowCard';
+    //UI CODIGO INTERACTIVO
+        import {
+        ProgressCircle
+    } from './../../../../helpers/UI/misc';
+        import { ButtonShowCard } from './../../../../helpers/UI/form/button/ButtonShowCard';
 
 
 //Assets
-    import cover from './../../../../assets/img/resourcePortada.jpg'
+    import noUserImage from './../../../../assets/img/noUserImage.jpg'
 
 //Request
         import {getUser} from '../../../../helpers/requests/UserRequest';
 
 //Routes
-    import { arrayRoutesDash } from './../../../../helpers/routesConfig';
+    import { arrayRoutesDash, arrayUpload } from './../../../../helpers/routesConfig';
 
 //Components
     import Edit from './../Edit/';
@@ -90,13 +94,20 @@ export default class Show extends Component {
         }
 
         if (this.state.editing) {
-            return <Edit id={this.state.code} resource={this.state.user} />
+            return <Edit  user={this.state.user} />
         }
+        
 
-        return (
+        let  PathProfileImage  = data.PathProfileImage; //Busco la ruta de la imagen
+        
+        //Si la ruta es null es debo darle una generica.
+
+        let imageUser = PathProfileImage ? arrayUpload.users + PathProfileImage : noUserImage; 
+
+        return (           
             <Card
-                className='card-show--classes'
-                header={<CardTitle image={cover}></CardTitle>}
+                className="card-detail--user-dashboard"
+                header={<CardTitle image={imageUser}></CardTitle>}
                 actions={[<ButtonShowCard key={1} title={data.Username} handleEdit={this.handleEdit} handleDelete={this.handleDelete} />]}>
                 <Collection header='Información del Usuario'>
                     <CollectionItem>
@@ -104,6 +115,10 @@ export default class Show extends Component {
                         <span>{data.UserID}</span>
                     </CollectionItem>
 
+                    <CollectionItem>
+                        <strong>DNI : </strong>
+                        <span>{data.DNI || "No ingresó aún su DNI"}</span>
+                    </CollectionItem>
                     <CollectionItem>
                         <strong>Nombre : </strong>
                         <span>{data.Name}</span>

@@ -49,7 +49,8 @@ export class InputPassword extends Component {
             isValidate: false,
             style: {},
             required: props.required ? (props.required) ? '(**)' : '' : '',
-            status: props.required ? (props.required) ? false : true : false
+            status: props.required ? (props.required) ? false : true : false,
+            // show: props.display == false ? false : true
         }
     }
 

@@ -53,6 +53,7 @@ export class InputEmail extends Component {
         }
     }
 
+    
     handleBlur(e) {
 
         if (this.state.required) {
@@ -131,7 +132,7 @@ export class InputEmail extends Component {
     render() {
         return (
             <div className="input-field" data-name={this.props.dataName} data-validation={this.state.status} >
-                <input style={this.state.style} placeholder={this.state.placeholder} id={this.state.id} type="email" value={this.state.value} onChange={this.handleChangeValue.bind(this)} onBlur={this.handleBlur.bind(this)} />
+                <input ref="input" style={this.state.style} placeholder={this.state.placeholder} id={this.state.id} type="email" value={this.state.value} onChange={this.handleChangeValue.bind(this)} onBlur={this.handleBlur.bind(this)} />
                 <label htmlFor={this.state.id}
                     data-error="Email no valido" data-success="Correctamente validado"
                 >{this.state.label} {this.state.required}

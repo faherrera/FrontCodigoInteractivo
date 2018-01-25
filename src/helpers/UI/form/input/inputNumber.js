@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 //Validations.
 import { isEmpty, validationNumber, validationEmail, inputValidate, inputInvalidate } from "./../validation";
 
 //Config.
 import { Response } from "./../config";
+
 
 
 export class InputNumber extends Component {
@@ -153,3 +155,14 @@ export class InputNumber extends Component {
     }
 
 } 
+
+InputNumber.propTypes = {
+    placeholder: PropTypes.string, // Placeholder o HINT
+    id: PropTypes.string,   //Identificarod del elemento en el DOM
+    label: PropTypes.string, //Label / Titulo del input
+    value: PropTypes.any,   //Valor que tiene en caso de que sea edit, sino se le da aquí un valor.
+    disabled: PropTypes.bool, //Saber si está desactivado o no.
+    required: PropTypes.bool, //Pregunto si se requiere, en caso de serlo se agrega texto al label
+    min: PropTypes.number, //Cantidad de caracteres Minimo aceptado en los input de tipo NUmber,
+    max: PropTypes.number, //Cantidad de caracteres Maxima aceptado en los input de tipo NUmber,
+}

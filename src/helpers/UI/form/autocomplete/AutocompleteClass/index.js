@@ -87,6 +87,7 @@ export class AutocompleteClass extends Component {
                 let factoryList = ClassesFactoryAutocomplete(res.data);
                 console.log(factoryList);
                 
+                //Aquí es donde obtengo el texto search para agregar al listado, esto es por el value que coincida en el factoryList.
                 let filtering = filterByHisCode(this.state.value, factoryList);
                 console.log(filtering);
                 

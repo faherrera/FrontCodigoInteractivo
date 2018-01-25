@@ -13,14 +13,16 @@ export class ImageField extends Component {
         super(props);
 
         this.state = {
-            empty: true,
-            uploadedImage: false,
+            empty: !props.pathImage ? true : false , //Si traigo un Path de imagen significa que debo mostrar
+            pathImage: props.pathImage || null,
+            pathRoute:  props.pathRoute || null,   //Ruta del acceso a la imagen
+            uploadedImage: props.pathImage ? true : false, //Si traigo un Path de imagen significa que debo mostrar
             imageLoading: false,
             base64: '',
             nameImg: '',
             status: true,   //Siempre status true
-            idImageB64: this.props.idImageB64 != null ? this.props.idImageB64 : 'imgItem',
-            idinputImage: this.props.idinputImage != null ? this.props.idinputImage : 'inputImage',
+            idImageB64: props.idImageB64 || 'imgItem',
+            idinputImage: props.idinputImage || 'inputImage',
         }
 
         this.handleUpload = this.handleUpload.bind(this);
@@ -149,7 +151,7 @@ export class ImageField extends Component {
                     </div>
 
                     <div className={(this.state.uploadedImage) ? "card center" : 'hide'} id="imagePreviewContainer" >
-                        <img src="" alt="Imagen preview ..." id={this.state.idImageB64} style={styles.imgStyles} />
+                        <img src={this.state.pathRoute+this.state.pathImage} alt="Imagen preview ..." id={this.state.idImageB64} style={styles.imgStyles} />
                     </div>
 
                     <div className="file-field input-field">
