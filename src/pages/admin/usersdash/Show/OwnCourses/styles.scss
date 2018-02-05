@@ -1,0 +1,23 @@
+.Collection-OwnCourses{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    strong{
+        font-size: 1.2rem;
+    }
+    @media screen and (min-width:700px) {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+   
+} 
+
+ .Own-Courses_buttons{
+        & > :first-child{
+            margin-right: 2rem !important;
+        }
+        button{
+            border-radius: .5rem;
+        }
+    }

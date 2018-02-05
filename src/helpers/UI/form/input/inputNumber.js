@@ -23,8 +23,8 @@ export class InputNumber extends Component {
             isValidate: false,
             style: {},
             disabled: props.disabled ? true : false,
-            required: this.props.required != null ? (this.props.required) ? '(**)' : '' : '',
-            status: this.props.required != null ? (this.props.required) ? false : true : false,
+            required: props.required ? "(**)" : '',
+            status: props.required ? true : false,
             min: props.min ? props.min : 3,
             max: props.max ? props.max : 12
         }
@@ -114,20 +114,28 @@ export class InputNumber extends Component {
 
         let _response = new Response(); //Instancio una respuesta.
 
-        if (this.state.value.length > this.state.max || this.state.value.length < this.state.min){
-            _response.message = `El numero de caracteres debe estár entre ${this.state.min} y ${this.state.max}`;
+        if (!this.state.required && this.state.value.length <= this.state.min && this.state.value.length >= this.state.max ) {
+            _response.message = `El numero de caracteres debe ser vacio al no ser requerido o estár entre ${this.state.min} y ${this.state.max}`;
 
             return _response;
         }
-       
 
-        if (this.state.status || this.state.value !== '') { //Si es correcto enviarlo.
+        if (this.state.status || this.state.value !== '' || !this.state.required && this.state.value.length) { //Si es correcto enviarlo.
             _response.status = true;
             _response.value = this.state.value;
             _response.message = "OK";
 
             return _response;   //Devuelvo el dato valido.
         }
+
+        if (this.state.value.length > this.state.max || this.state.value.length < this.state.min ){
+            _response.message = `El numero de caracteres debe estár entre ${this.state.min} y ${this.state.max}`;
+
+            return _response;
+        }
+       
+
+        
 
 
         _response.message = "No valido el " + this.state.label;

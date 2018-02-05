@@ -69,8 +69,6 @@ export default class Form extends Component {
 
         if (e.target.id === 'btnCreate') {
 
-
-
             if (responseUser.status) {
                 console.log("///////////////////InicioDEBUG === ResponseUser////////////////");
                         console.log(responseUser)
@@ -91,10 +89,10 @@ export default class Form extends Component {
                 });
             }
 
-        //     return this.setState({
-        //         messageError: [...responseResource.message],
-        //         loading: false
-        //     });
+            return this.setState({
+                messageError: [...responseUser.message],
+                loading: false
+            });
 
         }
 

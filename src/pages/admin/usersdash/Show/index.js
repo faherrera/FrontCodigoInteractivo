@@ -10,7 +10,9 @@ import './style.css';
             Collection,
             CollectionItem,
             Row,
-            Col
+            Col,
+            Button,
+            Icon
         } from 'react-materialize';
 
     //UI CODIGO INTERACTIVO
@@ -18,8 +20,7 @@ import './style.css';
         ProgressCircle
     } from './../../../../helpers/UI/misc';
         import { ButtonShowCard } from './../../../../helpers/UI/form/button/ButtonShowCard';
-
-
+        import OwnCourses from './OwnCourses/';
 //Assets
     import noUserImage from './../../../../assets/img/noUserImage.jpg'
 
@@ -53,6 +54,9 @@ export default class Show extends Component {
     }
 
     populateShow() {
+        this.setState({
+            loading:true,
+        });
         let code = this.state.code;
         getUser(code, (res) => {
 
@@ -82,6 +86,7 @@ export default class Show extends Component {
         alert("Clickee en handle Delete");
         // deleteResource(this.state.code);
     }
+
 
     render() {
         let data = this.state.user;
@@ -132,6 +137,12 @@ export default class Show extends Component {
                         <span>{data.Role}</span>
                     </CollectionItem>
                 </Collection>
+
+                <OwnCourses
+                    Courses={data.Courses}
+                    Username={data.Username}
+                    populateShow={this.populateShow.bind(this)}
+                />
 
             </Card>
         );

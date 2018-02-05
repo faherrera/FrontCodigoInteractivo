@@ -96,3 +96,48 @@ export const postUserCourse = (data,call) => {
         call(res);
     });
 }
+
+
+///## Cambio de estados booleanos ##///
+
+export const UpdateAccess = (code, username) => {
+    axios({
+        method: "POST",
+        url: arrayEndpoints.userCourse + `?courseCode=${code}&username=${username}`
+    }).then(
+        response => {
+            let responseData = response.data;
+
+            console.log("///////////////////InicioDEBUG === UpdateAccess////////////////");
+                    console.log(responseData)
+            console.log("*******************FinalizacionDEBUG === UpdateAccess**************");
+
+
+        }
+    ).catch(error => console.log(error));
+}
+
+/**
+ * Actualizacion al campo booleano de UserCourse.
+ * @param {*} code => Codigo del curso 
+ * @param {*} username => Username al que estoy pegando 
+ * @param {*} put => a actualizar [access,professor]
+ */
+export const UpdateBool = (code, username,put,call) => {
+    const URL = arrayEndpoints.userCourse + `PutBool/?courseCode=${code}&username=${username}&put=${put}`;
+
+    axios({
+        method: "PUT",
+        url: URL,
+    }).then(
+        response => {
+            let responseData = response.data;
+
+            console.log("///////////////////InicioDEBUG === UpdateProfessor////////////////");
+            console.log(response,URL)
+            console.log("*******************FinalizacionDEBUG === UpdateProfessor**************");
+            call();
+
+        }
+        ).catch(error => console.log(error));
+}

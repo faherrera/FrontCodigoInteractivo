@@ -49,8 +49,14 @@ export const getUser = (code, call) => {
     axios.get(endpoint)
         .then(
         response => {
+          
             let responseData = response.data;
+            
             res = new getResponse(responseData.codeState, responseData.message, responseData.status, responseData.data);
+            console.log("///////////////////InicioDEBUG === Response////////////////");
+            console.log(res)
+            console.log("*******************FinalizacionDEBUG === Response**************");
+
             call(res);
         })
         .catch(error => {
@@ -65,6 +71,12 @@ export const getUser = (code, call) => {
         });
 }
 
+/**
+ * Actualizar el usuario segun el codigo.
+ * @param {*} code 
+ * @param {*} data 
+ * @param {*} call 
+ */
 export const putUser = (code, data, call) => {
     console.log('Estoy intentando actualizár un usuario.');
     let res;
@@ -89,6 +101,12 @@ export const putUser = (code, data, call) => {
 
         });
 }
+
+/**
+ * Crear un nuevo usuario según la data que se envie
+ * @param {*} data 
+ * @param {*} call 
+ */
 export const postUser = (data, call) => {
     console.log('Estoy intentando crear una USERn.');
     let res;
