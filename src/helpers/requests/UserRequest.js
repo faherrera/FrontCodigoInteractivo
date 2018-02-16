@@ -143,7 +143,7 @@ export const deleteUser = (code, call) => {
         url: arrayEndpoints.users + code,
     }).then(response => {
         alert('correctamente eliminado');
-        return window.location.href = arrayRoutesDash.courses;
+        return window.location.href = arrayRoutesDash.users;
     }).catch(error => {
         alert('Error ' + error);
 

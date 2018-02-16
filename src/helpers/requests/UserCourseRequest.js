@@ -6,6 +6,38 @@ import {
     getResponse
 } from './../responses/';
 
+
+/**
+ *  Traigo el listado de todos los pedidos de registro o adhesion
+ * @param {function} call => Callback que representa la operacion. 
+ */
+export const getAllEnrollment = ( call) => {
+    let url = arrayEndpoints.userCourse;
+
+    axios.get(url)
+    .then(
+        response => {
+            console.log("///////////////////InicioDEBUG === GetAllEnrollment////////////////");
+                    console.log(response)
+            console.log("*******************FinalizacionDEBUG === GetAllEnrollment**************");
+            
+            return call(response);
+        }
+    )
+    .catch(
+        err => {
+            console.log("///////////////////InicioDEBUG === Error GetAllEnrollment////////////////");
+            console.log(err.response)
+            console.log("*******************FinalizacionDEBUG === Error GetAllEnrollment**************");
+
+            return call(err.response);
+
+
+        }
+    );
+
+}
+
 /**
  *  Traigo todos los cursos del usuario solicitado. 
  *  Recibo un callback para saber que hacer despues, por lo general seteo una propiedad del state.
@@ -140,4 +172,31 @@ export const UpdateBool = (code, username,put,call) => {
 
         }
         ).catch(error => console.log(error));
+}
+
+
+export const DeleteEnrollment = (call,id) => {
+    let url = arrayEndpoints.userCourse+id;
+
+    axios.delete(url)
+        .then(
+        response => {
+            console.log("///////////////////InicioDEBUG === DELETEEnrollment////////////////");
+            console.log(response)
+            console.log("*******************FinalizacionDEBUG === DELETEEnrollment**************");
+
+            return call(response);
+        }
+        )
+        .catch(
+        err => {
+            console.log("///////////////////InicioDEBUG === Error DELETEEnrollment////////////////");
+            console.log(err.response)
+            console.log("*******************FinalizacionDEBUG === Error DELETEEnrollment**************");
+
+            return call(err.response);
+
+
+        }
+        );
 }

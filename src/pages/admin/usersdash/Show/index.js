@@ -25,7 +25,7 @@ import './style.css';
     import noUserImage from './../../../../assets/img/noUserImage.jpg'
 
 //Request
-        import {getUser} from '../../../../helpers/requests/UserRequest';
+        import {getUser,deleteUser} from '../../../../helpers/requests/UserRequest';
 
 //Routes
     import { arrayRoutesDash, arrayUpload } from './../../../../helpers/routesConfig';
@@ -83,8 +83,7 @@ export default class Show extends Component {
     }
 
     handleDelete() {
-        alert("Clickee en handle Delete");
-        // deleteResource(this.state.code);
+        deleteUser(this.state.code);
     }
 
 

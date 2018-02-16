@@ -5,7 +5,7 @@ import CoursesDash from './coursesdash';
 import ClassesDash from './classesdash';
 import UsersDash from './usersdash';
 import ResourcesDash from './resourcesdash';
-
+import EnrollmentDash from './enrollmentdash/';
 
 let WhiteList = [
     {
@@ -23,6 +23,10 @@ let WhiteList = [
     {
         index:3,
         match:'resources'
+    },
+    {
+        index:4,
+        match:'enrollment'
     },
 ];
 
@@ -83,6 +87,7 @@ export default class Dashboard extends React.Component{
             <ClassesDash id={this.state.id} />,
             <UsersDash id={this.state.id} />,
             <ResourcesDash id={this.state.id} />,
+            <EnrollmentDash id={this.state.id} />,
             
         ]
 

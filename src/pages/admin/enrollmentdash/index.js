@@ -1,9 +1,7 @@
 import React from 'react';
 
 ///Sections routes import 
-    import List from './List/';
-    import Create from './Create';
-    import Show from './Show';
+import List from './List/';
 
 //ui
 import FontIcon from 'material-ui/FontIcon';
@@ -43,8 +41,6 @@ export default class UserDash extends React.Component {
 
         const myComponents = [
             <List />,
-            <Create />,
-            <Show id={this.state.id} />
         ];
 
         return (
@@ -53,7 +49,7 @@ export default class UserDash extends React.Component {
                 <div className="admin-page__container containerAdmin">
 
                     <nav className="admin-page__nav">
-                        <span> Users Dashboard </span>
+                        <span> Inscripciones Dashboard </span>
                     </nav>
 
 
@@ -70,15 +66,19 @@ export default class UserDash extends React.Component {
                 <Paper zDepth={1} className="bottom-navigation">
                     <BottomNavigation selectedIndex={this.state.selectedIndex}>
                         <BottomNavigationItem
-                            label="Listar los usuarios"
+                            label="Lista Inscripciones"
                             icon={<FontIcon className="material-icons">list</FontIcon>}
                             onClick={() => this.select(0)}
                         />
-                        <BottomNavigationItem
-                            label="Crear un usuario"
-                            icon={<FontIcon className="material-icons">playlist_add</FontIcon>}
-                            onClick={() => this.select(1)}
-                        />
+
+                        {
+                            
+                            // <BottomNavigationItem
+                            //     label="Crear un usuario"
+                            //     icon={<FontIcon className="material-icons">playlist_add</FontIcon>}
+                            //     onClick={() => this.select(1)}
+                            // />
+                        }
 
                     </BottomNavigation>
                 </Paper>
