@@ -5,8 +5,9 @@
  * @param {*} data => Data que viene del servidor. 
  */
 export const storeDataInLocalStorage = (data) => {
-    let {Username,Token,Email,Name,Thumbnail} = data;
+    let {UserID,Username,Token,Email,Name,Thumbnail} = data;
 
+    localStorage.setItem("UserID", UserID);
     localStorage.setItem("Username",Username);
     localStorage.setItem("Token",Token);
     localStorage.setItem("Email",Email);
@@ -40,5 +41,5 @@ export const consultSession = () => {
  */
 export const closeSession = () => {
     window.localStorage.clear();
-    return window.location.reload();
+    return window.location.href="/";
 }

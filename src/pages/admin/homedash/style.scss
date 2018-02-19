@@ -1,0 +1,12 @@
+.card-managment{
+    padding: 0 1rem !important;
+    box-sizing: border-box;
+
+    &__item{
+        box-sizing: border-box;
+        border: 5px solid #fff;
+        padding: 2rem;
+        margin: .5rem 0;
+    }
+
+}

@@ -34,10 +34,10 @@ export default class SimpleCourseCard extends Component {
         return (
 
             <Card
-                className={`course-card`}
+                className={`course-card `}
                 header={<CardTitle image={image}></CardTitle>}
                 actions={[this.actions()]}>
-                <h5 className="course-card__title center-align"> {title} </h5>
+                <h5 className="course-card__title center-align truncate"> {title} </h5>
                 {
                     //<p 
                     // ref="textoCard" 

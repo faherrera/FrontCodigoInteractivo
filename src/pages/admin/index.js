@@ -6,6 +6,7 @@ import ClassesDash from './classesdash';
 import UsersDash from './usersdash';
 import ResourcesDash from './resourcesdash';
 import EnrollmentDash from './enrollmentdash/';
+import HomeDash from './homedash/';
 
 let WhiteList = [
     {
@@ -28,6 +29,10 @@ let WhiteList = [
         index:4,
         match:'enrollment'
     },
+    {
+        index:5,
+        match:'home'
+    }
 ];
 
 export default class Dashboard extends React.Component{
@@ -35,7 +40,7 @@ export default class Dashboard extends React.Component{
         super(props);
 
         this.state = {
-            matchIndex : 0,
+            matchIndex : 5,
             id:null
         }
 
@@ -43,7 +48,7 @@ export default class Dashboard extends React.Component{
     }
 
     componentDidMount() {
-        const name = this.props.match.params.name;
+        const name = this.props.match.params.name || "home";
         // console.log(name);
         const id = this.props.match.params.id;
         // console.log(id);
@@ -88,6 +93,7 @@ export default class Dashboard extends React.Component{
             <UsersDash id={this.state.id} />,
             <ResourcesDash id={this.state.id} />,
             <EnrollmentDash id={this.state.id} />,
+            <HomeDash id={this.state.id} />,
             
         ]
 

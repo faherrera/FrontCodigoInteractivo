@@ -90,7 +90,7 @@ export default class MyCourses extends Component {
 
     render() {
         if(this.state.loading) return <ProgressCircle active size={150}/>
-        if (this.state.message) return <Collection><CollectionItem  active >{this.state.message} </CollectionItem></Collection>
+        if (this.state.message) return <Collection><CollectionItem  active >{(this.state.message == "Network Error") ? "Problema de conexion con el servidor, probablemente esté fuera de servicio" : this.state.message} </CollectionItem></Collection>
         return (
             <div className="row">
                 {this.mapMyCourses()}

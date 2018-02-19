@@ -55,7 +55,11 @@ export default class MenuUser extends Component {
                 <SideNavItem subheader>Mi cuenta</SideNavItem>
                 <SideNavItem href={routesMenu.allow.mycourses} icon="view_module" >Mis cursos</SideNavItem>
                 <SideNavItem href={routesMenu.allow.pending} icon="access_time" >Pendientes de confirmación</SideNavItem>
-                <SideNavItem href={routesMenu.allow.account} icon='account_circle'>Configuraciónes</SideNavItem>
+                {
+                    //## Configuraciones propias de cada usuario.
+                    //<SideNavItem href={routesMenu.allow.account} icon='account_circle'>Configuraciónes</SideNavItem>
+
+                }
                 <SideNavItem waves href='#!third' icon='arrow_back' onClick={this.handleSignOut}>Cerrar sesión</SideNavItem>
             </SideNav>
 

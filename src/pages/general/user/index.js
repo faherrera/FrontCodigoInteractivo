@@ -10,6 +10,7 @@ import noUserImage from './../../../assets/img/noUserImage.jpg'
 
 //Components
     import MyCourses from './mycourses/';
+    import MyAccount from './myaccount/';
 
 export default class UserSection extends Component {
 
@@ -53,11 +54,16 @@ export default class UserSection extends Component {
                                     valueFilter="false"
                                 />
                             </Tab>
-                            <Tab className="indicator-tab" title="Configuracion" 
-                                active={this.state.tab == "account" ? true : null}
-                                >
-                                Modificar configuración.
-                            </Tab>
+                            
+                            {
+                                //## Configuraciones propias de cada usuario.
+                                // <Tab className="indicator-tab" title="Configuracion" 
+                                // active={this.state.tab == "account" ? true : null}
+                                // >
+                                // <MyAccount />
+                                // </Tab>
+                            }
+
                         </Tabs>
                     </div>
                 </div>

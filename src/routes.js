@@ -35,7 +35,7 @@ const AppRoutes = () =>
             <Route exact path="/" component={Home} />
 
         {/* Dashboard*/}
-            <Route exact path="/dashboard/:name/:id?" component={Dashboard} />
+            <Route exact path="/dashboard/:name?/:id?" component={Dashboard} />
 
         {/* General*/}
             <Route exact path="/:name/:param?" component={General} />

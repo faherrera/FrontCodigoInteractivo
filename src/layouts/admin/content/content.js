@@ -9,7 +9,8 @@ export default class Content extends React.Component {
     render() {
         return (
             <section className="content-admin">
-                <AsideMenu />
+                {//<AsideMenu />
+                }
                 {this.props.children}
             </section>
         );

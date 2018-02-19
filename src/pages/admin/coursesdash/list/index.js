@@ -1,41 +1,20 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+
 //Components UI
-import {
-    Table,
-    TableBody,
-    TableHeader,
-    TableHeaderColumn,
-    TableRow,
-    TableRowColumn,
-} from 'material-ui/Table';
+    import {
+            Table,
+            Icon
+        } from 'react-materialize';
 
 ///Request Courses
 import { getAllCourses } from './../../../../helpers/requests/CoursesRequest';
 
 import { getCourses } from './../helpers/request';
 
-import { Modal, Button, Card, Col, CardTitle} from 'react-materialize';
 
 import { ProgressCircle } from './../../../../helpers/UI/misc';
 import { ServerMessageBox } from './../../../../helpers/UI/messages/ServerMessageBox';
 import { arrayRoutesDash,arrayUpload} from './../../../../helpers/routesConfig';
-
-const styles = {
-    table: {
-
-    },
-    headStyle: {
-        color: 'white',
-        textAlign: 'left'
-    },
-    tableRowStyles: {
-        color: 'white',
-        textAlign: 'center'
-    },
-    tableBodyStyles: {}
-}
-
 
 export default class TableCourse extends Component {
 
@@ -127,37 +106,42 @@ export default class TableCourse extends Component {
         }
 
         return (
-            <div className="courses-container">
-                <div className="row">
-                    {
-                        this.state.courses.map((course,index) => {
-                            
-                            let pathImage = (!course.Thumbnail) ? 'https://react-materialize.github.io/img/sample-1.jpg' : arrayUpload.courses+course.Thumbnail;
-                        return  <Col key={index} m={4} s={12}>
-                                    <Card 
-                                        className='grey lighten-3 small hoverable' 
-                                        textClassName='white-text' 
-                                        title={course.Name}
-                                        header={<CardTitle image={pathImage}></CardTitle>}
-                                        actions={
-                                            [
-                                                <div key={index}className="actions-container" style={{display : 'flex',justifyContent:'flex-end'}}>
-                                                    <a
-                                                        href="#!"
-                                                        name={course.Code}
-                                                        onClick={this.handleShow} 
-                                                        className="blue-text text-darken-3" 
-                                                        > Ver más </a>
-                                                </div>
-                                            ]}>
-                                    </Card>
-                                </Col>
-                        })
-                    }
-                </div>
+            <Table centered responsive hoverable >
+                <thead>
+                    <tr>
+                        <th data-field="id">ID</th>
+                        <th data-field="name">Name</th>
+                        <th data-field="duration">Duration</th>
+                        <th data-field="typeCourse">Tipo</th>
+                        <th data-field="level">Level</th>
+                        <th data-field="price">Price</th>
+                        <th data-field="options">Detalle</th>
 
-                
-            </div>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                {
+                    this.state.courses.map((course) => (
+                        <tr key={course.Code}>
+                            <td>{course.Code}</td>
+                            <td>{course.Name}</td>
+                            <td>{course.Duration}</td>
+                            <td>{course.TypeCourse}</td>
+                            <td>{course.Level}</td>
+                            <td>{course.Price || "Aún sin colocar"}</td>
+                            <td>
+                                <a className="btn blue accent-3" href={arrayRoutesDash.courses+course.Code}><Icon>forward</Icon></a>
+                            </td>
+
+                        </tr>
+                    ))
+                }
+                   
+              
+                </tbody>
+            </Table>
         );
 
     }
