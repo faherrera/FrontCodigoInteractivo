@@ -8,26 +8,25 @@ import { arrayEndpoints, arrayRoutesDash } from './../routesConfig';
 //Response.
 import { getResponse } from "./../responses/";
 
-export const processLogin = (data, call) => {
+export const processLogin = (data, call,route = "Estudiante") => {
     console.log('Estoy intentando Loguearme.');
     let res;
     axios({
         method: 'POST',
-        url: arrayEndpoints.login,
+        url:  route == "Estudiante" ? arrayEndpoints.login : arrayEndpoints.admin+"LoginAdmin",
         data
     }).then(
         response => {
             let responseData = response.data;
-            res = new getResponse(responseData.codeState, responseData.message, responseData.status, responseData.data);
             console.log("< ==================<##DEBUG=>RESPONSE POST Login========================");
-            console.log(res);
-            console.log("< ==================<##DEBUG=>RESPONSE POST Login========================");
-            call(res);
+            console.log(response);
+            console.log("< ==================<##DEBUG=>responsePONSE POST Login========================");
+            call(response);
         })
         .catch(error => {
-            // alert("estoy aquí, en el error de Login " + arrayEndpoints.signup);
-            res = new getResponse(0, error.message, false);
-            call(res);
+            // alert("estoy aquí, en el error de Login ");
+            console.log(error.response);
+            call(error.response);
 
         });
 }

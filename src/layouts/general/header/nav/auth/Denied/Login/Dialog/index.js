@@ -67,7 +67,7 @@ export default class LoginDialog extends React.Component {
             });
 
             processLogin(formResponse.data, (res) => {
-                if (res.status) {
+                if (res.status === 200) {
                     this.setState({
                         loading: !this.state.loading,
                     })
@@ -75,7 +75,13 @@ export default class LoginDialog extends React.Component {
 
                     return window.location.reload();
                 }
-
+                    
+                if (res.status === 401) {
+                    return this.setState({
+                        messageError: [...["No está autorizado para acceder"]],
+                        loading: !this.state.loading,
+                    })
+                }
                 return this.setState({
                     messageError: [...[res.message]],
                     loading: !this.state.loading,

@@ -47,6 +47,7 @@ export const arrayEndpoints = {
     'resources': urlApi + 'ResClass/',
     'signup': urlApi + 'Signup/',
     'login': urlApi + 'Login/',
+    'admin': urlApi + 'Admin/',
     'users': urlApi + 'UserRegister/',
     'userCourse': urlApi +'UserCourse/',
 }

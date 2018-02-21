@@ -10,15 +10,11 @@ import App from './App.js';
 
         import Home from './pages/general/home/';
         
-        import Offer from './pages/general/courses/offer';
-        import CoursesGeneral from './pages/general/courses/';
-
-        import DetailCourse from './pages/general/courses/detail';
-
     //ADMIN LAY
         import Dashboard from './pages/admin/';
-        import CoursesDash from './pages/admin/coursesdash';
 
+    //NoNav Lay
+        import LoginDash from './pages/nonav/logindash/'
     //Error Page
     const Page404 = () => {
         return(
@@ -35,6 +31,7 @@ const AppRoutes = () =>
             <Route exact path="/" component={Home} />
 
         {/* Dashboard*/}
+            <Route exact path="/dashboard/login" component={LoginDash} /> 
             <Route exact path="/dashboard/:name?/:id?" component={Dashboard} />
 
         {/* General*/}

@@ -89,7 +89,7 @@ export default class Offer extends React.Component{
                         {
                             
                             courses.map((item,index)=>{
-                                return (<Col s={12} m={4} key={item.Code}>
+                                return (<Col s={12} m={6} l={4} key={item.Code}>
                                     <OfferItem
                                         key={index}
                                             course={item}

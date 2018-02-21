@@ -1,13 +1,16 @@
 import React from 'react';
 
 //Pages
-import CoursesDash from './coursesdash';
-import ClassesDash from './classesdash';
-import UsersDash from './usersdash';
-import ResourcesDash from './resourcesdash';
-import EnrollmentDash from './enrollmentdash/';
-import HomeDash from './homedash/';
+    import CoursesDash from './coursesdash';
+    import ClassesDash from './classesdash';
+    import UsersDash from './usersdash';
+    import ResourcesDash from './resourcesdash';
+    import EnrollmentDash from './enrollmentdash/';
+    import HomeDash from './homedash/';
 
+//Layout
+    import AdminLayout from './../../layouts/admin/adminLayout';
+    
 let WhiteList = [
     {
         index: 0,
@@ -32,7 +35,9 @@ let WhiteList = [
     {
         index:5,
         match:'home'
-    }
+    },
+    
+    
 ];
 
 export default class Dashboard extends React.Component{
@@ -97,6 +102,12 @@ export default class Dashboard extends React.Component{
             
         ]
 
-        return myComponents[this.state.matchIndex];  //Retornando el componente del array.
+        return(
+            <AdminLayout>
+                {
+                    myComponents[this.state.matchIndex]  //Retornando el componente del array.
+                }
+            </AdminLayout>
+        ) 
     }
 }

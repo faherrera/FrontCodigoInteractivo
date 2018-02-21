@@ -1,10 +1,13 @@
 import React from 'react';
 
 //Pages
-import Courses from './courses/';
-import Home from './home/';
-import GeneralClasses from './classes/';
-import UserSection from './user/';
+    import Courses from './courses/';
+    import Home from './home/';
+    import GeneralClasses from './classes/';
+    import UserSection from './user/';
+
+//Layout
+    import GeneralLayout from './../../layouts/general/generalLayout';
 
 let WhiteList = [
     {
@@ -82,6 +85,10 @@ export default class General extends React.Component {
             <UserSection  param={this.state.param}/>,
         ]
 
-        return myComponents[this.state.matchIndex];  //Retornando el componente del array.
+        return (<GeneralLayout>
+                    {
+                        myComponents[this.state.matchIndex]  //Retornando el componente del array.
+                    }
+                </GeneralLayout>)
     }
 }

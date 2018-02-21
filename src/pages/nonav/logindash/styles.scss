@@ -1,0 +1,29 @@
+
+
+section{
+    background: url("./../../../assets/img/notebook.jpg") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+    background-color:#34495E;
+    height: 100vh;
+    display: flex;
+    flex:1;
+    align-items: center;
+    justify-content: center;
+}
+
+.box-square{
+    background:white;
+    box-sizing: border-box;
+    padding: 3rem 1rem;
+    border: 1px solid black;
+}
+
+.logo{
+    font-size: 2.5rem;
+    font-weight: 300;
+    width: 100%;
+}
