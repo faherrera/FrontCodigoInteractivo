@@ -24,6 +24,7 @@ import { LoginResponse } from './../../../../../../../../helpers/responses/FormR
 //Requesst
 import { processLogin } from './../../../../../../../../helpers/requests/LoginRequest';
 import { storeDataInLocalStorage } from './../../../../../../../../helpers/requests/AuthRequest';
+import { arrayRoutesGeneral } from '../../../../../../../../helpers/routesConfig';
 
 export default class LoginDialog extends React.Component {
 
@@ -67,24 +68,31 @@ export default class LoginDialog extends React.Component {
             });
 
             processLogin(formResponse.data, (res) => {
+                if(!res){
+                    return this.setState({
+
+                        messageError: ["Sin conexion al servidor o al motor de BD."],
+                        loading: false,
+                    });
+                }
                 if (res.status === 200) {
-                    this.setState({
-                        loading: !this.state.loading,
-                    })
+
                     storeDataInLocalStorage(res.data);
 
-                    return window.location.reload();
+                    return window.location.href = arrayRoutesGeneral.usuario;
                 }
-                    
+
                 if (res.status === 401) {
                     return this.setState({
-                        messageError: [...["No está autorizado para acceder"]],
-                        loading: !this.state.loading,
+                        messageError: ["Sus credenciales no tienen el rol con autorizacion pertinente"],
+                        loading: false,
                     })
                 }
+
+                
                 return this.setState({
-                    messageError: [...[res.message]],
-                    loading: !this.state.loading,
+                    messageError: [res.data],
+                    loading: false,
                 })
 
             });

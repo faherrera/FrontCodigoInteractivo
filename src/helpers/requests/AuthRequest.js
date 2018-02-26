@@ -1,3 +1,5 @@
+import axios from 'axios';
+import { arrayRoutesDash, arrayEndpoints } from '../routesConfig';
 
 /**
  * StorageDataInLocalStorage => Guardo los datos traidos del serivdor en el local storage, en el futuro se manejará la sesion desde aquí.
@@ -42,4 +44,25 @@ export const consultSession = () => {
 export const closeSession = () => {
     window.localStorage.clear();
     return window.location.href="/";
+}
+
+export const HaveAccessDashboard = (callback) => {
+    let url = arrayEndpoints.admin;
+
+    axios.get(url,{
+        headers: {"Token":window.localStorage.getItem("Token")}
+    })
+        .then(
+            response => {
+               
+                return callback(response);
+            }
+        )
+        .catch(
+            error => {
+
+                return callback(error.response);
+                
+            }
+        )
 }

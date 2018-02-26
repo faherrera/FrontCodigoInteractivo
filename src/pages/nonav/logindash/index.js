@@ -1,15 +1,38 @@
 import React, { Component } from 'react';
-import { Container, Button, Icon } from 'react-materialize';
+
+//UI 
+    import { LogoPrincipal } from '../../../helpers/UI/text/logo/index';
+    //Messages
+    import { FormMessage } from '../../../helpers/UI/messages/FormMessage/index';
+    //Progress loading
+    import { ProgressCircle } from '../../../helpers/UI/misc/index';
+    
+    //Materialize
+        import { Container, Button, Icon } from 'react-materialize';
 
 //Assets
     import './styles.css';
-import { LogoPrincipal } from '../../../helpers/UI/text/logo/index';
-import { processLogin } from '../../../helpers/requests/LoginRequest';
+
+//Request
+    import { processLogin } from '../../../helpers/requests/LoginRequest';
+    import { storeDataInLocalStorage } from '../../../helpers/requests/AuthRequest';
+import { arrayRoutesGeneral, arrayRoutesDash, urlAppDashboard } from '../../../helpers/routesConfig';
+
 
 export default class LoginDash extends Component {
 
+    constructor(){
+        super();
+
+        this.state = {
+            messageError: [],
+        }
+    }
+   
+
     handleOnSubmit(event){
         console.clear();
+        this.setState({loading:true});
         event.preventDefault();
         // window.confirm("¿Todo ok?");
 
@@ -21,11 +44,35 @@ export default class LoginDash extends Component {
         }    
 
        
-        processLogin(data,(res)=>{
-            console.log(res);
-        },"Admin");
+        processLogin(data, (res) => {
+           
+            if (!res) {
+                return this.setState({
+
+                    messageError: ["Sin conexion al servidor o al motor de BD."],
+                    loading: false,
+                });
+            }
+            if (res.status === 200) {
+                
+                storeDataInLocalStorage(res.data);
+
+                return window.location.href = urlAppDashboard;
+            }
+
+            if (res.status === 401) {
+                return this.setState({
+                    messageError: ["Sus credenciales no tienen el rol con autorizacion pertinente"],
+                    loading: false,
+                })
+            }
+            return this.setState({
+                messageError: [res.data],
+                loading: false,
+            })
+
+        },"Administrador");
         
-        console.log(data);
         
         
     }
@@ -34,18 +81,21 @@ export default class LoginDash extends Component {
     }
     render() {
         return (
-            <section>
+            <section className="nonav-section">
+
                     <div className="box-square">
+                        <FormMessage messages={this.state.messageError} />
+
                         <a href="/" className="logo truncate blue-text text-accent-3">Codigo Interactivo</a>
 
                         <h5> Iniciar sesion como administrador </h5>
                         <form id="form" ref="form" action="Post" onSubmit={this.handleOnSubmit.bind(this)}>
                             
                             <label> Nombre de usuario : </label>
-                            <input name="Username" placeholder="Nombre de usuario"/>
+                            <input required name="Username" placeholder="Nombre de usuario"/>
                             
                             <label> Password : </label>
-                            <input type="Password" name="Password"/>
+                            <input required type="Password" name="Password"/>
 
                             <Button waves='light'  large className="green darken-3 right">Enviar<Icon left>send</Icon></Button>
 

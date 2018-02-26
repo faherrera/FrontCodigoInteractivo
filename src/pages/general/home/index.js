@@ -10,7 +10,7 @@ import Promo from './promo';
 import Testimonials from './testimonials';
 
 //Layout
-    import GeneralLayout from './../../../layouts/general/generalLayout';
+    import GeneralLayout from './../../../layouts/general/';
 const noMargin = {
     margin:0
 }

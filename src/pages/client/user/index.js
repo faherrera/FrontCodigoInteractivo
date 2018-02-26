@@ -38,7 +38,7 @@ export default class UserSection extends Component {
                 <div className="user-container ">
                     <div className="user-header white-text ">
                         <img src={noUserImage} className="circle responsive-img" alt="Imagn del usuaro" />
-                        <h3 className="user__title"> @faherreradev</h3> 
+                        <h3 className="user__title"> @{window.localStorage.Username}</h3> 
                     </div>
                     <div className="user-content black-text">
                         <Tabs className='user__navigation-tab'>

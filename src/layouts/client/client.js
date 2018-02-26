@@ -11,7 +11,7 @@ import './general.css';
     import FooterGeneral from './footer/footer';
     import Content from './content/content';
 
-export default class GeneralLayout extends React.Component {
+export default class ClientLayout extends React.Component {
 
     render() {
         return (

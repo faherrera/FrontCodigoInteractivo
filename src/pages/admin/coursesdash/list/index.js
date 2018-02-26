@@ -106,7 +106,7 @@ export default class TableCourse extends Component {
         }
 
         return (
-            <Table centered responsive hoverable >
+            <Table centered responsive hoverable centered>
                 <thead>
                     <tr>
                         <th data-field="id">ID</th>

@@ -36,3 +36,13 @@ export  class  ProgressCircle extends Component {
         );
     }
 }
+
+
+export const Progressing = ({size = 300}) => {
+    return (
+        <div style={{ width: '100vw', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <ProgressCircle active={true}
+             size={size} />
+        </div>
+    )
+}

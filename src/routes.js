@@ -7,8 +7,10 @@ import App from './App.js';
 //Components PAGES.
     //GENERAL LAY
         import General from './pages/general/';
+        import Client from './pages/client/';
 
         import Home from './pages/general/home/';
+        
         
     //ADMIN LAY
         import Dashboard from './pages/admin/';
@@ -34,12 +36,12 @@ const AppRoutes = () =>
             <Route exact path="/dashboard/login" component={LoginDash} /> 
             <Route exact path="/dashboard/:name?/:id?" component={Dashboard} />
 
-        {/* General*/}
-            <Route exact path="/:name/:param?" component={General} />
+        {/* Client */}
+            <Route exact path="/:name/:param?" component={Client} />
         
 
         //Case of Error.
-        <Route component={Page404} />
+        <Route  component={Page404} />
 
     </Switch>
 

@@ -12,11 +12,47 @@ import React from 'react';
 
 //Assets
 import './styles.css';
+import { HaveAccessDashboard } from '../../helpers/requests/AuthRequest';
+import { arrayRoutesDash, arrayRoutesGeneral } from '../../helpers/routesConfig';
+import { ProgressBar,Row,Col } from 'react-materialize';
+import { ProgressCircle, Progressing} from '../../helpers/UI/misc/index';
 
 export default class AdminLayout extends React.Component {
 
+    state={
+        loading:true,
+    }
+
+    componentWillMount() {
+        HaveAccessDashboard((res)=> {
+            if (res.status > 200) {
+                alert("No está autorizado, será redirgido")
+                return window.location.href = "/";
+            }
+            
+            this.setState({
+                loading:false
+            });
+            
+        });
+    }
+
+   
     render() {
         const colorBackground = '#455A64';
+        
+        if (this.state.loading) {
+            return <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+                <main>
+                    
+                    <Content>
+                        {<Progressing size={310} />}
+                    </Content>
+                   
+                </main>
+            </MuiThemeProvider>
+          
+        }
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
                 <main>

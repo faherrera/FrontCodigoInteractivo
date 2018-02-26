@@ -23,6 +23,7 @@ export default class ModalEnroll extends React.Component {
             message:""
         });
     }
+
     handleLinkUserAndCourse = () => {
         this.setState({
             loading:true
@@ -50,6 +51,8 @@ export default class ModalEnroll extends React.Component {
 
     render() {
         let { Name } = this.props;
+        let triggerClass = (window.localStorage.Token) ? "red darken-3" : "hide";
+        console.log(triggerClass);
         if (this.state.loading || this.state.message) {
             return <Modal
                 header='Procesando información'
@@ -61,7 +64,7 @@ export default class ModalEnroll extends React.Component {
                     key="addCart"
                     floating
                     large
-                    className='red darken-3 '
+                    className={triggerClass}
                     waves='light'
                     icon='favorite'
                     onClick={this.handleAddCart}
@@ -94,7 +97,7 @@ export default class ModalEnroll extends React.Component {
                     key="addCart"
                     floating
                     large
-                    className='red darken-3 '
+                    className={triggerClass}
                     waves='light'
                     icon='favorite'
                     onClick={this.handleAddCart}

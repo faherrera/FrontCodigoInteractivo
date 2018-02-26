@@ -70,7 +70,7 @@ export default class Nav extends React.Component{
 
                 <Drawer
                     docked={false}
-                    width={200}
+                    width={300}
                     open={this.state.openPrimary}
                     onRequestChange={(openPrimary) => this.setState({ openPrimary })}
                 >

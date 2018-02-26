@@ -200,3 +200,28 @@ export const DeleteEnrollment = (call,id) => {
         }
         );
 }
+
+/**
+ * Saber si está habilitado para ver la clase.
+ * @param {*} call 
+ * @param {*} CourseID 
+ */
+export const GetEnrollment = (call, ClassCode) => {
+
+axios({
+    method: 'POST',
+    url: arrayEndpoints.userCourse + "BelongToEnrollment/",
+    params:{
+        ClassCode: ClassCode 
+    },
+    headers: { "Token": window.localStorage.getItem("Token") },
+
+
+})
+    .then(
+        response => call(response)
+    )
+    .catch(
+        error => call(error.response)
+    )
+}

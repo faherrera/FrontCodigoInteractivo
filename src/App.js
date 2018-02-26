@@ -3,11 +3,6 @@ import React, { Component } from 'react';
 import './assets/sass/materialize.css';
 
 
-//Lay Components
-  import AdminLayout from './layouts/admin/adminLayout';
-  import GeneralLayout from './layouts/general/generalLayout';
-  import NoNavLayout from './layouts/nonav/';
-
 class App extends Component {
 
   componentWillMount(){

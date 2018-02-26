@@ -11,6 +11,8 @@ import './style.css';
 //UI
     import { ProgressCircle } from '../../../helpers/UI/misc';
     import { ServerMessageBox } from '../../../helpers/UI/messages/ServerMessageBox/';
+import { GetEnrollment } from '../../../helpers/requests/UserCourseRequest';
+import { arrayRoutesGeneral } from '../../../helpers/routesConfig';
 
 class Classes extends Component {
     constructor(props){
@@ -27,7 +29,32 @@ class Classes extends Component {
 
     }
     componentDidMount() {
-        this.populateClasses();
+        console.clear();
+
+        // alert(window.localStorage.getItem("Token"));
+        GetEnrollment(
+            res => {
+                
+                if(res == undefined){
+                    alert("Ocurrió un error será redirigido a la seccion de cursos");
+
+                    return window.location.href = arrayRoutesGeneral.courses;
+                }
+
+                if (res.status === 401) {
+                    alert("No está autorizado para ingresar a esta clase, será redirigido a sus cursos con acceso.");
+                    return window.location.href= arrayRoutesGeneral.usuario;
+                }
+
+
+                if (res.status === 200) {                
+                    return this.populateClasses();
+                }
+                
+              
+
+         }, this.props.code);
+
 
     }
 
