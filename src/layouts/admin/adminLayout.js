@@ -25,14 +25,20 @@ export default class AdminLayout extends React.Component {
 
     componentWillMount() {
         HaveAccessDashboard((res)=> {
-            if (res.status > 200) {
+
+            if (!res || res.status > 200) {
                 alert("No está autorizado, será redirgido")
                 return window.location.href = "/";
             }
             
-            this.setState({
-                loading:false
-            });
+            if (res.status === 200) {
+                return this.setState({
+                    loading:false
+                });
+                
+            }
+
+            return window.location.reload();
             
         });
     }

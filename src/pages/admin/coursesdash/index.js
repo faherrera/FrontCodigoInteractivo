@@ -20,8 +20,8 @@ export default class CoursesDash extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            selectedIndex: 0,
-            id:null
+            selectedIndex: props.id ? 2 : 0, //En caso de traer ID el index será show, sino list
+            id: props.id || null // si tiene props.id es ese, sino null.
         };
         
         
@@ -30,18 +30,7 @@ export default class CoursesDash extends React.Component{
        
     }
 
-    
-    componentWillReceiveProps(nextProps) {
-        let id = nextProps.id;
-
-        if (id) {
-            this.setState({
-                selectedIndex: 2,
-                id
-
-            });
-        }
-    };
+   
 
      select(index) {this.setState({ selectedIndex: index })};
 

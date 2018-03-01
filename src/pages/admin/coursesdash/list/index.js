@@ -109,12 +109,13 @@ export default class TableCourse extends Component {
             <Table centered responsive hoverable centered>
                 <thead>
                     <tr>
-                        <th data-field="id">ID</th>
                         <th data-field="name">Name</th>
-                        <th data-field="duration">Duration</th>
+                        <th data-field="startDate">Fecha Inicio</th>
+                        <th data-field="duration">Duracion</th>
                         <th data-field="typeCourse">Tipo</th>
                         <th data-field="level">Level</th>
                         <th data-field="price">Price</th>
+                        <th data-field="classes">Clases asociadas</th>
                         <th data-field="options">Detalle</th>
 
                     </tr>
@@ -123,20 +124,24 @@ export default class TableCourse extends Component {
                 <tbody>
 
                 {
-                    this.state.courses.map((course) => (
-                        <tr key={course.Code}>
-                            <td>{course.Code}</td>
-                            <td>{course.Name}</td>
-                            <td>{course.Duration}</td>
-                            <td>{course.TypeCourse}</td>
-                            <td>{course.Level}</td>
-                            <td>{course.Price || "Aún sin colocar"}</td>
-                            <td>
-                                <a className="btn blue accent-3" href={arrayRoutesDash.courses+course.Code}><Icon>forward</Icon></a>
-                            </td>
+                    this.state.courses.map((course) => {
 
-                        </tr>
-                    ))
+                    let StartDate = new Date(course.StartDate).toLocaleDateString();
+
+                    return  <tr key={course.Code}>
+                                <td>{course.Name}</td>
+                                <td>{StartDate}</td>
+                                <td>{course.Duration}</td>
+                                <td>{course.TypeCourse}</td>
+                                <td>{course.Level}</td>
+                                <td>${course.Price || "0.0"}</td>
+                                <td>{course.Classes.length} Clases</td>
+                                <td>
+                                    <a className="btn blue accent-3" href={arrayRoutesDash.courses+course.Code}><Icon>forward</Icon></a>
+                                </td>
+
+                            </tr>
+                    })
                 }
                    
               

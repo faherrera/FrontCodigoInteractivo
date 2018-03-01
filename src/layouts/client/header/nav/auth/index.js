@@ -5,7 +5,7 @@ import React, { Component } from 'react';
     import Denied from './Denied/';
 
 //Request
-import { consultSession} from './../../../../../helpers/requests/AuthRequest';
+import { consultSession, HaveAccessDashboard} from './../../../../../helpers/requests/AuthRequest';
 //Assets
     import './style.css';
 export default class Auth extends Component {
@@ -20,16 +20,28 @@ export default class Auth extends Component {
     }
 
     componentDidMount(){
+
+        HaveAccessDashboard((res)=>{
+
+            if (!res || res.status != 200) {
+                return this.handleConsult();
+            }
+
+            
+        });
+       
+    }
+
+    handleConsult(){
         let consult = consultSession();
 
         if (consult.status) {
             this.setState({
-                session:true,
+                session: true,
                 dataUser: consult.data
             });
         }
     }
-
     render() {
         if (this.state.session) {
             return <Allow dataUser={this.state.dataUser}/>

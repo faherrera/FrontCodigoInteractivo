@@ -10,7 +10,8 @@ export class RadioSelectedLevel extends Component {
         super(props)
 
         this.state = {
-            value: (this.props.value != null) ? this.props.value.toString() : "2",
+            name: props.value || "Intermedio",
+            value: props.value ? (props.name == "Intermedio") ? 2 : (props.name == "Principiante") ? 1 : (props.name == "Avanzado") ? 3 : 2 : 2, 
         }
 
         this.handleOnChange = this.handleOnChange.bind(this);
@@ -24,11 +25,13 @@ export class RadioSelectedLevel extends Component {
     }
 
     handleOnChange(e){
+        const elements = ["","Principiante","Intermedio","Avanzado"];
 
-        console.log('Changed');
+        console.log('Changed ' + e.target.value);
 
         this.setState({
-            value: e.target.value
+            value: e.target.value,
+            name: elements[e.target.value]
         })
 
     }
@@ -52,7 +55,7 @@ export class RadioSelectedLevel extends Component {
                         type='radio'
                         value='1'
                         label='Principiante'
-                        checked={this.state.value === '1'}
+                        checked={this.state.name === 'Principiante'}
                         onChange={this.handleOnChange} />
 
                     <Input
@@ -61,7 +64,7 @@ export class RadioSelectedLevel extends Component {
                         type='radio'
                         value='2'
                         label='Intermedio'
-                        checked={this.state.value === '2'}
+                        checked={this.state.name === 'Intermedio'}
                         onChange={this.handleOnChange} />
 
                     <Input
@@ -70,7 +73,7 @@ export class RadioSelectedLevel extends Component {
                         type='radio'
                         value='3'
                         label='Avanzado'
-                        checked={this.state.value === '3'}
+                        checked={this.state.name === 'Avanzado'}
                         onChange={this.handleOnChange}
                     />
                 </Row>
@@ -87,7 +90,8 @@ export class RadioSelectedMode extends Component {
         super(props)
 
         this.state = {
-            value: (this.props.value != null) ? this.props.value.toString() : "1",
+            name: props.value || "Free",
+            value: props.value ? (props.value == "Free")  ? 1 : 2 : 1
         }
 
         this.handleOnChange = this.handleOnChange.bind(this);
@@ -99,11 +103,13 @@ export class RadioSelectedMode extends Component {
     }
 
     handleOnChange(e){
+        const elements = ["","Free","Premium"];
 
         console.log('Changed mode');
 
         this.setState({
-            value: e.target.value
+            value: e.target.value,
+            name: elements[e.target.value]
         })
 
     }
@@ -127,7 +133,7 @@ export class RadioSelectedMode extends Component {
                         type='radio'
                         value='1'
                         label='Free'
-                        checked={this.state.value === '1'}
+                        checked={this.state.name === 'Free'}
                         onChange={this.handleOnChange} />
 
                     <Input
@@ -136,7 +142,7 @@ export class RadioSelectedMode extends Component {
                         type='radio'
                         value='2'
                         label='Premium'
-                        checked={this.state.value === '2'}
+                        checked={this.state.name === 'Premium'}
                         onChange={this.handleOnChange} />
                 </Row>
             </div>
@@ -152,7 +158,8 @@ export class RadioSelectedType extends Component {
         super(props)
 
         this.state = {
-            value: (this.props.value != null) ? this.props.value.toString() : "1",
+            name: props.value || "Presencial",
+            value: props.value ? (props.value == "Presencial") ? 1 : 2 : 1,
         }
 
         this.handleOnChange = this.handleOnChange.bind(this);
@@ -164,11 +171,12 @@ export class RadioSelectedType extends Component {
     }
 
     handleOnChange(e){
-
+        const elements = ["","Presencial","Remoto"]
         console.log('Changed Type');
 
         this.setState({
-            value: e.target.value
+            value: e.target.value,
+            name: elements[e.target.value]
         })
 
     }
@@ -192,7 +200,7 @@ export class RadioSelectedType extends Component {
                         type='radio'
                         value='1'
                         label='Presencial'
-                        checked={this.state.value === '1'}
+                        checked={this.state.name === 'Presencial'}
                         onChange={this.handleOnChange} />
 
                     <Input
@@ -201,7 +209,7 @@ export class RadioSelectedType extends Component {
                         type='radio'
                         value='2'
                         label='Remoto'
-                        checked={this.state.value === '2'}
+                        checked={this.state.name === 'Remoto'}
                         onChange={this.handleOnChange} />
                 </Row>
             </div>

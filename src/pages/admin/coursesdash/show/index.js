@@ -5,7 +5,8 @@ import axios from 'axios';
 import {Card,
         CardTitle,
         Collection,
-        CollectionItem} from 'react-materialize';
+        CollectionItem,
+        Container} from 'react-materialize';
 
 import { ProgressCircle } from './../../../../helpers/UI/misc';
 
@@ -20,10 +21,12 @@ import AlertRemove from './../../../../helpers/UI/alerts';
 
 ///Components 
 import EditCourse from './../edit/';
-import { urlApi, urlApp, urlAppDashboard, arrayRoutesDash} from './../../../../helpers/routesConfig';
+import { urlApi, urlApp, urlAppDashboard, arrayRoutesDash, arrayUpload} from './../../../../helpers/routesConfig';
 
 //Assets
 import './style.css';
+import NoImage from './../../../../assets/img/noimage.jpg';
+
 
 const pathCourses = urlApi + 'courses/';
 let urlApiClass = urlAppDashboard + 'classes/'; 
@@ -50,6 +53,7 @@ export default class ShowCourse extends Component {
     }
 
     componentDidMount() {
+
         let code = this.props.id;
 
         getCourse(code,(res) => {
@@ -98,10 +102,22 @@ export default class ShowCourse extends Component {
 
     }
 
+    renderVideo(PathVideo, Thumbnail) {
+
+        if (!PathVideo) {
+            return (
+                <figure className="center">
+                    <img src={Thumbnail || NoImage} className="img-responsive" />
+                    <h6> No tiene video de muestra este curso aún</h6>
+
+                </figure>
+            )
+        }
+
+        return <iframe src={PathVideo} allowFullScreen style={{ border: "none", width: "100%", height: '300px' }} />
+    }
     render() {
-        let _level = ["Principiante","Intermedio","Avanzado"];
-        let _mode = ["Presencial","Online"];
-        let _type = ["Free","Premium"];
+        
 
 
         if (this.state.loading) {
@@ -116,76 +132,100 @@ export default class ShowCourse extends Component {
             return <h1>{this.state.message}</h1>
         }
 
-        const url = 'http://localhost:17082/Uploads/Courses/';
-        let pathImage = (this.state.course.Thumbnail !== '') ? url + this.state.course.Thumbnail : 'http://www.barracadefuegos.com.uy/wp-content/uploads/2016/11/sin-imagen-disponible-600x600.png';
+       
+        let pathImage = (this.state.course.Thumbnail) ? arrayUpload.courses + this.state.course.Thumbnail : NoImage;
 
 
         return (
-            <Card
-                className="card-courses--show"
-                header={<CardTitle image={pathImage}></CardTitle>}
-                actions={
-                    [<div key={1} className="card-options">
-                        <a  name={this.state.course.Code} onClick={this.handleEditCourse} className="lime ligthen-2 btn"><i className="material-icons">edit</i> </a> <AlertRemove name={this.state.course.Name} handleDelete={this.handleDeleteCourse}/>
-                        </div>
-                        ]}>
-                <span className="card-title">{this.state.course.Name}</span>
-                <Collection>
-                    <CollectionItem>
-                        <strong>Codigo:</strong>
-                        <span>{this.state.course.Code}</span>
-                    </CollectionItem>
-                    <CollectionItem><strong>Descripcion:</strong>
-                        <p>{this.state.course.Description}</p>
-                    </CollectionItem>
-                    <CollectionItem>
-                        <strong>Duracion:</strong>
-                        <span>{this.state.course.Duration}</span>
-                    </CollectionItem>
-                    <CollectionItem>
-                        <strong>Tipo de curso:</strong>
-                        <span>{_type[this.state.course.TypeCourse - 1 ]}</span>
-                    </CollectionItem>
-                    <CollectionItem>
-                        <strong>Modo:</strong>
-                        <span>{_mode[this.state.course.Mode - 1]}</span>
-                    </CollectionItem>
-                    <CollectionItem>
-                        <strong>Nivel:</strong>
-                        <span>{_level[this.state.course.Level - 1]}</span>
-                    </CollectionItem>
-                    <CollectionItem>
-                        <strong>Video Preview:</strong>
-                        <span>{this.state.course.Video_preview}</span>
-                    </CollectionItem>
-                    <CollectionItem>
-                        <strong>Instructor del curso:</strong>
-                        <span>{this.state.course.ProfessorID}</span>
-                    </CollectionItem>
-                </Collection>
-                <Collection header='Listado de Clases'>
+            <Container>
+                <Card
+                    className="card-courses--show"
+                    header={<CardTitle image={pathImage}></CardTitle>}
+                    actions={
+                        [<div key={1} className="card-options">
+                            <a  name={this.state.course.Code} onClick={this.handleEditCourse} className="lime ligthen-2 btn"><i className="material-icons">edit</i> </a> <AlertRemove name={this.state.course.Name} handleDelete={this.handleDeleteCourse}/>
+                            </div>
+                            ]}>
+                    <span className="card-title">{this.state.course.Name}</span>
+                    <Collection>
+                        <CollectionItem>
+                            <strong>Codigo: </strong>
+                            <span>{this.state.course.Code}</span>
+                        </CollectionItem>
+                        <CollectionItem><strong>Fecha de inicio: </strong>
+                            <span>{new Date(this.state.course.StartDate).toLocaleDateString()}</span>
+                        </CollectionItem>
+                        <CollectionItem>
+                            <strong>Duracion: </strong>
+                            <span>{this.state.course.Duration}</span>
+                        </CollectionItem>
+                        <CollectionItem>
+                            <strong>Tipo de curso: </strong>
+                            <span>{this.state.course.TypeCourse}</span>
+                        </CollectionItem>
+                        <CollectionItem>
+                            <strong>Modo: </strong>
+                            <span>{this.state.course.Mode}</span>
+                        </CollectionItem>
+                        <CollectionItem>
+                            <strong>Nivel: </strong>
+                            <span>{this.state.course.Level}</span>
+                        </CollectionItem>
+                       
                     {
-                        (!this.state.course.Classes)
-                        ? <CollectionItem>|| Este curso aún no tiene clases ||</CollectionItem> 
-                            : this.state.course.Classes.map((cls, index) =>
-                                <CollectionItem key={index}>{index + 1} - <a href={arrayRoutesDash.class+ cls.CodeClass}>{cls.TitleClass}</a>  </CollectionItem>)
-
+                        //    <CollectionItem>
+                        //        <strong>Instructor del curso:</strong>
+                        //        <span>{this.state.course.ProfessorID}</span>
+                        //    </CollectionItem>
                     }
-                </Collection>
+                    </Collection>
+                    <Collection header='Listado de Clases'>
+                        {
+                            (!this.state.course.Classes || !this.state.course.Classes.length )
+                            ? <CollectionItem active>|| Este curso aún no tiene clases ||</CollectionItem> 
+                                : this.state.course.Classes.map((cls, index) =>
+                                    <CollectionItem key={index}>{index + 1} - <a href={arrayRoutesDash.class+ cls.CodeClass}>{cls.TitleClass}</a>  </CollectionItem>)
 
-                
-                <Collection header='Temario'>
-                    <CollectionItem>
-                        <p>
-                            • Introducción
-                            • Content Providers de Sistema
-                            • Content Providers Personalizados
-                            • Practica
-                        </p>
-                    </CollectionItem>
-                </Collection>
-                
-            </Card>
+                        }
+                    </Collection>
+
+                    <Collection header='Descripcion'>
+                        {
+                            (this.state.course.Description)
+                                ?
+                                <CollectionItem>
+                                    {this.state.course.Description}
+                                </CollectionItem>
+                                :
+                                <CollectionItem active>
+                                    Sin Descripcion por el momento
+                                </CollectionItem>
+                        }
+                    </Collection>
+                    
+                    <Collection header='Video Preview del curso'>
+                        <CollectionItem>
+                            {this.renderVideo(this.state.course.Video_preview, this.state.Thumbnail)}
+                        </CollectionItem>
+                    </Collection>
+
+                    <Collection header='Temario'>
+                        {
+                            (this.state.course.Temary) 
+                            ?
+                                <CollectionItem>
+                                    {this.state.course.Temary}
+                                </CollectionItem>
+                            :
+                                <CollectionItem active>
+                                    Sin temario por el momento
+                                </CollectionItem>
+                        }
+                    </Collection>
+                    
+                </Card>
+            </Container>
+
         );
     }
 }

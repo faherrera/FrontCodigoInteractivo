@@ -8,21 +8,21 @@ import { Response } from "./../config";
 
 
 
-export class TextArea extends Component {
+export default class TextAreaDefault extends Component {
 
     constructor(props) {
         super(props);
 
 
         this.state = {
-            limitChar: this.props.limitChar != null ? this.props.limitChar : 200,
-            id: this.props.id != null ? this.props.id : 'textareaCourse',
-            label: this.props.label != null ? this.props.label : 'Label Text',
-            value: this.props.value != null ? this.props.value : '',
+            limitChar: props.limitChar || 800,
+            id: props.id || 'textareaCourse',
+            label: props.label || 'Label Text',
+            value: props.value || '',
             isValidate: false,
             style: {},
-            required: this.props.required != null ? (this.props.required) ? true : false : false,
-            status: this.props.required != null ? (this.props.required) ? false : true : false
+            required: props.required ||false,
+            status: !props.required ? true : false
         }
     }
 
@@ -72,7 +72,7 @@ export class TextArea extends Component {
             _response.value = this.state.value;
 
         } else {
-            _response.message = "NO VALIDO";
+            _response.message = "No valido el textarea.";
 
         }
         return _response;

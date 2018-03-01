@@ -62,7 +62,9 @@ export default class DetailContent extends React.Component{
                         <Tab label="Lista de clases" value={0} buttonStyle={styles.buttonStyle} />
                         <Tab label="Temario" value={1} buttonStyle={styles.buttonStyle}  />
                         <Tab label="Acerca de" value={2} buttonStyle={styles.buttonStyle}  />
-                        <Tab label="Profesor" value={3} buttonStyle={styles.buttonStyle}  />
+                        {
+                            //<Tab label="Profesor" value={3} buttonStyle={styles.buttonStyle}  />
+                        }
 
                     </Tabs>
                     
@@ -76,7 +78,10 @@ export default class DetailContent extends React.Component{
                         
                         <About Description={Description}/>
                         
-                        <Instructor ProfessorID={ProfessorID}/>
+                        {
+
+                            //<Instructor ProfessorID={ProfessorID}/>
+                        }
                         
                     </SwipeableViews>
 

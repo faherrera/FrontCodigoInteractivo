@@ -8,10 +8,11 @@ import {
     InputText,
     InputNumber,
     InputEmail,
-    TextArea,
-    ImageField,
-    RadioButton
+    RadioButton,
+    
 } from '../../../../../helpers/UI/form/';
+
+
 import { ProgressCircle } from '../../../../../helpers/UI/misc';
 
 import { ButtonForm } from './../../helpers/form/button';
@@ -22,9 +23,16 @@ import {
     RadioSelectedType,
 } from './../../partials/UI/radios/';
 
-import {
-    SelectedInstructor,
-} from './../../partials/UI/select/';
+// import {
+//     SelectedInstructor,
+// } from './../../partials/UI/select/';
+
+import 
+    RadioVideo from './../../../../../helpers/UI/form/video/RadioVideo';
+import {ImageField} from './../../../../../helpers/UI/form/imageField/ImageField';
+import InputDecimal from './../../../../../helpers/UI/form/input/inputDecimal';
+import DateTimeDefault from './../../../../../helpers/UI/form/datetime/DateTimeDefault';
+import TextAreaDefault from './../../../../../helpers/UI/form/textarea/TextArea';
 
 import {
     GenericMessage,
@@ -41,7 +49,7 @@ import { CourseResponse } from './../../../../../helpers/responses/FormResponse/
 import { postCourse ,putCourse} from './../../../../../helpers/requests/CoursesRequest';
 
 //Routes
-import { arrayRoutesDash } from './../../../../../helpers/routesConfig';
+import { arrayRoutesDash, arrayUpload } from './../../../../../helpers/routesConfig';
 
 // import { postCourse } from './../../helpers/request/';
 
@@ -73,12 +81,15 @@ export default class FormCourse extends React.Component {
         let level = this.refs.levelCourse.getValue();
         let video = this.refs.videoCourse.getValue();
         let image = this.refs.imageCourse.getValue();
-        let instructor = this.refs.instructorCourse.getValue();
+        let startDate = this.refs.startDateCourse.getValue();
+        let price = this.refs.priceCourse.getValue();
+        let temary = this.refs.temaryCourse.getValue();
+        //let instructor = this.refs.instructorCourse.getValue();
 
 
         if (e.target.id === 'btnCreate') {
 
-            let formRes = new CourseResponse(code, name, description, duration, typecourse, mode, level, video, image, instructor);
+            let formRes = new CourseResponse(code, name, description, duration, typecourse, mode, level, video, image,startDate,price,temary);
 
             if (formRes.status) {
 
@@ -116,7 +127,7 @@ export default class FormCourse extends React.Component {
 
         if(e.target.id === 'btnEdit'){
 
-            let formRes = new CourseResponse(code, name, description, duration, typecourse, mode, level, video, image, instructor);
+            let formRes = new CourseResponse(code, name, description, duration, typecourse, mode, level, video, image, startDate, price, temary);
             
             if (formRes.status) {
                 console.log("< ==================<##DEBUG=>EDITCOURE => STAATUS TRUE ========================");
@@ -168,9 +179,10 @@ export default class FormCourse extends React.Component {
                 active={this.state.loading}
             />
         }
+        let course = this.state.course;
 
         return (
-                <div className="form__group">
+                <div className="form__group container">
                    
 
                     <form className={!this.state.loading ? 'form' : 'hide'} >
@@ -179,21 +191,15 @@ export default class FormCourse extends React.Component {
                             messages={this.state.messageError}
                         />
 
+                       
+
+
                         <ImageField
-                            idImageB64="imgField"
-                            idinputImage="inputImage"
+                            pathImage={this.state.course.Thumbnail}
+                            pathRoute={arrayUpload.courses}
                             ref="imageCourse"
-
                         />
 
-                        <InputText
-                            label="Video Preview"
-                            placeholder="Example: https://www.youtube.com/embed/7qWMvFsww60"
-                            ref="videoCourse"
-                            required={false}
-                            value={this.state.course.Video_preview}
-
-                        />
 
                         <InputNumber
                             label="Codigo del curso"
@@ -215,31 +221,58 @@ export default class FormCourse extends React.Component {
 
                         />
 
-                        <TextArea
+                        <TextAreaDefault
                             label="Descripcion del curso"
                             value={this.state.course.Description} 
                             required={false}
                             ref="descriptionCourse"
 
                         />
+                        {
 
-                        <SelectedInstructor
-                            label="Seleccionando un intructor"
-                            ref="instructorCourse"
-                            value={this.state.course.ProfessorID} 
+                            // <SelectedInstructor
+                            //     label="Seleccionando un intructor"
+                            //     ref="instructorCourse"
+                            //     value={this.state.course.ProfessorID} 
+    
+                            // />
+                        }
+                        
+                        <DateTimeDefault
+                            title="Fecha inicio del cursado"
+                            value={course.StartDate}
+                            ref="startDateCourse"
 
                         />
 
                         <InputText
                             label="Duracion del curso"
-                            placeholder="3 meses y medio"
+                            placeholder="Por ejemplo : 3 meses y medio"
                             ref="durationCourse"
                             required={false}
                             value={this.state.course.Duration} 
 
                         />
+                        
+                      
+                        <InputDecimal
+                            value={course.Price ? course.Price.toString() : "0.0" }
+                            ref="priceCourse"
+                        />
 
+                       
+                        
+                        <TextAreaDefault 
+                            label="Temario del curso"
+                            value={course.Temary}
+                            ref="temaryCourse"
 
+                        />
+                        <RadioVideo
+                            value={this.state.course.Video_preview}
+                            ref="videoCourse"
+
+                        />
                         <RadioSelectedLevel
                             title="Seleccionar un Level"
                             ref="levelCourse"
@@ -250,14 +283,14 @@ export default class FormCourse extends React.Component {
                         <RadioSelectedMode
                             title="Seleccionar un Modo"
                             ref="modeCourse"
-                            value={this.state.course.Mode} 
+                        value={this.state.course.TypeCourse} 
 
                         />
 
                         <RadioSelectedType
                             title="Seleccionar un tipo"
                             ref="typeCourse"
-                            value={this.state.course.TypeCourse} 
+                            value={this.state.course.Mode} 
 
                         />
 

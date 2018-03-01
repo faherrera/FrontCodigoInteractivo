@@ -7,7 +7,8 @@ import {
     Card,
     CardTitle,
     Collection,
-    CollectionItem    
+    CollectionItem,    
+    Container
 } from 'react-materialize';
 
 import { ProgressCircle 
@@ -19,6 +20,7 @@ import {ButtonShowCard} from './../../../../helpers/UI/form/button/ButtonShowCar
 //Assets
 import './styles.css';
 import cover from './../../../../assets/img/classPortada.jpg';
+import noVideo from './../../../../assets/img/noVideo.jpg';
 
 //URI
 import {
@@ -34,6 +36,9 @@ import EditClass from './../edit/';
 
 //Routes
 import {  arrayRoutesDash } from "./../../../../helpers/routesConfig";
+
+
+
 export default class ShowClass extends Component {
 
     constructor(props){
@@ -48,6 +53,7 @@ export default class ShowClass extends Component {
 
         this.handleClassEdit = this.handleClassEdit.bind(this);
         this.handleClassDelete = this.handleClassDelete.bind(this);
+        this.renderVideo = this.renderVideo.bind(this);
     }
     componentDidMount() {
         let code = this.props.id;
@@ -81,6 +87,22 @@ export default class ShowClass extends Component {
         console.log('Remove Class');
         deleteClass(this.props.id);
     }
+
+    renderVideo(PathVideo) {
+        
+        if (!PathVideo) {
+            return(
+                <figure className="center">
+                    <img src={noVideo} className="img-responsive circle" />
+                    <h6> No tiene videos esta clase aún</h6>
+
+                </figure>
+            ) 
+        }
+
+        return <iframe src={PathVideo} allowFullScreen style={{ border: "none", width: "100%",height:'300px' }} />
+    }
+
     render() {
         let data = this.state._class; 
         // let imagen ='http://www.meditea.com/home/wp-content/uploads/2015/07/cursos-banner-2.jpg';
@@ -97,47 +119,51 @@ export default class ShowClass extends Component {
         }
         if (data) { //O tambien (data != {})
             return (
-                <Card 
-                    className='card-show--classes'
-                    header={<CardTitle image={cover}></CardTitle>}
-                    actions={[<ButtonShowCard key={1} title={data.TitleClass} handleEdit={this.handleClassEdit} handleDelete={this.handleClassDelete}/>]}>
-                    <Collection header='Información de la clase'>
-                        <CollectionItem>
-                            <strong>Codigo: </strong>
-                            <span>{data.CodeClass}</span>
-                        </CollectionItem>
-                        
-                        <CollectionItem>
-                            <strong>Titulo: </strong>
-                            <span>{data.TitleClass}</span>
-                        </CollectionItem>
-                        <CollectionItem>
-                            <strong>Descripcion: </strong>
-                            <p>{(!data.Description) ? "No posee descripción" : data.Description}</p>
-                        </CollectionItem>
-                        <CollectionItem>
-                            <strong>Video: </strong>
-                            <span>{data.PathVideo}</span>
-                        </CollectionItem>
-                        <CollectionItem>
-                            <strong>Curso perteneciente: </strong>
-                            <span>{((data.Course != undefined) ? <a href={routeCourse+data.Course.Code}>{data.Course.Name}</a> : "No tiene")}</span>
-                        </CollectionItem>
-                    </Collection>
+                <Container>
+                    <Card 
+                        className='card-show--classes'
+                        header={<CardTitle image={cover}></CardTitle>}
+                        actions={[<ButtonShowCard key={1} title={data.TitleClass} handleEdit={this.handleClassEdit} handleDelete={this.handleClassDelete}/>]}>
+                        <Collection header='Información de la clase'>
+                            <CollectionItem>
+                                <strong>Codigo: </strong>
+                                <span>{data.CodeClass}</span>
+                            </CollectionItem>
+                            
+                            <CollectionItem>
+                                <strong>Titulo: </strong>
+                                <span>{data.TitleClass}</span>
+                            </CollectionItem>
+                            <CollectionItem>
+                                <strong>Descripcion: </strong>
+                                <p>{(!data.Description) ? "No posee descripción" : data.Description}</p>
+                            </CollectionItem>
+                            <CollectionItem>
+                                <strong>Video: </strong>
+                                    {this.renderVideo(data.PathVideo)}
+                            </CollectionItem>
+                            <CollectionItem>
+                                <strong>Curso perteneciente: </strong>
+                                <span>{((data.Course != undefined) ? <a href={routeCourse+data.Course.Code}>{data.Course.Name}</a> : "No tiene")}</span>
+                            </CollectionItem>
+                        </Collection>
 
-                    <Collection header='Recursos'>
+                        <Collection header='Recursos'>
+                            
+                            {
+                                (!data.Resources || !data.Resources.length) ? <CollectionItem active> <span> No hay recursos cargados aún </span> </CollectionItem>:
+                                    data.Resources.map((datum,i) => <CollectionItem key={i}>
+                                        {i + 1}- <a href={arrayRoutesDash.resources + datum.CodeResource}>{datum.TitleResource}</a> </CollectionItem>)
+                            }
+                            
+                        </Collection>
                         
-                        {
-                            (!data.Resources) ? <CollectionItem><span> No hay recursos </span> </CollectionItem>:
-                                data.Resources.map((datum,i) => <CollectionItem key={i}>
-                                    {i + 1}- <a href={arrayRoutesDash.resources + datum.CodeResource}>{datum.TitleResource}</a> </CollectionItem>)
-                        }
-                        
-                    </Collection>
-                    
-            </Card>
+                </Card>
+            </Container>
+
             );
         }
         return <h1>No hay nada </h1>
     }
 }
+

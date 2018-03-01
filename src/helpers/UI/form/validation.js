@@ -23,6 +23,17 @@ export let validationNumber = (numberString) => {
     return re.test(numberString);
 
 }
+export let validationDecimal = (value) => {
+    let rex = /^\d+(\.\d{0,9})?$/;
+
+    console.log("-----Decimal----");
+    console.log(value);
+    console.log(rex.test(value));
+    
+    console.log("-----Decimal----");
+    
+    return rex.test(value);
+}
 
 //Styles Validation.
 
