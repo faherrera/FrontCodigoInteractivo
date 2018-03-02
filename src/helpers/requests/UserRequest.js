@@ -143,14 +143,44 @@ export const deleteUser = (code, call) => {
         url: arrayEndpoints.users + code,
     }).then(response => {
         alert('correctamente eliminado');
-        return window.location.href = arrayRoutesDash.users;
+
+         window.location.href = arrayRoutesDash.users;
+         return response;
     }).catch(error => {
         alert('Error ' + error);
-
+        return error.response;
     });
 }
 
+/**
+ * Cambiar la disponibilidad del usuario.
+ * @param {*} code 
+ * @param {*} call 
+ */
+export const changeAvailability = (code, call) => {
+    axios({
+        method: 'POST',
+        url: arrayEndpoints.users + "Availability/",
+        params: {
+            id: code
+        }
 
+    })
+        .then(
+        response => {
+            let responseData = response.data;
+            let res = new getResponse(responseData.codeState, responseData.message, responseData.status, responseData.data);
+
+            call(res);
+        })
+        .catch(error => {
+            console.log(error);
+            alert("estoy aquí, en el error de Change Visibility " + arrayEndpoints.users);
+            let res = new getResponse(0, error.message, false);
+            call(res);
+
+        });
+}
 
 
 

@@ -18,10 +18,7 @@ export const getAllCourses = (call) => {
         response =>{
             let data = response.data;
             let res = new getResponse(data.codeState, data.message, data.status, data.data);
-            console.log('==========***///***');
-            console.log(data);
-            console.log(res);
-            console.log('==========***///***');
+          
             call(res);
         }
     )
@@ -97,6 +94,31 @@ export const putCourse = (code,data, call) => {
         .catch(error => {
             alert("estoy aquí, en el error de pUTtCourse " + arrayEndpoints.courses+code);
             res = new getResponse(0, error.message, false);
+            call(res);
+
+        });
+}
+
+export const changeAvailability = (code,call) => {
+    axios({
+        method: 'POST',
+        url: arrayEndpoints.courses +"Availability/",
+        params: {
+            id: code
+        }
+        
+    })
+        .then(
+        response => {
+            let responseData = response.data;
+             let res = new getResponse(responseData.codeState, responseData.message, responseData.status, responseData.data);
+            
+            call(res);
+        })
+        .catch(error => {
+            console.log(error);
+            alert("estoy aquí, en el error de Change Visibility " + arrayEndpoints.courses);
+            let res = new getResponse(0, error.message, false);
             call(res);
 
         });

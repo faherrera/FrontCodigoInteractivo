@@ -6,7 +6,8 @@ import React, { Component } from 'react';
         Card,
         CardTitle,
         Collection,
-        CollectionItem
+        CollectionItem,
+        Container
     } from 'react-materialize';
     
     //UI CODIGO INTERACTIVO
@@ -94,33 +95,36 @@ export default class Show extends Component {
         }
 
         return (
-            <Card
-                className='card-show--classes'
-                header={<CardTitle image={cover}></CardTitle>}
-                actions={[<ButtonShowCard key={1} title={data.TitleResource} handleEdit={this.handleEdit} handleDelete={this.handleDelete} />]}>
-                <Collection header='Información del Recurso'>
-                    <CollectionItem>
-                        <strong>Codigo: </strong>
-                        <span>{data.CodeResource}</span>
-                    </CollectionItem>
+            <Container>
+                <Card
+                    className='card-show--classes'
+                    header={<CardTitle image={cover}></CardTitle>}
+                    actions={[<ButtonShowCard key={1} title={data.TitleResource} handleEdit={this.handleEdit} handleDelete={this.handleDelete} />]}>
+                    <Collection header='Información del Recurso'>
+                        <CollectionItem>
+                            <strong>Codigo: </strong>
+                            <span>{data.CodeResource}</span>
+                        </CollectionItem>
 
-                    <CollectionItem>
-                        <strong>Titulo: </strong>
-                        <span>{data.TitleResource}</span>
-                    </CollectionItem>
-                    <CollectionItem>
-                        <strong>Link externo: </strong>
-                        <span> 
-                            <a target="_blank" href={`http://${data.ExternalLink}`}> {data.ExternalLink}</a>
-                        </span>
-                    </CollectionItem>
-                    <CollectionItem>
-                        <strong>Clase perteneciente: </strong>
-                        <span>{(data.TitleClass != undefined) ? <a href={arrayRoutesDash.class + data.Class_CourseID}> {data.TitleClass} </a> : 'Sin nombre'}</span>
-                    </CollectionItem>
-                </Collection>
+                        <CollectionItem>
+                            <strong>Titulo: </strong>
+                            <span>{data.TitleResource}</span>
+                        </CollectionItem>
+                        <CollectionItem>
+                            <strong>Link externo: </strong>
+                            <span> 
+                                <a target="_blank" href={`http://${data.ExternalLink}`}> {data.ExternalLink}</a>
+                            </span>
+                        </CollectionItem>
+                        <CollectionItem>
+                            <strong>Clase perteneciente: </strong>
+                            <span>{(data.TitleClass != undefined) ? <a href={arrayRoutesDash.class + data.Class_CourseID}> {data.TitleClass} </a> : 'Sin nombre'}</span>
+                        </CollectionItem>
+                    </Collection>
 
-            </Card>
+                </Card>
+            </Container>
+
         );
     }
 }

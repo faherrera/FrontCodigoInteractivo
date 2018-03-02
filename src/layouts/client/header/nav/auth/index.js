@@ -23,7 +23,7 @@ export default class Auth extends Component {
 
         HaveAccessDashboard((res)=>{
 
-            if (!res || res.status != 200) {
+            if (res && res.status !== 200) {
                 return this.handleConsult();
             }
 

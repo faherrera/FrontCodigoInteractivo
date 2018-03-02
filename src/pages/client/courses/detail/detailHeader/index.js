@@ -60,7 +60,14 @@ class DetailHeader extends Component {
 
                                     <li >
                                         <i className=" material-icons">date_range</i>
-                                        <span> 12/03/17 - 13/04/17 </span>
+                                        <span> {new Date(course.StartDate).toLocaleDateString()} - {course.Duration} </span>
+                                    </li>
+
+                                    <li >
+                                    
+                                    <i className=" material-icons">attach_money</i>
+                                        <span > {course.Price || "No definido por el momento"} </span>
+
                                     </li>
 
                                     <li >

@@ -94,6 +94,7 @@ export default class ShowCourse extends Component {
         })
         .then(
             (response)=>{
+                alert(response.data.message);
                 return window.location = urlApp + 'dashboard/courses';
             }
 
@@ -116,6 +117,7 @@ export default class ShowCourse extends Component {
 
         return <iframe src={PathVideo} allowFullScreen style={{ border: "none", width: "100%", height: '300px' }} />
     }
+
     render() {
         
 
@@ -213,8 +215,10 @@ export default class ShowCourse extends Component {
                         {
                             (this.state.course.Temary) 
                             ?
-                                <CollectionItem>
-                                    {this.state.course.Temary}
+                                <CollectionItem >
+
+                                    <strong><a href={this.state.course.Temary}>{this.state.course.Temary}</a>
+                                    </strong>
                                 </CollectionItem>
                             :
                                 <CollectionItem active>

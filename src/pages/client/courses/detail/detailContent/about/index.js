@@ -6,8 +6,9 @@ export default class About extends React.Component{
             <div className="tab-item collection">
                 <div className="container">
 
-                    <h3 className="tab-title"> Sobre el curso </h3>
-
+                    <h3> Sobre el curso
+                    </h3>
+                    <hr />
                     <p>
                         {this.props.Description}
                     </p>

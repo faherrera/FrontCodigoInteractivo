@@ -60,8 +60,8 @@ export default class DetailContent extends React.Component{
                         inkBarStyle={styles.inkStyle}
                     >
                         <Tab label="Lista de clases" value={0} buttonStyle={styles.buttonStyle} />
-                        <Tab label="Temario" value={1} buttonStyle={styles.buttonStyle}  />
-                        <Tab label="Acerca de" value={2} buttonStyle={styles.buttonStyle}  />
+                        <Tab label="Acerca de" value={1} buttonStyle={styles.buttonStyle}  />
+                        <Tab label="Temario" value={2} buttonStyle={styles.buttonStyle}  />
                         {
                             //<Tab label="Profesor" value={3} buttonStyle={styles.buttonStyle}  />
                         }
@@ -74,9 +74,13 @@ export default class DetailContent extends React.Component{
                     >
                         <Listing Classes={Classes}/>
 
-                        <Temary /> 
-                        
-                        <About Description={Description}/>
+
+                        <About Description={Description} />
+
+                        <Temary 
+                            link={this.props.course.Temary}
+                        /> 
+                 
                         
                         {
 

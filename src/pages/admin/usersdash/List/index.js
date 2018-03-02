@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
 //UI MATERIALIZE
-    import { Table } from 'react-materialize';
+    import { Table ,Button,Icon} from 'react-materialize';
 
 //UI MATERIAL-UI
     import { FontIcon } from 'material-ui'
 
 //Requests getAllResources
-   import { getAllUsers } from "./../../../../helpers/requests/UserRequest";
+   import { getAllUsers, changeAvailability } from "./../../../../helpers/requests/UserRequest";
 
 
 
@@ -32,6 +32,8 @@ export default class List extends Component {
             error: false,
             messageServer: '',
         }
+
+        this.handleChangeAvailability = this.handleChangeAvailability.bind(this);
     }
 
     componentDidMount() {
@@ -73,6 +75,24 @@ export default class List extends Component {
         });
         this.populateList();
     }
+
+    handleChangeAvailability(code){
+
+        changeAvailability(code, (res) => {
+
+            if (res && res.status) {
+                alert(res.message);
+                return this.handleReload();
+            }
+
+            return this.setState({
+                message: res.message,
+                loading: false,
+            });
+        });
+
+      
+    }
     render() {
 
         if (this.state.loading) {
@@ -96,6 +116,7 @@ export default class List extends Component {
                         <th data-field="Email">Email</th>
                         <th data-field="PathProfile">Imagen de perfil</th>
                         <th data-field="Rol">Rol al que pertenece</th>
+                        <th data-field="Disponibilidad">Disponibilidad</th>
                         <th data-field="options">Opciones</th>
                     </tr>
                 </thead>
@@ -110,6 +131,25 @@ export default class List extends Component {
                                 <td>{user.Email}</td>
                                 <td>{user.PathProfileImage || "Sin imagen por el momento" }</td>
                                 <td>{user.Role}</td>
+                                <td>
+                                    {
+                                        user.Visibility ?
+
+                                            <Button
+                                                waves='green'
+                                                onClick={() => this.handleChangeAvailability(user.UserID)}
+                                                className="green lighten-2">
+                                                Disponible<Icon right>tag_faces</Icon>
+                                            </Button>
+                                            :
+                                            <Button
+                                                waves='red'
+                                                onClick={() => this.handleChangeAvailability(user.UserID)}
+                                                className="red lighten-1">
+                                                No disponible<Icon right>pan_tool</Icon>
+                                            </Button>
+                                    }
+                                </td>
                                 <td>
                                     <a href={`./${user.UserID}`} className="btn blue accent-3">
                                         <FontIcon className="blue accent-3 material-icons">forward</FontIcon>

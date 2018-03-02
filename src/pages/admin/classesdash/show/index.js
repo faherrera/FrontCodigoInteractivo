@@ -134,14 +134,7 @@ export default class ShowClass extends Component {
                                 <strong>Titulo: </strong>
                                 <span>{data.TitleClass}</span>
                             </CollectionItem>
-                            <CollectionItem>
-                                <strong>Descripcion: </strong>
-                                <p>{(!data.Description) ? "No posee descripción" : data.Description}</p>
-                            </CollectionItem>
-                            <CollectionItem>
-                                <strong>Video: </strong>
-                                    {this.renderVideo(data.PathVideo)}
-                            </CollectionItem>
+                           
                             <CollectionItem>
                                 <strong>Curso perteneciente: </strong>
                                 <span>{((data.Course != undefined) ? <a href={routeCourse+data.Course.Code}>{data.Course.Name}</a> : "No tiene")}</span>
@@ -156,6 +149,20 @@ export default class ShowClass extends Component {
                                         {i + 1}- <a href={arrayRoutesDash.resources + datum.CodeResource}>{datum.TitleResource}</a> </CollectionItem>)
                             }
                             
+                        </Collection>
+
+                        <Collection header='Video de la clase'>
+                            {this.renderVideo(data.PathVideo)}
+                        </Collection>
+
+                        <Collection header='Descripcion'>
+                            {
+                                data.Description ? 
+                                <CollectionItem>
+                                    {data.Description}
+                                </CollectionItem>:
+                                <CollectionItem active> <span> No hay recursos cargados aún </span> </CollectionItem>
+                            }
                         </Collection>
                         
                 </Card>

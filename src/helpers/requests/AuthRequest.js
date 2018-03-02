@@ -55,12 +55,13 @@ export const HaveAccessDashboard = (callback) => {
         .then(
             response => {
                
+                
                 return callback(response);
             }
         )
         .catch(
             error => {
-
+                
                 return callback(error.response);
                 
             }

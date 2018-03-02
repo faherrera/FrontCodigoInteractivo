@@ -3,11 +3,13 @@ import React, { Component } from 'react';
 //Components UI
     import {
             Table,
-            Icon
+            Icon,
+            Button,
+            Toast
         } from 'react-materialize';
 
 ///Request Courses
-import { getAllCourses } from './../../../../helpers/requests/CoursesRequest';
+import { getAllCourses, changeAvailability } from './../../../../helpers/requests/CoursesRequest';
 
 import { getCourses } from './../helpers/request';
 
@@ -29,6 +31,7 @@ export default class TableCourse extends Component {
         }
 
         this.handleShow = this.handleShow.bind(this);
+        this.handleChangeAvailability = this.handleChangeAvailability.bind(this);
     }
     componentDidMount() {
        this.handleCourses();    //Trayendo los cursos
@@ -92,6 +95,26 @@ export default class TableCourse extends Component {
         window.location = arrayRoutesDash.courses+e.target.name;
     }
 
+    handleChangeAvailability(code){ 
+
+        this.setState({
+            loading:true,
+        });
+        
+        changeAvailability(code, (res) => {
+
+            if (res && res.status) {
+                alert(res.message);
+                return this.handleReload();
+            }
+
+            return this.setState({
+                message: res.message,
+                loading:false,
+            });
+        });
+
+    }
     render() {
 
         if (this.state.loading) {
@@ -109,12 +132,14 @@ export default class TableCourse extends Component {
             <Table centered responsive hoverable centered>
                 <thead>
                     <tr>
+                        <th data-field="name">Code</th>
                         <th data-field="name">Name</th>
                         <th data-field="startDate">Fecha Inicio</th>
                         <th data-field="duration">Duracion</th>
                         <th data-field="typeCourse">Tipo</th>
                         <th data-field="level">Level</th>
                         <th data-field="price">Price</th>
+                        <th data-field="status">Estado </th>
                         <th data-field="classes">Clases asociadas</th>
                         <th data-field="options">Detalle</th>
 
@@ -124,17 +149,37 @@ export default class TableCourse extends Component {
                 <tbody>
 
                 {
-                    this.state.courses.map((course) => {
+                    this.state.courses.map((course,index) => {
 
                     let StartDate = new Date(course.StartDate).toLocaleDateString();
 
-                    return  <tr key={course.Code}>
+                    return  <tr key={index}>
+                        <td>{course.Code}</td>
                                 <td>{course.Name}</td>
                                 <td>{StartDate}</td>
                                 <td>{course.Duration}</td>
                                 <td>{course.TypeCourse}</td>
                                 <td>{course.Level}</td>
                                 <td>${course.Price || "0.0"}</td>
+                                <td>
+                                    {
+                                    course.Availability ?
+
+                                        <Button
+                                             waves='green'
+                                             onClick={() => this.handleChangeAvailability(course.Code)}
+                                             className="green lighten-2">
+                                        Disponible<Icon right>tag_faces</Icon>
+                                        </Button>
+                                        :
+                                        <Button
+                                             waves='red'
+                                             onClick={() => this.handleChangeAvailability(course.Code)}
+                                             className="red lighten-1">
+                                        No disponible<Icon right>pan_tool</Icon>
+                                        </Button>
+                                    }
+                                </td>
                                 <td>{course.Classes.length} Clases</td>
                                 <td>
                                     <a className="btn blue accent-3" href={arrayRoutesDash.courses+course.Code}><Icon>forward</Icon></a>

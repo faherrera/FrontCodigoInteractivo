@@ -262,10 +262,12 @@ export default class FormCourse extends React.Component {
 
                        
                         
-                        <TextAreaDefault 
-                            label="Temario del curso"
-                            value={course.Temary}
+                        <InputText
+                            label="Temario del curso [Link EXTERNO]"
+                            placeholder="Por ejemplo : https://github.com/rexxars/react-markdown"
                             ref="temaryCourse"
+                            required={false}
+                            value={course.Temary}
 
                         />
                         <RadioVideo

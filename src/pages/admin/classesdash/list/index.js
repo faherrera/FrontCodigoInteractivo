@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 //UI Materialize
-import {  Table } from "react-materialize";
+import {  Table ,Container} from "react-materialize";
 //UI Material-UI
 import FontIcon from 'material-ui/FontIcon';
 //UI CodigoInteractivo
@@ -59,40 +59,44 @@ export default class ListClass extends Component {
             />
         }
         return (
-            <Table responsive bordered hoverable>
-                <thead>
-                    <tr>
-                        <th data-field="code">Codigo</th>
-                        <th data-field="title">Titulo</th>
-                        <th data-field="course">Curso</th>
-                        <th data-field="options">Opciones</th>
-                       
-                    </tr>
-                </thead>
+                <Table responsive bordered hoverable centered>
+                    <thead>
+                        <tr>
+                            <th data-field="code">Codigo</th>
+                            <th data-field="title">Titulo</th>
+                            <th data-field="course">Curso</th>
+                            <th data-field="resources">Recursos</th>
+                            <th data-field="options">Opciones</th>
+                        
+                        </tr>
+                    </thead>
 
-                <tbody>
+                    <tbody>
 
-                    {
-                        (this.state.listado.length > 0) ? this.state.listado.map( (c,index) => {
-                            return <tr key={index}>
-                                        <td>{c.CodeClass}</td>
-                                        <td>{c.TitleClass}</td>
-                                        <td>
-                                            <strong> {(c.Course) ? c.Course.Name : 'No tiene Curso Asignado'}
-                                            </strong>
-                                        </td>
-                                        <td>
-                                            <a href={arrayRoutesDash.class+c.CodeClass} className="btn blue accent-3" style={styles.options}>
-                                                <FontIcon className="blue accent-3 material-icons">forward</FontIcon>
-                                            </a>
-                                        </td>
+                        {
+                            (this.state.listado.length > 0) ? this.state.listado.map( (c,index) => {
+                                return <tr key={index}>
+                                            <td>{c.CodeClass}</td>
+                                            <td>{c.TitleClass}</td>
+                                            <td>
+                                                <strong> 
+                                                
+                                                {(c.Course) ? <a href={arrayRoutesDash.courses+c.Course.Code}>{c.Course.Name} </a> : 'No tiene Curso Asignado'}
+                                                </strong>
+                                            </td>
+                                    <td>{c.Resources.length ? c.Resources.length+" recursos" : "Sin recursos por el momento"} </td>
+                                            <td>
+                                                <a href={arrayRoutesDash.class+c.CodeClass} className="btn blue accent-3" style={styles.options}>
+                                                    <FontIcon className="blue accent-3 material-icons">forward</FontIcon>
+                                                </a>
+                                            </td>
 
-                                    </tr>
-                        }) : <span> No tengo datos </span>
-                    }
-                    
-                </tbody>
-            </Table>
+                                        </tr>
+                            }) : <span> No tengo datos </span>
+                        }
+                        
+                    </tbody>
+                </Table>
         );
     }
 }

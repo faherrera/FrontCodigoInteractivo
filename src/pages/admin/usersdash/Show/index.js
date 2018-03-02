@@ -12,7 +12,8 @@ import './style.css';
             Row,
             Col,
             Button,
-            Icon
+            Icon,
+            Container
         } from 'react-materialize';
 
     //UI CODIGO INTERACTIVO
@@ -49,6 +50,7 @@ export default class Show extends Component {
         this.handleEdit = this.handleEdit.bind(this);
     }
 
+    
     componentDidMount() {
         this.populateShow();
     }
@@ -83,7 +85,15 @@ export default class Show extends Component {
     }
 
     handleDelete() {
-        deleteUser(this.state.code);
+        deleteUser(this.state.code, res => {
+
+            if (res || res.status ) {
+                
+                alert(res.message);
+            }
+
+            
+        });
     }
 
 
@@ -108,42 +118,44 @@ export default class Show extends Component {
 
         let imageUser = PathProfileImage ? arrayUpload.users + PathProfileImage : noUserImage; 
 
-        return (           
-            <Card
-                className="card-detail--user-dashboard"
-                header={<CardTitle image={imageUser}></CardTitle>}
-                actions={[<ButtonShowCard key={1} title={data.Username} handleEdit={this.handleEdit} handleDelete={this.handleDelete} />]}>
-                <Collection header='Información del Usuario'>
-                    <CollectionItem>
-                        <strong>ID del usuario: </strong>
-                        <span>{data.UserID}</span>
-                    </CollectionItem>
+        return (        
+            <Container>   
+                <Card
+                    className="card-detail--user-dashboard"
+                    header={<CardTitle image={imageUser}></CardTitle>}
+                    actions={[<ButtonShowCard key={1} title={data.Username} handleEdit={this.handleEdit} handleDelete={this.handleDelete} />]}>
+                    <Collection header='Información del Usuario'>
+                        <CollectionItem>
+                            <strong>ID del usuario: </strong>
+                            <span>{data.UserID}</span>
+                        </CollectionItem>
 
-                    <CollectionItem>
-                        <strong>DNI : </strong>
-                        <span>{data.DNI || "No ingresó aún su DNI"}</span>
-                    </CollectionItem>
-                    <CollectionItem>
-                        <strong>Nombre : </strong>
-                        <span>{data.Name}</span>
-                    </CollectionItem>
-                    <CollectionItem>
-                        <strong>Username: </strong>
-                        <span>{data.Username}</span>
-                    </CollectionItem>
-                    <CollectionItem>
-                        <strong>Rol: </strong>
-                        <span>{data.Role}</span>
-                    </CollectionItem>
-                </Collection>
+                        <CollectionItem>
+                            <strong>DNI : </strong>
+                            <span>{data.DNI || "No ingresó aún su DNI"}</span>
+                        </CollectionItem>
+                        <CollectionItem>
+                            <strong>Nombre : </strong>
+                            <span>{data.Name}</span>
+                        </CollectionItem>
+                        <CollectionItem>
+                            <strong>Username: </strong>
+                            <span>{data.Username}</span>
+                        </CollectionItem>
+                        <CollectionItem>
+                            <strong>Rol: </strong>
+                            <span>{data.Role}</span>
+                        </CollectionItem>
+                    </Collection>
 
-                <OwnCourses
-                    Courses={data.Courses}
-                    Username={data.Username}
-                    populateShow={this.populateShow.bind(this)}
-                />
+                    <OwnCourses
+                        Courses={data.Courses}
+                        Username={data.Username}
+                        populateShow={this.populateShow.bind(this)}
+                    />
 
-            </Card>
+                </Card>
+            </Container>   
         );
     }
 }
