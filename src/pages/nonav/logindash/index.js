@@ -32,7 +32,7 @@ export default class LoginDash extends Component {
 
     handleOnSubmit(event){
         console.clear();
-        this.setState({loading:true});
+        this.setState({loading:true,messageError:[]});
         event.preventDefault();
         // window.confirm("¿Todo ok?");
 
@@ -45,14 +45,16 @@ export default class LoginDash extends Component {
 
        
         processLogin(data, (res) => {
-           
             if (!res) {
+                console.log("///////////////////InicioDEBUG === entrando en!res////////////////");
+                
                 return this.setState({
 
                     messageError: ["Sin conexion al servidor o al motor de BD."],
                     loading: false,
                 });
             }
+
             if (res.status === 200) {
                 
                 storeDataInLocalStorage(res.data);

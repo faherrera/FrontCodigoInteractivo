@@ -50,6 +50,7 @@ export const arrayEndpoints = {
     'admin': urlApi + 'Admin/',
     'users': urlApi + 'UserRegister/',
     'userCourse': urlApi +'UserCourse/',
+    'userAccount': urlApi + 'UserAccount/',
 }
 
 

@@ -97,7 +97,7 @@ export default class FormCourse extends React.Component {
 
                 postCourse(formRes.data,(res)=>{
                     if (res.status) {
-                     return   window.location = arrayRoutesDash.course
+                     return   window.location = arrayRoutesDash.courses
                     }
 
                     this.setState({

@@ -5,6 +5,7 @@ import React from 'react';
     // import Home from './home/';
     import GeneralClasses from './classes/';
     import UserSection from './user/';
+    import Error404 from './error404/';
 
 //Layout
     import ClientLayout from './../../layouts/client/client';
@@ -26,6 +27,10 @@ let WhiteList = [
         index: 2,
         match: 'clases',
     },
+    {
+        index: 3,
+        match: 'error',
+    },
 ];
 
 export default class General extends React.Component {
@@ -33,7 +38,7 @@ export default class General extends React.Component {
         super(props);
 
         this.state = {
-            matchIndex: 0,
+            matchIndex: 3,
             param: null
         }
 
@@ -41,10 +46,9 @@ export default class General extends React.Component {
     }
 
     componentDidMount() {
-        const name = this.props.match.params.name;
+        const name = this.props.match.params.name || "error";
         const param = this.props.match.params.param;
         
-        // alert('El name es-> '+name+' y el param es -> '+param);
         
         if (name) {
             if (name === 'clases' && !param) {
@@ -57,8 +61,9 @@ export default class General extends React.Component {
 
         if (param) {
             this.setState({
-                param
+                param            
             });
+
         }
 
 
@@ -83,8 +88,8 @@ export default class General extends React.Component {
             <UserSection  param={this.state.param}/>,
             <Courses code={this.state.param} />,
             <GeneralClasses code={this.state.param} />,
+            <Error404 code={this.state.param} />,
         ]
-
         return (<ClientLayout>
                     {
                         myComponents[this.state.matchIndex]  //Retornando el componente del array.

@@ -11,7 +11,7 @@ import './style.css';
         import {ProgressCircle} from './../../../../helpers/UI/misc/'
 
 //Request
-import { getAllCoursesOfUserWithFilters } from "./../../../../helpers/requests/UserCourseRequest";
+import { getAllCoursesOfUserWithFilters, UnsubscribeEnrollment } from "./../../../../helpers/requests/UserCourseRequest";
 //Routes
     import { arrayRoutesGeneral } from "./../../../../helpers/routesConfig";
 export default class MyCourses extends Component {
@@ -52,9 +52,27 @@ export default class MyCourses extends Component {
     handleBtnAccess = (access) => {
         
         if (access) return <Button key="btnAccess" className="green accent-3" style={{cursor:'auto'}} >Con acceso<Icon right>lock_open</Icon></Button>
-        return <Button key="btnAccess" className="red accent-3" style={{cursor:'auto'}}>Pendiente<Icon right>lock</Icon></Button>
+
+        return <Button key="btnAccess"  onClick={()=> alert("Estas queriendo eliminar")} className="red accent-3">Dar de baja<Icon right>remove</Icon></Button>
         
     }
+
+    handleUnsubscribe(code){
+
+        this.setState({loading:true},
+            UnsubscribeEnrollment(code, (res) => {
+                if (res.status === 200) {
+                    return this.requestForMyCourses();
+                }
+
+                this.setState({ loading: false },
+                    alert(res.data + " - Por favor revisar la solicitud e intentar nuevamente.")
+                );
+            })
+        );
+       
+    }
+
     mapMyCourses = () =>{
 
         if (!this.state.courses.length) return <Collection><CollectionItem  active >No tiene cursos asociados aún </CollectionItem></Collection>
@@ -81,7 +99,7 @@ export default class MyCourses extends Component {
                                 Detalles
 
                             </Button>,
-                             this.handleBtnAccess(item.Access)
+                            <Button key="btnAccess" onClick={this.handleUnsubscribe.bind(this, item.Course.Code)} className="red accent-3">Dar de baja<Icon right>remove</Icon></Button>
                         ]}
                 />
             </Col>

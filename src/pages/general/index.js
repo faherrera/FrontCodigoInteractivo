@@ -38,7 +38,7 @@ export default class General extends React.Component {
     }
 
     componentDidMount() {
-        const name = this.props.match.params.name;
+        const name = this.props.match.params.name || "home"
         const param = this.props.match.params.param;
 
         // alert('El name es-> '+name+' y el param es -> '+param);
@@ -77,6 +77,7 @@ export default class General extends React.Component {
     render() {
         const myComponents = [
             <Home code={this.state.param} />,
+            // <Courses code={this.state.param} />,
 
         ]
 

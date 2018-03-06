@@ -6,6 +6,7 @@ import React, { Component } from 'react';
 
 //Asets
 import './banner.css';
+import { arrayRoutesGeneral } from '../../../../helpers/routesConfig';
 
 
 class Banner extends Component {
@@ -23,7 +24,7 @@ class Banner extends Component {
                             <h5 className=" col s12 banner-subtitle">A través de cursos prácticos, concisos y actualizados, dictados por profesionales con experiencia </h5>
                         </div>
                         <div className="row center">
-                            <a className="waves-effect waves-light btn modal-trigger"> Empezá desde aquí </a>
+                            <a href={arrayRoutesGeneral.courses} className="waves-effect waves-light btn modal-trigger"> Empezá desde aquí </a>
                         </div>
                     </div>
 

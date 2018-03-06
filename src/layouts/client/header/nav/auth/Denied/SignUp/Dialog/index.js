@@ -23,6 +23,8 @@ import { ProgressCircle } from './../../../../../../../../helpers/UI/misc/index'
 import { SignUpResponse } from './../../../../../../../../helpers/responses/FormResponse/FormResponseSignUp';
 //Requesst
 import { postSignUp } from './../../../../../../../../helpers/requests/SignUpRequest';
+import { storeDataInLocalStorage } from '../../../../../../../../helpers/requests/AuthRequest';
+import { arrayRoutesGeneral } from '../../../../../../../../helpers/routesConfig';
 
 export default class SignUpDialog extends React.Component {
 
@@ -73,7 +75,9 @@ export default class SignUpDialog extends React.Component {
                     this.setState({
                         loading: !this.state.loading,
                     })
-                    return alert('Cargado correctamente!');
+
+                    storeDataInLocalStorage(res.data);
+                    return window.location.href = arrayRoutesGeneral.usuario;
                 }
 
                 return this.setState({

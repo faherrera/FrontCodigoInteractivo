@@ -12,7 +12,7 @@ import './general.css';
     import Content from './content/content';
 
 export default class ClientLayout extends React.Component {
-
+  
     render() {
         return (
             <MuiThemeProvider>

@@ -8,15 +8,18 @@ import React, { Component } from 'react';
             ProgressCircle
         } from './../../../../helpers/UI/misc';
 //Request
-import { getUser,putUser} from '../../../../helpers/requests/UserRequest';
+import { getUser,putUser, PutMyAccount} from '../../../../helpers/requests/UserRequest';
 import { validationNumber } from '../../../../helpers/UI/form/validation';
+import { ImageField } from '../../../../helpers/UI/form/imageField/ImageField';
+import { arrayUpload } from '../../../../helpers/routesConfig';
+import { InputNumber } from '../../../../helpers/UI/form/input/inputNumber';
+import { storeDataInLocalStorage } from '../../../../helpers/requests/AuthRequest';
 
 export default class MyAccount extends Component {
 
     state = {
         loading:true,
         user: {},
-        dni:""
     }
 
     componentDidMount() {
@@ -47,32 +50,49 @@ export default class MyAccount extends Component {
     }
 
     handleOnSubmit(e){
+        e.preventDefault();
+
         this.setState({
             loading:true,
         });
-        e.preventDefault();
 
         let target = e.target;
 
-        let user = {
-            User:{
+        let ImageRequest = this.refs.imageUser.getValue().value || "";
+        let DNI = this.refs.dniUser.getValue().status ? this.refs.dniUser.getValue().value : "";
+
+
+        let user =
+            {
                 UserID: this.state.user.UserID,
-                Name: target[0].value,
-                DNI: target[1].value,
-                Password: target[2].value,
-                Email: target[3].value,
+                Name: target[2].value,
+                Password: target[3].value,
+                DNI,
+                Email: target.Email.value,
+
+                ImageRequest: {
+                    Baase64Code: ImageRequest.base64 || "",
+                    PathProfileImage: ImageRequest.nameImg || "",
+                }
             }
-        }
+
+
+        // console.log(user, ImageRequest,DNI,target);
+        this.UpdateUser(user);
+
         
-        console.log(user);
-        this.UpdateUser(user.User.UserID,user);
     }
 
-    UpdateUser(ID,user){
-        putUser(ID,user,(res) => {
+    UpdateUser(user){
+        PutMyAccount(user,(res) => {
           
 
-            if (res.status) {
+            if (res.status === 200) {
+                this.setState({
+                    loading:false,
+                });
+                storeDataInLocalStorage(res.data);
+                console.log(res);
                 return window.location.reload();    
             }
 
@@ -92,14 +112,30 @@ export default class MyAccount extends Component {
              return (
                  <Row>
                      <form onSubmit={this.handleOnSubmit.bind(this)}>
-                             <Input name="Name" s={12} placeholder="Nombre completo"  defaultValue={this.state.user.Name || "Aqui va el nombre"} label="First Name" />
-                            
-                             <Input s={12} name="DNI" label="DNI" type="tel" value={this.state.dni} placeholder="Aquí va el DNI [Solo numeros]"  
-                             />
 
-                             <Input s={12} name="Password" type="password" label="password" />
-                             
-                             <Input s={12} type="email" name="Email" label="Email" defaultValue={this.state.user.Email || "Aqui va el Email"}/>                        
+                            <ImageField
+                             pathImage={this.state.user.PathProfileImage}
+                                pathRoute={arrayUpload.users}
+                                ref="imageUser"
+                            />
+
+                             <Input name="Name" s={12} placeholder="Nombre completo"  defaultValue={this.state.user.Name || ""} label="First Name" required/>
+
+                             <Input name="Password" s={12} placeholder="Contraseña"  label="Contraseña nueva [Dejar en blanco si no quiere cambiar]" type="password"
+                             />
+                            
+                            <div className="col s12">
+                                <InputNumber
+                                    label="Dni"
+                                    placeholder="Example: 37589788"
+                                    min={8}
+                                    max={9}
+                                    ref="dniUser"
+                                    value={this.state.user.DNI || ""}
+                                />
+                            </div>
+
+                             <Input s={12} type="email" name="Email" label="Email" defaultValue={this.state.user.Email || ""}/>                        
                              <Button 
                                  waves='green'
                              >

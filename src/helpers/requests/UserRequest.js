@@ -183,7 +183,18 @@ export const changeAvailability = (code, call) => {
 }
 
 
+export const PutMyAccount = (data,call) => {
 
+    axios({
+        url: arrayEndpoints.userAccount +"PutAccount/",
+        method:"PUT",
+        data,
+        headers: { "Token": window.localStorage.getItem("Token") }
+    })
+    .then(res => call(res))
+    .catch(err => call(err));
+
+}
 
 
 

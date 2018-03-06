@@ -7,14 +7,16 @@ import { arrayRoutesDash, arrayEndpoints } from '../routesConfig';
  * @param {*} data => Data que viene del servidor. 
  */
 export const storeDataInLocalStorage = (data) => {
-    let {UserID,Username,Token,Email,Name,Thumbnail} = data;
+    let { UserID, Username, Token, Email, Name, Image} = data;
+
+    Image = Image.length ? Image : undefined;
 
     localStorage.setItem("UserID", UserID);
     localStorage.setItem("Username",Username);
     localStorage.setItem("Token",Token);
     localStorage.setItem("Email",Email);
     localStorage.setItem("Name",Name);
-    localStorage.setItem("Image", Thumbnail);
+    localStorage.setItem("Image", Image);
 
     console.log(localStorage);
 }
@@ -65,5 +67,29 @@ export const HaveAccessDashboard = (callback) => {
                 return callback(error.response);
                 
             }
+        )
+}
+
+export const HaveAccessUserAccount = (callback) => {
+    let url = arrayEndpoints.userAccount;
+
+    axios({
+        url,
+        method:"Post",
+        headers: { "Token": window.localStorage.getItem("Token") }
+        })
+        .then(
+        response => {
+
+
+            return callback(response);
+        }
+        )
+        .catch(
+        error => {
+
+            return callback(error.response);
+
+        }
         )
 }
