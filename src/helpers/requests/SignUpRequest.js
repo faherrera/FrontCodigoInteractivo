@@ -18,10 +18,16 @@ export const postSignUp = (data,call) => {
     }).then(
         response => {
             let responseData = response.data;
+            
+            console.log("///////////////////InicioDEBUG === response////////////////");
+                    console.log(response)
+            console.log("*******************FinalizacionDEBUG === response**************");
+            
+            if (response.status == 200) {
+                responseData.data.Image = "undefined";
+            }
+
             res = new getResponse(responseData.codeState, responseData.message, responseData.status, responseData.data);
-            console.log("< ==================<##DEBUG=>RESPONSE POST SignUp========================");
-            console.log(res);
-            console.log("< ==================<##DEBUG=>RESPONSE POST SignUp========================");
             call(res);
         })
         .catch(error => {

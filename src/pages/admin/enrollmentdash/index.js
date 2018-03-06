@@ -1,7 +1,8 @@
 import React from 'react';
 
 ///Sections routes import 
-import List from './List/';
+import { ListAccess} from './List/';
+import { ListNoAccess} from './List/';
 
 //ui
 import FontIcon from 'material-ui/FontIcon';
@@ -40,7 +41,12 @@ export default class UserDash extends React.Component {
     render() {
 
         const myComponents = [
-            <List />,
+            <ListAccess 
+                access
+            />,
+            <ListNoAccess 
+                access={false}
+            />,
         ];
 
         return (
@@ -66,9 +72,14 @@ export default class UserDash extends React.Component {
                 <Paper zDepth={1} className="bottom-navigation">
                     <BottomNavigation selectedIndex={this.state.selectedIndex}>
                         <BottomNavigationItem
-                            label="Lista Inscripciones"
+                            label="Lista pagados"
                             icon={<FontIcon className="material-icons">list</FontIcon>}
                             onClick={() => this.select(0)}
+                        />
+                        <BottomNavigationItem
+                            label="Lista sin pagar"
+                            icon={<FontIcon className="material-icons">list</FontIcon>}
+                            onClick={() => this.select(1)}
                         />
 
                         {

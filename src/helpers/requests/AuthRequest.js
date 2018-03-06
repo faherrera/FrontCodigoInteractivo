@@ -7,14 +7,16 @@ import { arrayRoutesDash, arrayEndpoints } from '../routesConfig';
  * @param {*} data => Data que viene del servidor. 
  */
 export const storeDataInLocalStorage = (data) => {
-    let {UserID,Username,Token,Email,Name,Thumbnail} = data;
+    let { UserID, Username, Token, Email, Name, Image} = data;
+
+    Image = Image.length ? Image : undefined;
 
     localStorage.setItem("UserID", UserID);
     localStorage.setItem("Username",Username);
     localStorage.setItem("Token",Token);
     localStorage.setItem("Email",Email);
     localStorage.setItem("Name",Name);
-    localStorage.setItem("Image", Thumbnail);
+    localStorage.setItem("Image", Image);
 
     console.log(localStorage);
 }

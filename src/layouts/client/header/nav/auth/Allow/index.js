@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 //Assets
     import noUserImage from "./../../../../../../assets/img/noUserImage.jpg";
+    import backnav from "./../../../../../../assets/img/backnav.jpg";
 //UI
     //Materialize
     import { SideNav, SideNavItem, Button } from 'react-materialize'
@@ -23,17 +24,17 @@ export default class MenuUser extends Component {
         closeSession();
     }
     render() {
-        const {Username,
+        let {Username,
                 Email,
                 Token,
                 Name,
-                Thumbnail } = this.props.dataUser;
+                Image } = this.props.dataUser;
     
                 console.log("///////////////////InicioDEBUG === DataLocalStorage////////////////");
                         console.log(this.props.dataUser)
                 console.log("*******************FinalizacionDEBUG === DataLocalStorage**************");
                 
-        let Image = Thumbnail ? arrayUpload.users+Thumbnail : noUserImage;
+        Image = Image !== "undefined" ? arrayUpload.users + Image : noUserImage;
 
         
         return (
@@ -43,7 +44,7 @@ export default class MenuUser extends Component {
             >
                 <SideNavItem userView
                     user={{
-                        background: 'https://static.bhphoto.com/images/images500x500/Rosco_RS6811_68_Filter_Sky_1158010036000_44470.jpg',
+                        background: backnav,
                         image: Image,
                         name: Name,
                         email: Email
@@ -57,7 +58,7 @@ export default class MenuUser extends Component {
                 <SideNavItem href={routesMenu.allow.pending} icon="access_time" >Pendientes de confirmación</SideNavItem>
                 {
                     //## Configuraciones propias de cada usuario.
-                    //<SideNavItem href={routesMenu.allow.account} icon='account_circle'>Configuraciónes</SideNavItem>
+                <SideNavItem href={routesMenu.allow.account} icon='account_circle'>Configuraciónes</SideNavItem>
 
                 }
                 <SideNavItem waves href='#!third' icon='arrow_back' onClick={this.handleSignOut}>Cerrar sesión</SideNavItem>

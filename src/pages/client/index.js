@@ -44,7 +44,6 @@ export default class General extends React.Component {
         const name = this.props.match.params.name;
         const param = this.props.match.params.param;
         
-        // alert('El name es-> '+name+' y el param es -> '+param);
         
         if (name) {
             if (name === 'clases' && !param) {
@@ -57,8 +56,9 @@ export default class General extends React.Component {
 
         if (param) {
             this.setState({
-                param
+                param            
             });
+
         }
 
 
@@ -84,7 +84,6 @@ export default class General extends React.Component {
             <Courses code={this.state.param} />,
             <GeneralClasses code={this.state.param} />,
         ]
-
         return (<ClientLayout>
                     {
                         myComponents[this.state.matchIndex]  //Retornando el componente del array.

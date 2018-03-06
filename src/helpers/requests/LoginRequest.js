@@ -17,15 +17,17 @@ export const processLogin = (data, call,route = "Estudiante") => {
         data
     }).then(
         response => {
-            let responseData = response.data;
-            console.log("< ==================<##DEBUG=>RESPONSE POST Login========================");
             console.log(response);
-            console.log("< ==================<##DEBUG=>responsePONSE POST Login========================");
+
+            if (response.status == 200) {
+                response.data.Image = "undefined";
+            }
+
             call(response);
         })
         .catch(error => {
-            // alert("estoy aquí, en el error de Login ");
-            console.log(error.response);
+            alert("estoy aquí, en el error de Login ");
+            console.log(error);
             call(error.response);
 
         });

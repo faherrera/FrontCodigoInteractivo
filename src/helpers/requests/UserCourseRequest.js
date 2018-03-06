@@ -208,16 +208,16 @@ export const DeleteEnrollment = (call,id) => {
  */
 export const GetEnrollment = (call, ClassCode) => {
 
-axios({
-    method: 'POST',
-    url: arrayEndpoints.userCourse + "BelongToEnrollment/",
-    params:{
-        ClassCode: ClassCode 
-    },
-    headers: { "Token": window.localStorage.getItem("Token") },
+    axios({
+        method: 'POST',
+        url: arrayEndpoints.userCourse + "BelongToEnrollment/",
+        params:{
+            ClassCode: ClassCode 
+        },
+        headers: { "Token": window.localStorage.getItem("Token") },
 
 
-})
+    })
     .then(
         response => call(response)
     )
@@ -225,3 +225,20 @@ axios({
         error => call(error.response)
     )
 }
+
+export const UnsubscribeEnrollment = (CourseCode,call) => {
+
+    let url = arrayEndpoints.userAccount +"Unsubscribe/?id="+CourseCode;
+
+    axios({
+        url,
+        headers: { "Token": window.localStorage.getItem("Token") },
+        method: 'POST'
+    })
+    .then(
+        res => call(res)
+    )
+    .catch(
+        err => call(err.response)
+    );
+} 
