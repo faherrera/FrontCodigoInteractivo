@@ -20,7 +20,7 @@ export const processLogin = (data, call,route = "Estudiante") => {
             console.log(response);
 
             if (response.status == 200) {
-                response.data.Image = "undefined";
+                response.data.Image = response.data.Image || "undefined";
             }
 
             call(response);

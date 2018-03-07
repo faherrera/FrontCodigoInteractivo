@@ -9,11 +9,9 @@ export class FormMessage extends React.Component {
         super(props);
 
         this.state = {
-            color: props.color != null ? props.color : 'blue',
-            messages: props.messages != null ? props.messages : [],
-            count: 0,
+            color: props.color ? props.color : 'red',
+            messages: props.messages.length ? props.messages[0] : [],
             open:true
-
         }
     }
 
@@ -35,31 +33,33 @@ export class FormMessage extends React.Component {
     render() {
 
         let mensajes = this.state.messages;
-        let numero = this.state.messages.length ? this.state.messages.length : 0;
 
         return (
 
             <ul  >
                 <li>
                     <div 
-                        className={(this.state.messages.length > 0) ? `collapsible-header ${this.state.color} darken-4 white-text` : `hide` }
+                        className={(this.state.messages.length > 0) ? `collapsible-header ${this.state.color} lighten-1 white-text` : `hide` }
                         onClick={this.handleToggle.bind(this)}
                         // className="collapsible-header red darken-4 white-text"
                         >
                         <i className="material-icons">info</i>
-                        Mensajes {numero}
+                        Mensajes 
                     </div>
-                    <ul className={(this.state.open) ? null : 'hide'}>
+                    <ul className={(this.state.open) ? null : 'hide'} >
                             {   
+                            
+                                    
                             (this.state.messages != undefined) ? 
                                 this.state.messages.map((value, index) => {
+                                    
                                     if (value != "OK") {
                                         if (value == "Network Error") {
-                                            return <li className= {`${this.state.color} darken-4 white-text`} key={index}> Error en la conexión, probablemente el servidor esté caido. </li>
+                                            return <li style={{ padding: "0 .5rem" }} className= {`${this.state.color} lighten-1 white-text`} key={index}> Error en la conexión, probablemente el servidor esté caido. </li>
                                             
                                         }
 
-                                        return <li className="red darken-4 white-text" key={index}> {value} </li>
+                                        return <li style={{ padding: "0 .5rem" }} className={this.state.color+" lighten-2 white-text"} key={index}> {value} </li>
 
                                     }
                                 }) 

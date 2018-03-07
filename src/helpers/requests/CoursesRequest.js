@@ -11,9 +11,10 @@ import {
  * @param {function} call 
  * @returns getResponse(codigo,mensaje,status,data)
  */
-export const getAllCourses = (call) => {
+export const getAllCourses = (call, rol = "Estudiante") => {
 
-    axios.get(endPointCourse)
+    let url = rol == "Estudiante" ? arrayEndpoints.courses +"?rol=" : arrayEndpoints.courses + "?rol=Administrador";
+    axios.get(url)
     .then(
         response =>{
             let data = response.data;

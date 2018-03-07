@@ -31,7 +31,7 @@ export default class DateTimeDefault extends Component {
         return response = {
             status : true,
             value: this.state.value,
-            message: "Ok"
+            message: "OK"
         }
     }
     handleChange(event,value){

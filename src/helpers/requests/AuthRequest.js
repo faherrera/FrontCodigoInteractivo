@@ -9,6 +9,7 @@ import { arrayRoutesDash, arrayEndpoints } from '../routesConfig';
 export const storeDataInLocalStorage = (data) => {
     let { UserID, Username, Token, Email, Name, Image} = data;
 
+
     Image = Image.length ? Image : undefined;
 
     localStorage.setItem("UserID", UserID);
@@ -18,7 +19,10 @@ export const storeDataInLocalStorage = (data) => {
     localStorage.setItem("Name",Name);
     localStorage.setItem("Image", Image);
 
-    console.log(localStorage);
+    console.log("///////////////////InicioDEBUG === LocalStorage////////////////");
+            console.log(localStorage);
+    console.log("*******************FinalizacionDEBUG === LocalStorage**************");
+    
 }
 
 /**

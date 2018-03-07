@@ -17,7 +17,7 @@ class DetailHeader extends Component {
         if (!course.Video_preview) {
             return (
                 <div className="video-preview ">
-                    <img src={Thumbnail} alt="Imagen del curso" srcset=""/>
+                    <img src={Thumbnail} alt="Imagen del curso" style={{width:"100%"}} />
                 </div>
             );
         }
@@ -63,12 +63,22 @@ class DetailHeader extends Component {
                                         <span> {new Date(course.StartDate).toLocaleDateString()} - {course.Duration} </span>
                                     </li>
 
-                                    <li >
                                     
-                                    <i className=" material-icons">attach_money</i>
-                                        <span > {course.Price || "No definido por el momento"} </span>
+                                    
+                                    {
+                                        course.TypeCourse !== "Free" ?
+                                        <li >
+                                            <i className=" material-icons">attach_money</i>
+                                                <span > {course.Price || "No definido por el momento"} </span>
+    
+                                        </li>
+                                        : 
+                                        <li >
+                                            <i className=" material-icons">whatshot</i>
+                                            <span > Incripcion gratuita </span>
 
-                                    </li>
+                                        </li>
+                                    }
 
                                     <li >
                                         <i className=" material-icons">{course.Mode == "presencial" || course.Mode == "Presencial" ? 'location_city' : "headset_mic"}</i>

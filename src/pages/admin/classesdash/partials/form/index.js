@@ -11,6 +11,7 @@ import {
     InputNumber,
     TextArea,
 } from '../../../../../helpers/UI/form/';
+import RadioVideo from '../../../../../helpers/UI/form/video/RadioVideo';
 
 import { ProgressCircle } from '../../../../../helpers/UI/misc';
 
@@ -30,6 +31,8 @@ import { arrayRoutesDash} from './../../../../../helpers/routesConfig';
 //Request 
 import { putClass ,postClass } from "./../../../../../helpers/requests/ClassesRequest";
 import { getAllCourses } from '../../../../../helpers/requests/CoursesRequest';
+import { Container } from 'react-materialize';
+import { FormMessage } from '../../../../../helpers/UI/messages/FormMessage/index';
 
 export default class FormClasses extends React.Component {
 
@@ -84,7 +87,10 @@ export default class FormClasses extends React.Component {
         if (e.target.id === 'btnCreate') {  //Si hago click en el btn Crear.
 
             let classResponse = new ClassResponse(code, title, description, video, course);
-
+            console.log("///////////////////InicioDEBUG === CLASSrESPONSE////////////////");
+                    console.log(classResponse)
+            console.log("*******************FinalizacionDEBUG === CLASSrESPONSE**************");
+            
             if (classResponse.status) {
 
                 postClass(classResponse.data, (res) => {
@@ -97,7 +103,7 @@ export default class FormClasses extends React.Component {
                         return window.location = arrayRoutesDash.class;
                     }
                     
-                    this.setState({
+                    return this.setState({
                         loading:false,
                         messageError: [...[res.message]],
                     });
@@ -106,22 +112,14 @@ export default class FormClasses extends React.Component {
                 });
             }
 
-        //     this.loading();
-        //     console.log('Click en create');
+     
             
-        //     let _classResponse = new ClassResponse(code,title,description,video,course);
-
-        //     if (_classResponse.status) {
-        //          return postClass(_classResponse.class,this.inSuccessCase.bind(this),this.inErrorCase.bind(this));
-
-        //     }
-            
-        //     console.log(`El status es Falso`);
-        //     console.log(_classResponse);
-        //     this.setState({
-        //         messageError:  _classResponse.messageError,
-        //         loading: false
-        //     });
+            console.log(`El status es Falso`);
+            console.log(classResponse);
+            return this.setState({
+                messageError: [...classResponse.message],
+                loading: false
+            });
             
         }
         
@@ -180,62 +178,60 @@ export default class FormClasses extends React.Component {
             }
 
         return (
-            <div className="form__group">
-               
-                <form className="form" >
+            <Container>
+                <div className="form__group ">
+                
+                    <form className="form" >
 
-                    <ListMessage
-                        messageError={this.state.messageError}
-                    />
+                        <FormMessage messages={this.state.messageError} />
+
+                        <InputNumber
+                            label="Codigo de la clase"
+                            placeholder="555"
+                            required={true}
+                            ref="codeClass"
+                            value={this.state.class.CodeClass}
+                        />
+                        
+                        <InputText
+                            label="Titulo de la clase"
+                            placeholder="Example: Conociendo el entorno"
+                            required={true}
+                            ref="titleClass"
+                            value={this.state.class.TitleClass}
 
 
-                    <InputNumber
-                        label="Codigo de la clase"
-                        placeholder="555"
-                        required={true}
-                        ref="codeClass"
-                        value={this.state.class.CodeClass}
-                    />
+                        />
+
+                        <TextArea
+                            label="Descripcion del curso"
+                            required={false}
+                            ref="descriptionClass"
+                            limitChar={400}
+                            value={this.state.class.Description}
+
+                        />
+
+                        <RadioVideo
+                            value={this.state.class.PathVideo}
+                            ref="videoClass"
+
+                        />
                     
-                    <InputText
-                        label="Titulo de la clase"
-                        placeholder="Example: Conociendo el entorno"
-                        required={true}
-                        ref="titleClass"
-                        value={this.state.class.TitleClass}
 
+                        <AutocompleteCourse 
+                            ref="courseClass"
+                            value={this.state.class.CourseID}
+                        /> 
 
-                    />
+                        <ButtonForm
+                            type={this.state.type}
+                            onClick={this.handleClickButton.bind(this)}
+                        />
+                    </form>
 
-                    <TextArea
-                        label="Descripcion del curso"
-                        required={false}
-                        ref="descriptionClass"
-                        limitChar={400}
-                        value={this.state.class.Description}
-
-                    />
-
-                    <InputText
-                        label="Video Preview"
-                        placeholder="Example: https://www.youtube.com/embed/7qWMvFsww60"
-                        ref="videoClass"
-                        required={false}
-                        value={this.state.class.PathVideo}
-                    />
-
-                    <AutocompleteCourse 
-                        ref="courseClass"
-                        value={this.state.class.CourseID}
-                    /> 
-
-                    <ButtonForm
-                        type={this.state.type}
-                        onClick={this.handleClickButton.bind(this)}
-                    />
-                </form>
-
-            </div>
+                </div>
+            </Container>
 
         );
     }

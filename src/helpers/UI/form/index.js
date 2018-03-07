@@ -52,15 +52,15 @@ export class InputText extends Component {
 
 
         this.state = {
-            placeholder : this.props.placeholder != null ? this.props.placeholder : 'Ejemplo: Place',
-            id : this.props.id != null ? this.props.id : 'first_name',
-            label : this.props.label != null ? this.props.label : 'Label Text',
-            value : this.props.value != null ? this.props.value : '',
+            placeholder : props.placeholder != null ? props.placeholder : 'Ejemplo: Place',
+            id : props.id != null ? props.id : 'first_name',
+            label : props.label != null ? props.label : 'Label Text',
+            value : props.value != null ? props.value : '',
             disabled: props.disabled ? true :  false,
             isValidate: false,
             style: {},
-            required : this.props.required != null ? (this.props.required) ? '(**)' : '' : '',
-            status: this.props.required != null ? ((this.props.required) ? false : true) : false
+            required : props.required != null ? (props.required) ? '(**)' : '' : '',
+            status: props.required != null ? ((props.required) ? false : true) : false
         }
     }
 
@@ -140,7 +140,7 @@ export class InputText extends Component {
     render () {
         return (
             <div className="input-field" {...(this.state.disabled) ? 'disabled' : null}>
-                <input autoFocus ref="pepe" style={this.state.style} placeholder={this.state.placeholder} id={this.state.id} type="text"  value={this.state.value} onChange={this.handleChangeValue.bind(this)} onBlur={this.handleBlur.bind(this)}/>
+                <input autoFocus required={this.props.required || false} ref="pepe" style={this.state.style} placeholder={this.state.placeholder} id={this.state.id} type="text"  value={this.state.value} onChange={this.handleChangeValue.bind(this)} onBlur={this.handleBlur.bind(this)}/>
                 <label htmlFor={this.state.id}>{this.state.label} {this.state.required} </label>
             </div>
         );

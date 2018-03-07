@@ -50,6 +50,7 @@ import { postCourse ,putCourse} from './../../../../../helpers/requests/CoursesR
 
 //Routes
 import { arrayRoutesDash, arrayUpload } from './../../../../../helpers/routesConfig';
+import { FormMessage } from '../../../../../helpers/UI/messages/FormMessage/index';
 
 // import { postCourse } from './../../helpers/request/';
 
@@ -89,7 +90,12 @@ export default class FormCourse extends React.Component {
 
         if (e.target.id === 'btnCreate') {
 
+            
+            
             let formRes = new CourseResponse(code, name, description, duration, typecourse, mode, level, video, image,startDate,price,temary);
+            console.log("///////////////////InicioDEBUG === HaciendoClickEnCreate////////////////");
+            console.log(formRes)
+            console.log("*******************FinalizacionDEBUG === HaciendoClickEnCreate**************");
 
             if (formRes.status) {
 
@@ -187,9 +193,9 @@ export default class FormCourse extends React.Component {
 
                     <form className={!this.state.loading ? 'form' : 'hide'} >
 
-                        <GenericMessage
-                            messages={this.state.messageError}
-                        />
+                        
+
+                        <FormMessage messages={this.state.messageError} />
 
                        
 

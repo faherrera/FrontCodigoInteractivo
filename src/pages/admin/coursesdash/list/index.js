@@ -73,7 +73,7 @@ export default class TableCourse extends Component {
             });
 
 
-        });
+        },"Administrador");
     }
 
     /**
