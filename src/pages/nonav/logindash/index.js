@@ -64,12 +64,18 @@ export default class LoginDash extends Component {
 
             if (res.status === 401) {
                 return this.setState({
-                    messageError: ["Sus credenciales no tienen el rol con autorizacion pertinente"],
+                    messageError: [["Sus credenciales no tienen el rol con autorizacion pertinente"]],
+                    loading: false,
+                })
+            }
+            if (res.status === 404) {
+                return this.setState({
+                    messageError: [["No existe el usuario."]],
                     loading: false,
                 })
             }
             return this.setState({
-                messageError: [res.data],
+                messageError: [[res.data]],
                 loading: false,
             })
 

@@ -68,10 +68,14 @@ export default class LoginDialog extends React.Component {
             });
 
             processLogin(formResponse.data, (res) => {
+                console.log("///////////////////InicioDEBUG === RESLogin////////////////");
+                        console.log(res)
+                console.log("*******************FinalizacionDEBUG === RESLogin**************");
+                
                 if(!res){
                     return this.setState({
 
-                        messageError: ["Sin conexion al servidor o al motor de BD."],
+                        messageError: [["Sin conexion al servidor o al motor de BD."]],
                         loading: false,
                     });
                 }
@@ -84,14 +88,19 @@ export default class LoginDialog extends React.Component {
 
                 if (res.status === 401) {
                     return this.setState({
-                        messageError: ["Sus credenciales no tienen el rol con autorizacion pertinente"],
+                        messageError: [["Sus credenciales no tienen el rol con autorizacion pertinente"]],
                         loading: false,
                     })
                 }
 
-                
+                if (res.status === 404) {
+                    return this.setState({
+                        messageError: [["El usuario que intentó ingresar no existe."]],
+                        loading: false,
+                    })
+                }
                 return this.setState({
-                    messageError: [res.data],
+                    messageError: [[res.data]],
                     loading: false,
                 })
 

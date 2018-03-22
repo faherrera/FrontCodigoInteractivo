@@ -26,7 +26,7 @@ export const processLogin = (data, call,route = "Estudiante") => {
             call(response);
         })
         .catch(error => {
-            alert("estoy aquí, en el error de Login ");
+            // alert("estoy aquí, en el error de Login ");
             console.log(error);
             call(error.response);
 

@@ -200,7 +200,10 @@ export  class ListAccess extends Component {
                                     <th data-field="UserName">Username</th>
                                     <th data-field="CourseName">Nombre del curso</th>
                                     <th data-field="Access">Tiene acceso</th>
-                                    <th data-field="IsInstructor">Es Instructor / Profesor</th>
+                                    {
+
+                                        // <th data-field="IsInstructor">Es Instructor / Profesor</th>
+                                    }
                                     <th data-field="options">Opciones</th>
                                 </tr>
                             </thead>
@@ -214,44 +217,45 @@ export  class ListAccess extends Component {
                                                 <td>{item.Username}</td>
                                                 <td>{item.CourseName}</td>
                                                 <td>
-                                                    {(!item.Access)
-                                                        ? <Button
-                                                            waves='light'
-                                                            className="red accent-1"
-                                                            onClick={this.HandleBtnAccess.bind(this, item.CourseCode, item.Username)}
-                                                        >
-                                                            Sin acceso
-
-                                                </Button>
-                                                        : (item.IsInstructor)
+                                                        {(!item.Access)
                                                             ? <Button
                                                                 waves='light'
-                                                                className="green darken-3"
-                                                                disabled
-                                                            >
-                                                                Con acceso
-                                                    <Icon right>
-                                                                    done
-                                                    </Icon>
-                                                            </Button>
-                                                            : <Button
-                                                                waves='light'
-                                                                className="green darken-3"
+                                                                className="red accent-1"
                                                                 onClick={this.HandleBtnAccess.bind(this, item.CourseCode, item.Username)}
                                                             >
-                                                                Con acceso
-                                                <Icon right>
-                                                                    done
-                                                </Icon>
-                                                            </Button>}
+                                                                Sin acceso
+
+                                                    </Button>
+                                                            : (item.IsInstructor)
+                                                                ? <Button
+                                                                    waves='light'
+                                                                    className="green darken-3"
+                                                                    disabled
+                                                                >
+                                                                    Con acceso
+                                                        <Icon right>
+                                                                        done
+                                                        </Icon>
+                                                                </Button>
+                                                                : <Button
+                                                                    waves='light'
+                                                                    className="green darken-3"
+                                                                    onClick={this.HandleBtnAccess.bind(this, item.CourseCode, item.Username)}
+                                                                >
+                                                                    Con acceso
+                                                    <Icon right>
+                                                                        done
+                                                    </Icon>
+                                                                </Button>}
                                                 </td>
-                                                <td>
-                                                    {
-                                                        (!item.IsInstructor)
-                                                            ? <Button onClick={this.HandleBtnProfessor.bind(this, item.CourseCode, item.Username)} waves='light' className="red accent-1">No es Profesor </Button>
-                                                            : <Button onClick={this.HandleBtnProfessor.bind(this, item.CourseCode, item.Username)} waves='light' className="green darken-3">Profesor <Icon right>done</Icon></Button>
-                                                    }
-                                                </td>
+
+                                                {
+                                                    // <td>
+                                                    //     (!item.IsInstructor)
+                                                    //         ? <Button onClick={this.HandleBtnProfessor.bind(this, item.CourseCode, item.Username)} waves='light' className="red accent-1">No es Profesor </Button>
+                                                    //         : <Button onClick={this.HandleBtnProfessor.bind(this, item.CourseCode, item.Username)} waves='light' className="green darken-3">Profesor <Icon right>done</Icon></Button>
+                                                    // </td>
+                                                }
                                                 <td>
                                                     <Button 
                                                         waves='red' 
@@ -454,7 +458,10 @@ export class ListNoAccess extends Component {
                                     <th data-field="UserName">Username</th>
                                     <th data-field="CourseName">Nombre del curso</th>
                                     <th data-field="Access">Tiene acceso</th>
-                                    <th data-field="IsInstructor">Es Instructor / Profesor</th>
+                                    {
+
+                                        // <th data-field="IsInstructor">Es Instructor / Profesor</th>
+                                    }
                                     <th data-field="options">Opciones</th>
                                 </tr>
                             </thead>
@@ -499,13 +506,13 @@ export class ListNoAccess extends Component {
                                                 </Icon>
                                                         </Button>}
                                             </td>
-                                            <td>
-                                                {
-                                                    (!item.IsInstructor)
-                                                        ? <Button onClick={this.HandleBtnProfessor.bind(this, item.CourseCode, item.Username)} waves='light' className="red accent-1">No es Profesor </Button>
-                                                        : <Button onClick={this.HandleBtnProfessor.bind(this, item.CourseCode, item.Username)} waves='light' className="green darken-3">Profesor <Icon right>done</Icon></Button>
-                                                }
-                                            </td>
+                                            {
+                                                // <td>
+                                                //     (!item.IsInstructor)
+                                                //         ? <Button onClick={this.HandleBtnProfessor.bind(this, item.CourseCode, item.Username)} waves='light' className="red accent-1">No es Profesor </Button>
+                                                //         : <Button onClick={this.HandleBtnProfessor.bind(this, item.CourseCode, item.Username)} waves='light' className="green darken-3">Profesor <Icon right>done</Icon></Button>
+                                                // </td>
+                                            }
                                             <td>
                                                 <Button
                                                     waves='red'

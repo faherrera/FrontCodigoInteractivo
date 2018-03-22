@@ -24,7 +24,7 @@ export const CourseFactoryAutocomplete = (list = []) => {
     }
 
     console.log(newList);
-    alert('Está cargando el nuevo listado');
+    // alert('Está cargando el nuevo listado');
 
     return newList;
 }
@@ -53,7 +53,7 @@ export const ClassesFactoryAutocomplete = (list = []) => {
     }
 
     console.log(newList);
-    alert('Está cargando el nuevo listado');
+    // alert('Está cargando el nuevo listado');
 
     return newList;
 }

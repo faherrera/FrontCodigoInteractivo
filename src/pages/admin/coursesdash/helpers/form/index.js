@@ -107,7 +107,7 @@ export default class FormCourse extends React.Component {
                     }
 
                     this.setState({
-                        messageError: [...res.message]
+                        messageError: [...[res.message]]
                     });
                     
 
